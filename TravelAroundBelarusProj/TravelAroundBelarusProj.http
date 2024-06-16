@@ -1,6 +1,0 @@
-@TravelAroundBelarusProj_HostAddress = http://localhost:5282
-
-GET {{TravelAroundBelarusProj_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
