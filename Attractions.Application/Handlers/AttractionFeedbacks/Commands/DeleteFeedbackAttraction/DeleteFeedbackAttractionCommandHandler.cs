@@ -9,7 +9,7 @@ using Travels.Domain;
 
 namespace Attractions.Application.Handlers.AttractionFeedbacks.Commands.DeleteFeedbackAttraction
 {
-    internal class DeleteFeedbackAttractionCommandHandler : IRequestHandler<DeleteFeedbackAttractionCommand>
+    public class DeleteFeedbackAttractionCommandHandler : IRequestHandler<DeleteFeedbackAttractionCommand>
     {
         private readonly IBaseWriteRepository<AttractionFeedback> _attractionFeedbacks;
 

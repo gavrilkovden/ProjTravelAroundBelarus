@@ -18,17 +18,18 @@ public class GetUserQueryHandlerTests : RequestHandlerTestBase<GetUserQuery, Get
 {
     private readonly Mock<IBaseReadRepository<ApplicationUser>> _usersMok = new();
 
-    private readonly Mock<ApplicationUserMemoryCache> _mockUserMemoryCache = new();
+    private readonly ApplicationUserMemoryCache _mockUserMemoryCache;
 
     private readonly IMapper _mapper;
 
     public GetUserQueryHandlerTests(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
     {
         _mapper = new AutoMapperFixture(typeof(GetUserQuery).Assembly).Mapper;
+        _mockUserMemoryCache = new ApplicationUserMemoryCache();
     }
 
     protected override IRequestHandler<GetUserQuery, GetUserDto> CommandHandler =>
-        new GetUserQueryHandler(_usersMok.Object, _mapper, _mockUserMemoryCache.Object);
+        new GetUserQueryHandler(_usersMok.Object, _mapper, _mockUserMemoryCache);
 
     [Fact]
     public async Task Should_BeValid_When_UserFounded()

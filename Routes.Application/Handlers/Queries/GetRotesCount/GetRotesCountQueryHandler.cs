@@ -6,7 +6,7 @@ using Travels.Domain;
 
 namespace Routes.Application.Handlers.Queries.GetRotesCount
 {
-    internal class GetRotesCountQueryHandler : BaseCashedForUserQuery<GetRotesCountQuery, int>
+    public class GetRotesCountQueryHandler : BaseCashedForUserQuery<GetRotesCountQuery, int>
     {
         private readonly IBaseReadRepository<Route> _routes;
 

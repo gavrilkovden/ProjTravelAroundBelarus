@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Core.Application.Abstractions.Persistence.Repository.Read;
 using Core.Application.Abstractions.Persistence.Repository.Writing;
+using Core.Application.Exceptions;
 using Core.Auth.Application.Abstractions.Service;
 using Core.Auth.Application.Exceptions;
 using MediatR;
@@ -31,11 +32,11 @@ namespace Routes.Application.Handlers.Commands.CreateAttractionInRoute
 
         public async Task<GetAttractionInRouteDto> Handle(CreateAttractionInRouteCommand request, CancellationToken cancellationToken)
         {
-            var attraction = await _attractions.AsQueryable().SingleOrDefaultAsync(a => a.Id == request.AttractionId, cancellationToken);
+            var attraction = await _attractions.AsAsyncRead().SingleOrDefaultAsync(a => a.Id == request.AttractionId, cancellationToken);
 
             if (attraction == null)
             {
-                throw new ArgumentException("Attraction not found.");
+                throw new NotFoundException ("Attraction not found.");
             }
 
             if (!attraction.IsApproved)

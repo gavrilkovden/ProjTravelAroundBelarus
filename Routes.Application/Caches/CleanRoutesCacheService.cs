@@ -1,6 +1,6 @@
 ﻿namespace Routes.Application.Caches
 {
-    internal class CleanRoutesCacheService : ICleanRoutesCacheService
+    public class CleanRoutesCacheService : ICleanRoutesCacheService
     {
         private readonly RouteMemoryCache _routeMemoryCache;
 

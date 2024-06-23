@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Attractions.Application.Handlers.Attractions.Queries.GetAttractionsCount
 {
 
-    internal class GetAttractionsCountQueryValidator : AbstractValidator<GetAttractionsCountQuery>
+    public class GetAttractionsCountQueryValidator : AbstractValidator<GetAttractionsCountQuery>
     {
         public GetAttractionsCountQueryValidator()
         {

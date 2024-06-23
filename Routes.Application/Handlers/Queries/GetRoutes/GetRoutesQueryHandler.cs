@@ -2,6 +2,7 @@
 using Core.Application.Abstractions.Persistence.Repository.Read;
 using Core.Application.BaseRealizations;
 using Core.Application.DTOs;
+using Core.Auth.Application.Abstractions.Service;
 using Routes.Application.Caches;
 using Routes.Application.Dtos;
 using Travels.Domain;
@@ -11,13 +12,14 @@ namespace Routes.Application.Handlers.Queries.GetRoutes
     public class GetRoutesQueryHandler : BaseCashedQuery<GetRoutesQuery, BaseListDto<GetRoutesDto>>
     {
         private readonly IBaseReadRepository<Route> _routes;
-
+        private readonly ICurrentUserService _currentUserService;
         private readonly IMapper _mapper;
 
-        public GetRoutesQueryHandler(IBaseReadRepository<Route> routes, IMapper mapper, RoutesListMemoryCache cache) : base(cache)
+        public GetRoutesQueryHandler(IBaseReadRepository<Route> routes, ICurrentUserService currentUserService, IMapper mapper, RoutesListMemoryCache cache) : base(cache)
         {
             _routes = routes;
             _mapper = mapper;
+            _currentUserService = currentUserService;
         }
         public override async Task<BaseListDto<GetRoutesDto>> SentQueryAsync(GetRoutesQuery request, CancellationToken cancellationToken)
         {

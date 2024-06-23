@@ -2,7 +2,7 @@
 
 namespace Attractions.Application.Caches.AttractionFeedback
 {
-    internal class CleanAttractionFeedbacksCacheService : ICleanAttractionFeedbacksCacheService
+    public class CleanAttractionFeedbacksCacheService : ICleanAttractionFeedbacksCacheService
     {
         private readonly AttractionFeedbackMemoryCache _attractionFeedbackMemoryCache;
 

@@ -10,12 +10,10 @@ using Travels.Domain;
 
 namespace Routes.Application.Handlers.Queries.GetRoute
 {
-    internal class GetRouteQueryHandler : BaseCashedForUserQuery<GetRouteQuery, GetRouteDto>
+    public class GetRouteQueryHandler : BaseCashedForUserQuery<GetRouteQuery, GetRouteDto>
     {
         private readonly IBaseReadRepository<Route> _routes;
-
         private readonly IMapper _mapper;
-
         private readonly ICurrentUserService _currentUserService;
 
         public GetRouteQueryHandler(IBaseReadRepository<Route> routes, ICurrentUserService currentUserService, IMapper mapper, RouteMemoryCache cache) : base(cache, currentUserService.CurrentUserId!.Value)

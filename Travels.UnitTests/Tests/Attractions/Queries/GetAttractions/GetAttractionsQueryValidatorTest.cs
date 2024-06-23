@@ -1,13 +1,6 @@
 ﻿using Attractions.Application.Handlers.Attractions.Queries.GetAttractions;
 using Core.Tests;
 using FluentValidation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Users.Application.Handlers.Queries.GetUser;
-using Users.Application.Handlers.Queries.GetUsers;
 using Xunit.Abstractions;
 
 namespace Travel.UnitTests.Tests.Attractions.Queries.GetAttractions

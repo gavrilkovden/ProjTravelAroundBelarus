@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace Attractions.Application.Handlers.AttractionFeedbacks.Queries.GetFeedbackAttractionsCount
 {
-    internal class GetFeedbackAttractionsCountQueryValidator : AbstractValidator<GetFeedbackAttractionsCountQuery>
+    public class GetFeedbackAttractionsCountQueryValidator : AbstractValidator<GetFeedbackAttractionsCountQuery>
     {
         public GetFeedbackAttractionsCountQueryValidator()
         {

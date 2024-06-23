@@ -1,10 +1,6 @@
 ﻿using Attractions.Application.Handlers.AttractionFeedbacks.Queries.FeedbackAttractionFilter;
 using FluentValidation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Core.Application.ValidatorsExtensions;
 
 namespace Attractions.Application.Handlers.AttractionFeedbacks.Queries.GetFeedbackAttractions
 {
@@ -13,6 +9,7 @@ namespace Attractions.Application.Handlers.AttractionFeedbacks.Queries.GetFeedba
         public GetFeedbackAttractionsQueryValidator()
         {
             RuleFor(e => e).IsValidListFeedbackAttractionFilter();
+            RuleFor(e => e).IsValidPaginationFilter();
         }
     }
 }

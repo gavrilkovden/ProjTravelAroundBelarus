@@ -76,6 +76,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Travel.UnitTests", "Travels
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Users.UnitTests", "Users.UnitTests\Users.UnitTests.csproj", "{EB8FFCB9-88AD-4587-9161-5488CF2C36E4}"
 EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{BE340D78-5E2B-49D9-9BE4-68840B1FF378}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -166,6 +168,10 @@ Global
 		{EB8FFCB9-88AD-4587-9161-5488CF2C36E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EB8FFCB9-88AD-4587-9161-5488CF2C36E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EB8FFCB9-88AD-4587-9161-5488CF2C36E4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE340D78-5E2B-49D9-9BE4-68840B1FF378}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE340D78-5E2B-49D9-9BE4-68840B1FF378}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE340D78-5E2B-49D9-9BE4-68840B1FF378}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE340D78-5E2B-49D9-9BE4-68840B1FF378}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

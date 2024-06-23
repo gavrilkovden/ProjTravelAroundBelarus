@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using AutoFixture;
+using AutoMapper;
 using Core.Application.Abstractions.Persistence.Repository.Writing;
 using Core.Application.Exceptions;
 using Core.Auth.Application.Abstractions.Service;
@@ -25,18 +26,18 @@ namespace Users.UnitTests.Tests.Commands.UpdateUser
     {
         private readonly Mock<IBaseWriteRepository<ApplicationUser>> _usersMock = new();
         private readonly Mock<ICurrentUserService> _currentUserServiceMock = new();
-        private readonly ApplicationUsersListMemoryCache _listCache = new();
-        private readonly ApplicationUsersCountMemoryCache _countCache = new();
-        private readonly ApplicationUserMemoryCache _userCache = new();
+        private readonly ApplicationUsersListMemoryCache _listCache;
+        private readonly ApplicationUsersCountMemoryCache _countCache;
+        private readonly ApplicationUserMemoryCache _userCache;
         private readonly Mock<ILogger<UpdateUserCommandHandler>> _loggerMock = new();
         private readonly IMapper _mapper;
 
         public UpdateUserCommandHandlerTest(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
         {
             _mapper = new AutoMapperFixture(typeof(UpdateUserCommand).Assembly).Mapper;
-            _listCache = new Mock<ApplicationUsersListMemoryCache>().Object;
-            _countCache = new Mock<ApplicationUsersCountMemoryCache>().Object;
-            _userCache = new Mock<ApplicationUserMemoryCache>().Object;
+            _listCache = new ApplicationUsersListMemoryCache();
+            _countCache = new ApplicationUsersCountMemoryCache();
+            _userCache = new ApplicationUserMemoryCache();
         }
 
         protected override IRequestHandler<UpdateUserCommand, GetUserDto> CommandHandler =>
@@ -54,14 +55,19 @@ namespace Users.UnitTests.Tests.Commands.UpdateUser
         [FixtureInlineAutoData]
         public async Task Should_UpdateUser_When_Admin(Guid userId)
         {
-            var command = new UpdateUserCommand { Id = userId.ToString() };
-            // Arrange
+            var command = new UpdateUserCommand { Id = userId.ToString(), Login = "testlogin" };
+
             _currentUserServiceMock.SetupGet(p => p.CurrentUserId).Returns(userId);
             _currentUserServiceMock.Setup(p => p.UserInRole(ApplicationUserRolesEnum.Admin)).Returns(true);
 
-            var user = new ApplicationUser { ApplicationUserId = userId };
+            //var user = TestFixture.Build<ApplicationUser>().Create();
+            //user.ApplicationUserId = userId;
+            var user = new ApplicationUser { ApplicationUserId = userId, Login = "testlogin" };
             _usersMock.Setup(p => p.AsAsyncRead().SingleOrDefaultAsync(
                 It.IsAny<Expression<Func<ApplicationUser, bool>>>(), default)).ReturnsAsync(user);
+
+            _usersMock.Setup(p => p.UpdateAsync(It.IsAny<ApplicationUser>(), It.IsAny<CancellationToken>()))
+  .ReturnsAsync(user);
 
             // Act and Assert
             await AssertNotThrow(command);
@@ -71,14 +77,17 @@ namespace Users.UnitTests.Tests.Commands.UpdateUser
         [FixtureInlineAutoData]
         public async Task Should_UpdateUser_When_Self(Guid userId)
         {
-            var command = new UpdateUserCommand { Id = userId.ToString() };
+            var command = new UpdateUserCommand { Id = userId.ToString(), Login = "testlogin" };
 
             // Arrange
             _currentUserServiceMock.SetupGet(p => p.CurrentUserId).Returns(userId);
 
-            var user = new ApplicationUser { ApplicationUserId = userId };
+            var user = new ApplicationUser { ApplicationUserId = userId, Login = "testlogin" };
             _usersMock.Setup(p => p.AsAsyncRead().SingleOrDefaultAsync(
                 It.IsAny<Expression<Func<ApplicationUser, bool>>>(), default)).ReturnsAsync(user);
+
+            _usersMock.Setup(p => p.UpdateAsync(It.IsAny<ApplicationUser>(), It.IsAny<CancellationToken>()))
+  .ReturnsAsync(user);
 
             // Act and Assert
             await AssertNotThrow(command);

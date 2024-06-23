@@ -3,7 +3,7 @@ using Routes.Application.Handlers.Queries;
 
 namespace Routes.Application.Handlers.Queries.GetRotesCount
 {
-    internal class GetRotesCountQueryValidator : AbstractValidator<GetRotesCountQuery>
+    public class GetRotesCountQueryValidator : AbstractValidator<GetRotesCountQuery>
     {
         public GetRotesCountQueryValidator()
         {

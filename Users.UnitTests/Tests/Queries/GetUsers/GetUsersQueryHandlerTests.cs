@@ -28,16 +28,17 @@ namespace Users.UnitTests.Tests.Queries.GetUsers
     public class GetUsersQueryHandlerTests : RequestHandlerTestBase<GetUsersQuery, BaseListDto<GetUserDto>>
     {
         private readonly Mock<IBaseReadRepository<ApplicationUser>> _usersMock = new();
-        private readonly Mock<ApplicationUsersListMemoryCache> _mockUserMemoryCache = new();
+        private readonly ApplicationUsersListMemoryCache _mockUserMemoryCache;
         private readonly IMapper _mapper;
 
         public GetUsersQueryHandlerTests(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
         {
             _mapper = new AutoMapperFixture(typeof(GetUserQuery).Assembly).Mapper;
+            _mockUserMemoryCache = new ApplicationUsersListMemoryCache();
         }
 
         protected override IRequestHandler<GetUsersQuery, BaseListDto<GetUserDto>> CommandHandler =>
-            new GetUsersQueryHandler(_usersMock.Object, _mapper, _mockUserMemoryCache.Object);
+            new GetUsersQueryHandler(_usersMock.Object, _mapper, _mockUserMemoryCache);
 
         [Fact]
         public async Task Should_BeValid_When_GetUsers()

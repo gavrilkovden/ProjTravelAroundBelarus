@@ -4,15 +4,15 @@ using AutoMapper;
 using Core.Application.Abstractions.Persistence.Repository.Read;
 using Core.Auth.Application.Abstractions.Service;
 using Core.Tests;
-using FluentAssertions;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
-using MockQueryable.Moq;using Moq.EntityFrameworkCore;
 using Moq;
+using Moq.EntityFrameworkCore;
 using System.Linq.Expressions;
 using Travel.Application.Dtos;
 using Travels.Domain;
 using Xunit.Abstractions;
+using Core.Users.Domain.Enums;
+using AutoFixture;
 
 namespace Travel.UnitTests.Tests.Attractions.Queries.GetAttraction
 {
@@ -21,10 +21,11 @@ namespace Travel.UnitTests.Tests.Attractions.Queries.GetAttraction
         private readonly Mock<IBaseReadRepository<Attraction>> _attractionsMock = new();
         private readonly Mock<ICurrentUserService> _currentUserServiceMock = new();
         private readonly Mock<IMapper> _mapperMock = new();
-        private readonly Mock<AttractionMemoryCache> _attractionMemoryCacheMock = new();
+        private readonly AttractionMemoryCache _attractionMemoryCacheMock;
 
         public GetAttractionQueryHandlerTest(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
         {
+            _attractionMemoryCacheMock = new AttractionMemoryCache();
         }
 
         protected override IRequestHandler<GetAttractionQuery, GetAttractionDto> CommandHandler =>
@@ -32,7 +33,7 @@ namespace Travel.UnitTests.Tests.Attractions.Queries.GetAttraction
                 _attractionsMock.Object,
                 _currentUserServiceMock.Object,
                 _mapperMock.Object,
-                _attractionMemoryCacheMock.Object
+                _attractionMemoryCacheMock
             );
 
         [Fact]
@@ -44,13 +45,25 @@ namespace Travel.UnitTests.Tests.Attractions.Queries.GetAttraction
             var attractionId = 1;
             var query = new GetAttractionQuery { Id = attractionId };
 
+            var attractions = TestFixture.Build<Attraction>()
+    .With(a => a.IsApproved, true)
+    .CreateMany(10)
+    .ToArray();
             var attraction = new Attraction
             {
                 Id = attractionId,
                 Name = "Test Attraction",
                 Description = "Test description",
                 IsApproved = true,
-                UserId = userId
+                UserId = userId,
+                Address = new Address
+                {
+                    City = "testCity",
+                    Region = "testRegion"
+                },
+                WorkSchedules = null,
+                GeoLocation = null,
+                AttractionFeedback = null
             };
 
             var attractionDto = new GetAttractionDto
@@ -58,7 +71,8 @@ namespace Travel.UnitTests.Tests.Attractions.Queries.GetAttraction
                 Id = attraction.Id,
                 Name = attraction.Name,
                 Description = attraction.Description,
-                IsApproved = attraction.IsApproved
+                IsApproved = attraction.IsApproved,
+
             };
 
             _attractionsMock.Setup(p => p.AsAsyncRead().SingleOrDefaultAsync(It.IsAny<Expression<Func<Attraction, bool>>>(), default))
@@ -74,12 +88,13 @@ namespace Travel.UnitTests.Tests.Attractions.Queries.GetAttraction
         public async Task Should_Throw_NotFound_Exception_When_Attraction_Not_Found()
         {
             // arrange
+            var userId = Guid.NewGuid();
+            _currentUserServiceMock.SetupGet(p => p.CurrentUserId).Returns(userId);
             var attractionId = 1;
             var query = new GetAttractionQuery { Id = attractionId };
 
-            _attractionsMock.Setup(p => p.AsAsyncRead().Include(a => a.Address).Include(a => a.GeoLocation).Include(a => a.AttractionFeedback)
-                .SingleOrDefaultAsync(It.IsAny<Expression<Func<Attraction, bool>>>(), default))
-                .ReturnsAsync((Attraction)null);
+            _attractionsMock.Setup(p => p.AsAsyncRead().SingleOrDefaultAsync(It.IsAny<Expression<Func<Attraction, bool>>>(), default))
+                .ReturnsAsync(null as Attraction);
 
             // act and assert
             await AssertThrowNotFound(query);
@@ -99,13 +114,23 @@ namespace Travel.UnitTests.Tests.Attractions.Queries.GetAttraction
                 Name = "Test Attraction",
                 Description = "Test description",
                 IsApproved = false,
-                UserId = Guid.NewGuid() // Not the current user
+                UserId = Guid.NewGuid(), // Not the current user
+                Address = new Address
+                {
+                    City = "testCity",
+                    Region = "testRegion"
+                },
+                WorkSchedules = null,
+                GeoLocation = null,
+                AttractionFeedback = null
             };
 
             _currentUserServiceMock.SetupGet(p => p.CurrentUserId).Returns(userId);
-            _attractionsMock.Setup(p => p.AsAsyncRead().Include(a => a.Address).Include(a => a.GeoLocation).Include(a => a.AttractionFeedback)
-                .SingleOrDefaultAsync(It.IsAny<Expression<Func<Attraction, bool>>>(), default))
+            _currentUserServiceMock.Setup(p => p.UserInRole(ApplicationUserRolesEnum.Admin)).Returns(false);
+            _attractionsMock.Setup(p => p.AsAsyncRead()
+                .SingleOrDefaultAsync(It.IsAny<Expression<Func<Attraction, bool>>>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(attraction);
+
 
             // act and assert
             await AssertThrowForbiddenFound(query);

@@ -2,7 +2,7 @@
 
 namespace Routes.Application.Handlers.Queries.GetRoute
 {
-    internal class GetRouteQueryValidator : AbstractValidator<GetRouteQuery>
+    public class GetRouteQueryValidator : AbstractValidator<GetRouteQuery>
     {
         public GetRouteQueryValidator()
         {

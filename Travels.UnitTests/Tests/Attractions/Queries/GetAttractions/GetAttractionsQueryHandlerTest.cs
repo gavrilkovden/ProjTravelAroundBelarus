@@ -23,15 +23,17 @@ namespace Travel.UnitTests.Tests.Attractions.Queries.GetAttractions
         private readonly Mock<IBaseReadRepository<Attraction>> _attractionsMock = new();
         private readonly Mock<ICurrentUserService> _currentUserServiceMock = new();
         private readonly IMapper _mapper;
-        private readonly Mock<AttractionsListMemoryCache> _attractionsMemoryCacheMock = new();
+        private readonly AttractionsListMemoryCache _attractionsMemoryCacheMock;
 
         public GetAttractionsQueryHandlerTest(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
         {
             _mapper = new AutoMapperFixture(typeof(GetAttractionsQuery).Assembly).Mapper;
+
+            _attractionsMemoryCacheMock =  new AttractionsListMemoryCache();
         }
 
         protected override IRequestHandler<GetAttractionsQuery, BaseListDto<GetAttractionDto>> CommandHandler =>
-        new GetAttractionsQueryHandler(_attractionsMock.Object, _currentUserServiceMock.Object, _mapper, _attractionsMemoryCacheMock.Object);
+        new GetAttractionsQueryHandler(_attractionsMock.Object, _currentUserServiceMock.Object, _mapper, _attractionsMemoryCacheMock);
 
 
         [Fact]

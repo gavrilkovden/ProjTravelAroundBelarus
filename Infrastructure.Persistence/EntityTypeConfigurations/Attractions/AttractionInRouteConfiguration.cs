@@ -10,7 +10,7 @@ namespace Infrastructure.Persistence.EntityTypeConfigurations.Attractions
         {
             builder.HasKey(a => a.Id);
             builder.Property(a => a.Order).IsRequired();
-            builder.Property(a => a.DistanceToNextAttraction).IsRequired();
+            builder.Property(a => a.DistanceToNextAttraction).IsRequired().HasColumnType("decimal(18,2)");
             builder.Property(a => a.VisitDateTime).IsRequired();
 
             builder.HasOne(a => a.Route)

@@ -9,7 +9,7 @@ using Travels.Domain;
 
 namespace Routes.Application.Handlers.Commands.DeleteRoute
 {
-    internal class DeleteRouteCommandHandler : IRequestHandler<DeleteRouteCommand>
+    public class DeleteRouteCommandHandler : IRequestHandler<DeleteRouteCommand>
     {
         private readonly IBaseWriteRepository<Route> _routes;
 

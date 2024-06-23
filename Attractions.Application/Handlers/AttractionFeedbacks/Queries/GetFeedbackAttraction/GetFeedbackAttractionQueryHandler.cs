@@ -9,7 +9,7 @@ using Travels.Domain;
 
 namespace Attractions.Application.Handlers.AttractionFeedbacks.Queries.GetFeedbackAttraction
 {
-    internal class GetFeedbackAttractionQueryHandler : BaseCashedForUserQuery<GetFeedbackAttractionQuery, GetFeedbackAttractionDto>
+    public class GetFeedbackAttractionQueryHandler : BaseCashedForUserQuery<GetFeedbackAttractionQuery, GetFeedbackAttractionDto>
     {
         private readonly IBaseReadRepository<AttractionFeedback> _attractionFeedbacks;
 

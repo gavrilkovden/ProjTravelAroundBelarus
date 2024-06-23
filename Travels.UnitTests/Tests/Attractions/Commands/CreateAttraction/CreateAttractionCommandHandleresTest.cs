@@ -44,7 +44,7 @@ namespace Travel.UnitTests.Tests.Attractions.Commands.CreateAttraction
         {
             // Arrange
             _currentServiceMok.SetupGet(p => p.CurrentUserId).Returns(userId);
-            _currentServiceMok.Setup(p => p.UserInRole(ApplicationUserRolesEnum.Admin)).Returns(true);
+
 
             var fixture = new Fixture();
             fixture.Customize<WorkScheduleDto>(c => c

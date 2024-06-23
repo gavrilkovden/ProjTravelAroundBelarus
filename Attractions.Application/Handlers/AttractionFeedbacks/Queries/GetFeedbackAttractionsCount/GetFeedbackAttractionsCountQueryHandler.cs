@@ -7,7 +7,7 @@ using Travels.Domain;
 
 namespace Travel.Application.Handlers.Attractions.Queries.GetFeedbackAttractionsCount
 {
-    internal class GetFeedbackAttractionsCountQueryHandler : BaseCashedForUserQuery<GetFeedbackAttractionsCountQuery, int>
+    public class GetFeedbackAttractionsCountQueryHandler : BaseCashedForUserQuery<GetFeedbackAttractionsCountQuery, int>
     {
         private readonly IBaseReadRepository<AttractionFeedback> _attractionFeedbacks;
 
