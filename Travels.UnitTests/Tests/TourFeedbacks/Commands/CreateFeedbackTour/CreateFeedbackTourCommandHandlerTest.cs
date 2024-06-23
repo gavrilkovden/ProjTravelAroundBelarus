@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Core.Application.Abstractions.Persistence.Repository.Read;
 using Core.Application.Abstractions.Persistence.Repository.Writing;
 using Core.Auth.Application.Abstractions.Service;
 using Core.Tests.Attributes;
@@ -6,18 +7,17 @@ using Core.Tests.Fixtures;
 using Core.Tests;
 using MediatR;
 using Moq;
+using Routes.Application.Caches;
+using Routes.Application.Dtos;
+using Routes.Application.Handlers.Commands.CreateAttractionInRoute;
 using Travels.Domain;
 using Xunit.Abstractions;
-using Routes.Application.Handlers.Commands.CreateAttractionInRoute;
-using Routes.Application.Dtos;
-using System.Linq.Expressions;
-using Routes.Application.Caches;
 using AutoFixture;
-using Core.Application.Abstractions.Persistence.Repository.Read;
+using System.Linq.Expressions;
 
-namespace Travel.UnitTests.Tests.Routes.Commands.CreateAttractionInRoute
+namespace Travel.UnitTests.Tests.TourFeedbacks.Commands.CreateFeedbackTour
 {
-    public class CreateAttractionInRouteCommandHandlerTest : RequestHandlerTestBase<CreateAttractionInRouteCommand, GetAttractionInRouteDto>
+    public class CreateFeedbackTourCommandHandlerTest : RequestHandlerTestBase<CreateAttractionInRouteCommand, GetAttractionInRouteDto>
     {
         private readonly Mock<IBaseWriteRepository<AttractionInRoute>> _attractionInRouteMok = new();
         private readonly Mock<IBaseReadRepository<Attraction>> _attractionsMok = new();
@@ -25,7 +25,7 @@ namespace Travel.UnitTests.Tests.Routes.Commands.CreateAttractionInRoute
         private readonly ICleanRoutesCacheService _cleanRotesCacheService;
         private readonly IMapper _mapper;
 
-        public CreateAttractionInRouteCommandHandlerTest(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
+        public CreateFeedbackTourCommandHandlerTest(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
         {
             _mapper = new AutoMapperFixture(typeof(CreateAttractionInRouteCommand).Assembly).Mapper;
             _cleanRotesCacheService = new CleanRoutesCacheService(

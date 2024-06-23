@@ -47,7 +47,7 @@ namespace Travel.UnitTests.Tests.Routes.Queries.GetRoute
 
             var route = TestFixture.Build<Route>().Create();
 
-            _routesMock.Setup(p => p.AsAsyncRead().SingleOrDefaultAsync(It.IsAny<Expression<Func<Route, bool>>>(), default)
+            _routesMock.Setup(p => p.AsAsyncRead(p => p.AttractionsInRoutes).SingleOrDefaultAsync(It.IsAny<Expression<Func<Route, bool>>>(), default)
             ).ReturnsAsync(route);
 
             // act and assert
@@ -63,7 +63,7 @@ namespace Travel.UnitTests.Tests.Routes.Queries.GetRoute
 
             var query = new GetRouteQuery();
 
-            _routesMock.Setup(p => p.AsAsyncRead().SingleOrDefaultAsync(It.IsAny<Expression<Func<Route, bool>>>(), default))
+            _routesMock.Setup(p => p.AsAsyncRead(p => p.AttractionsInRoutes).SingleOrDefaultAsync(It.IsAny<Expression<Func<Route, bool>>>(), default))
                 .ReturnsAsync(null as Route);
 
             // act and assert

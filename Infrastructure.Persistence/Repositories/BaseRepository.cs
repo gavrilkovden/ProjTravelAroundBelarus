@@ -1,6 +1,7 @@
 using Core.Application.Abstractions.Persistence.Repository.Read;
 using Core.Application.Abstractions.Persistence.Repository.Writing;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace Infrastructure.Persistence.Repositories;
 
@@ -66,5 +67,15 @@ public class BaseRepository<TEntity> : IBaseWriteRepository<TEntity> where TEnti
     public IAsyncRead<TEntity> AsAsyncRead()
     {
         return new AsyncRead<TEntity>(DbSet.AsQueryable());
+    }
+
+    public IAsyncRead<TEntity> AsAsyncRead(params Expression<Func<TEntity, object>> [] navigationPropertys)
+    {
+       var items = DbSet.AsQueryable();
+            foreach (var item in navigationPropertys)
+        {
+            items = items.Include(item);
+        }
+        return new AsyncRead<TEntity>(items);
     }
 }

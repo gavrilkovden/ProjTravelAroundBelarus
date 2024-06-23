@@ -35,7 +35,7 @@ namespace Travel.Application.Handlers.Attractions.Commands.CreateFeedbackAttract
 
         public async Task<GetFeedbackAttractionDto> Handle(CreateFeedbackAttractionCommand request, CancellationToken cancellationToken)
         {
-            var attraction = await _attractions.AsAsyncRead().Include(a => a.AttractionFeedback).FirstOrDefaultAsync(e => e.Id == request.AttractionId, cancellationToken);
+            var attraction = await _attractions.AsAsyncRead(a => a.AttractionFeedback).FirstOrDefaultAsync(e => e.Id == request.AttractionId, cancellationToken);
 
             if (attraction is null)
             {

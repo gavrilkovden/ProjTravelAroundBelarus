@@ -34,4 +34,9 @@
     <ProjectReference Include="..\Core.Tests\Core.Tests.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Tests\TourFeedbacks\Commands\DeleteFeedbackTour\" />
+    <Folder Include="Tests\TourFeedbacks\Queries\" />
+  </ItemGroup>
+
 </Project>

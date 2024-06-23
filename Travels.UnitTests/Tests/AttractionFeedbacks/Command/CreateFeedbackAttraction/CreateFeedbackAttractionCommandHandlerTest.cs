@@ -2,6 +2,7 @@
 using Attractions.Application.Caches.AttractionFeedback;
 using Attractions.Application.Handlers.AttractionFeedbacks.Commands.CreateFeedbackAttraction;
 using Attractions.Application.Handlers.Attractions.Commands.CreateAttraction;
+using AutoFixture;
 using AutoMapper;
 using Core.Application.Abstractions.Persistence.Repository.Writing;
 using Core.Auth.Application.Abstractions.Service;
@@ -51,30 +52,15 @@ namespace Travel.UnitTests.Tests.AttractionFeedbacks.Command.CreateFeedbackAttra
             // arrange
             _currentServiceMok.SetupGet(p => p.CurrentUserId).Returns(userId);
 
-            var attraction = new Attraction
-            {
-                Id = 1,
-                Name = "Test Attraction",
-                Description = "Test description",
-                Price = 151,
-                NumberOfVisitors = 5,
-                Address = new Address
-                {
-                    Street = "Test Street",
-                    City = "Test City",
-                    Region = "Test Region"
-                },
-                GeoLocation = null,
-                WorkSchedules = null
-            };
+            var attraction = TestFixture.Build<Attraction>().Create();
 
-            var attractionFeedback = new AttractionFeedback { Id = attraction.Id };
+            var attractionFeedback = TestFixture.Build<AttractionFeedback>().Create();
 
-            _attractionsMok.Setup(p => p.AsAsyncRead().FirstOrDefaultAsync(It.IsAny<Expression<Func<Attraction, bool>>>(), It.IsAny<CancellationToken>()))
+            _attractionsMok.Setup(p => p.AsAsyncRead(p => p.AttractionFeedback).FirstOrDefaultAsync(It.IsAny<Expression<Func<Attraction, bool>>>(), It.IsAny<CancellationToken>()))
                             .ReturnsAsync(attraction);
 
-            _attractionFeedbacksMok.Setup(p => p.AddAsync(It.IsAny<AttractionFeedback>(), It.IsAny<CancellationToken>()))
-                                    .ReturnsAsync(attractionFeedback);
+            _attractionFeedbacksMok.Setup(p => p.AddAsync(It.IsAny<AttractionFeedback>(), It.IsAny<CancellationToken>())).
+                                    ReturnsAsync(attractionFeedback);
 
             // act and assert
             await AssertNotThrow(command);
@@ -85,9 +71,10 @@ namespace Travel.UnitTests.Tests.AttractionFeedbacks.Command.CreateFeedbackAttra
         {
             // Arrange
             _currentServiceMok.SetupGet(p => p.CurrentUserId).Returns(userId);
-            command = new CreateFeedbackAttractionCommand { AttractionId = 1 };
 
-            _attractionsMok.Setup(p => p.AsAsyncRead().FirstOrDefaultAsync(It.IsAny<Expression<Func<Attraction, bool>>>(), It.IsAny<CancellationToken>()))
+            command = TestFixture.Build<CreateFeedbackAttractionCommand>().Create();
+
+            _attractionsMok.Setup(p => p.AsAsyncRead(p => p.AttractionFeedback).FirstOrDefaultAsync(It.IsAny<Expression<Func<Attraction, bool>>>(), It.IsAny<CancellationToken>()))
                             .ReturnsAsync(null as Attraction);
 
             // Act & Assert
@@ -100,12 +87,7 @@ namespace Travel.UnitTests.Tests.AttractionFeedbacks.Command.CreateFeedbackAttra
             // Arrange
             _currentServiceMok.SetupGet(p => p.CurrentUserId).Returns(userId);
 
-            command = new CreateFeedbackAttractionCommand
-            {
-                AttractionId = 1,
-                ValueRating = 4,
-                Comment = "Great attraction!"
-            };
+            command = TestFixture.Build<CreateFeedbackAttractionCommand>().Create();
 
             var attraction = new Attraction
             {
@@ -117,7 +99,7 @@ namespace Travel.UnitTests.Tests.AttractionFeedbacks.Command.CreateFeedbackAttra
                 UserId = userId
             };
 
-            _attractionsMok.Setup(p => p.AsAsyncRead().FirstOrDefaultAsync(It.IsAny<Expression<Func<Attraction, bool>>>(), It.IsAny<CancellationToken>()))
+            _attractionsMok.Setup(p => p.AsAsyncRead(p => p.AttractionFeedback).FirstOrDefaultAsync(It.IsAny<Expression<Func<Attraction, bool>>>(), It.IsAny<CancellationToken>()))
                             .ReturnsAsync(attraction);
 
             // Act & Assert

@@ -7,4 +7,6 @@ public interface IBaseReadRepository<TEntity> where TEntity : class
     public IQueryable<TEntity> AsQueryable();
     
     public IAsyncRead<TEntity> AsAsyncRead();
+
+    public IAsyncRead<TEntity> AsAsyncRead(params Expression<Func<TEntity, object>>[] navigationPropertys);
 }

@@ -28,7 +28,7 @@ namespace Attractions.Application.Handlers.Attractions.Queries.GetAttraction
         }
         public override async Task<GetAttractionDto> SentQueryAsync(GetAttractionQuery request, CancellationToken cancellationToken)
         {
-            var attraction = await _attractions.AsAsyncRead().Include(a => a.Address).Include(a => a.GeoLocation).Include(a => a.AttractionFeedback).SingleOrDefaultAsync(e => e.Id == request.Id, cancellationToken);
+            var attraction = await _attractions.AsAsyncRead(a => a.Address, a => a.GeoLocation, a => a.AttractionFeedback).SingleOrDefaultAsync(e => e.Id == request.Id, cancellationToken);
 
             if (attraction is null)
             {

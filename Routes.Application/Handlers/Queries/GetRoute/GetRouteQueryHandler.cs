@@ -24,7 +24,7 @@ namespace Routes.Application.Handlers.Queries.GetRoute
         }
         public override async Task<GetRouteDto> SentQueryAsync(GetRouteQuery request, CancellationToken cancellationToken)
         {
-            var route = await _routes.AsAsyncRead().Include(a => a.AttractionsInRoutes).SingleOrDefaultAsync(e => e.Id == request.Id, cancellationToken);
+            var route = await _routes.AsAsyncRead(a => a.AttractionsInRoutes).SingleOrDefaultAsync(e => e.Id == request.Id, cancellationToken);
 
             if (route is null)
             {
