@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Core.Application.Abstractions.Persistence.Repository.Read;
 using Core.Application.Abstractions.Persistence.Repository.Writing;
 using Core.Auth.Application.Abstractions.Service;
 using Core.Tests.Attributes;
@@ -7,88 +6,88 @@ using Core.Tests.Fixtures;
 using Core.Tests;
 using MediatR;
 using Moq;
-using Routes.Application.Caches;
-using Routes.Application.Dtos;
-using Routes.Application.Handlers.Commands.CreateAttractionInRoute;
 using Travels.Domain;
 using Xunit.Abstractions;
 using AutoFixture;
 using System.Linq.Expressions;
+using Tours.Application.Dtos;
+using Tours.Application.Handlers.TourFeedbacks.Commands.CreateFeedbackTour;
+using Tours.Application.Caches.TourFeedbackCaches;
+using Tours.Application.Caches.TourCaches;
 
 namespace Travel.UnitTests.Tests.TourFeedbacks.Commands.CreateFeedbackTour
 {
-    public class CreateFeedbackTourCommandHandlerTest : RequestHandlerTestBase<CreateAttractionInRouteCommand, GetAttractionInRouteDto>
+    public class CreateFeedbackTourCommandHandlerTest : RequestHandlerTestBase<CreateFeedbackTourCommand, GetFeedbackTourDto>
     {
-        private readonly Mock<IBaseWriteRepository<AttractionInRoute>> _attractionInRouteMok = new();
-        private readonly Mock<IBaseReadRepository<Attraction>> _attractionsMok = new();
+        private readonly Mock<IBaseWriteRepository<TourFeedback>> _tourFeedbacksMok = new();
+        private readonly Mock<IBaseWriteRepository<Tour>> _toursMok = new();
         private readonly Mock<ICurrentUserService> _currentServiceMok = new();
-        private readonly ICleanRoutesCacheService _cleanRotesCacheService;
+        private readonly ICleanTourFeedbacksCacheService _cleanTourFeedbacksCacheService;
+        private readonly ICleanToursCacheService _cleanToursCacheService;
         private readonly IMapper _mapper;
 
         public CreateFeedbackTourCommandHandlerTest(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
         {
-            _mapper = new AutoMapperFixture(typeof(CreateAttractionInRouteCommand).Assembly).Mapper;
-            _cleanRotesCacheService = new CleanRoutesCacheService(
-                new Mock<RouteMemoryCache>().Object,
-                new Mock<RoutesListMemoryCache>().Object,
-                new Mock<RoutesCountMemoryCache>().Object);
+            _mapper = new AutoMapperFixture(typeof(CreateFeedbackTourCommand).Assembly).Mapper;
+            _cleanToursCacheService = new CleanToursCacheService(
+                new Mock<TourMemoryCache>().Object,
+                new Mock<ToursListMemoryCache>().Object,
+                new Mock<ToursCountMemoryCache>().Object);
+            _cleanTourFeedbacksCacheService = new CleanTourFeedbacksCacheService(
+                new Mock<TourFeedbackMemoryCache>().Object,
+                new Mock<TourFeedbacksListMemoryCache>().Object,
+                new Mock<TourFeedbacksCountMemoryCache>().Object);
         }
 
-        protected override IRequestHandler<CreateAttractionInRouteCommand, GetAttractionInRouteDto> CommandHandler =>
-            new CreateAttractionInRouteCommandHandler(_attractionInRouteMok.Object, _attractionsMok.Object, _currentServiceMok.Object, _mapper,
-                _cleanRotesCacheService);
+        protected override IRequestHandler<CreateFeedbackTourCommand, GetFeedbackTourDto> CommandHandler =>
+            new CreateFeedbackTourCommandHandler(_toursMok.Object, _tourFeedbacksMok.Object, _currentServiceMok.Object, _mapper,
+                _cleanTourFeedbacksCacheService, _cleanToursCacheService);
 
         [Theory, FixtureInlineAutoData]
-        public async Task Should_Create_AttractionInRoute_Successfully(CreateAttractionInRouteCommand command, Guid userId)
+        public async Task Should_Create_FeedbackTour_Successfully(CreateFeedbackTourCommand command, Guid userId)
         {
             // arrange
             _currentServiceMok.SetupGet(p => p.CurrentUserId).Returns(userId);
 
-            var attractionInRoute = TestFixture.Build<AttractionInRoute>().Create();
+            var tour = TestFixture.Build<Tour>().Create();
+            var tourFeedback = TestFixture.Build<TourFeedback>().Create();
 
-            var attraction = TestFixture.Build<Attraction>().Create();
-            attraction.IsApproved = true;
+            _toursMok.Setup(p => p.AsAsyncRead(p => p.TourFeedback).SingleOrDefaultAsync(It.IsAny<Expression<Func<Tour, bool>>>(), It.IsAny<CancellationToken>()))
+                            .ReturnsAsync(tour);
 
-            _attractionsMok.Setup(p => p.AsAsyncRead().SingleOrDefaultAsync(It.IsAny<Expression<Func<Attraction, bool>>>(), It.IsAny<CancellationToken>()))
-                            .ReturnsAsync(attraction);
-
-            _attractionInRouteMok.Setup(p => p.AddAsync(It.IsAny<AttractionInRoute>(), It.IsAny<CancellationToken>()))
-                                    .ReturnsAsync(attractionInRoute);
+            _tourFeedbacksMok.Setup(p => p.AddAsync(It.IsAny<TourFeedback>(), It.IsAny<CancellationToken>()))
+                                    .ReturnsAsync(tourFeedback);
 
             // act and assert
             await AssertNotThrow(command);
         }
 
         [Theory, FixtureInlineAutoData]
-        public async Task Should_Throw_NotFoundException_When_Attraction_Not_Found(CreateAttractionInRouteCommand command, Guid userId)
+        public async Task Should_Throw_NotFoundException_When_Tour_Not_Found(CreateFeedbackTourCommand command, Guid userId)
         {
             // Arrange
             _currentServiceMok.SetupGet(p => p.CurrentUserId).Returns(userId);
 
-            _attractionsMok.Setup(p => p.AsAsyncRead().SingleOrDefaultAsync(It.IsAny<Expression<Func<Attraction, bool>>>(), It.IsAny<CancellationToken>()))
-                            .ReturnsAsync(null as Attraction);
+            _toursMok.Setup(p => p.AsAsyncRead(p => p.TourFeedback).SingleOrDefaultAsync(It.IsAny<Expression<Func<Tour, bool>>>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(null as Tour);
 
             // Act & Assert
             await AssertThrowNotFound(command);
         }
 
         [Theory, FixtureInlineAutoData]
-        public async Task Should_Throw_ForbiddenException_When_Attraction_IsNotApproved(CreateAttractionInRouteCommand command, Guid userId)
+        public async Task Should_Throw_ForbiddenException_When_Owner_have_already_appreciated_this_tour(CreateFeedbackTourCommand command, Guid userId)
         {
             // Arrange
             _currentServiceMok.SetupGet(p => p.CurrentUserId).Returns(userId);
 
-            var attractionInRoute = TestFixture.Build<AttractionInRoute>().Create();
+            var tour = TestFixture.Build<Tour>().Create();
+            var tourFeedback = TestFixture.Build<TourFeedback>().Create();
 
-            var attraction = TestFixture.Build<Attraction>().Create();
-
-            attraction.IsApproved = false;
-
-            _attractionsMok.Setup(p => p.AsAsyncRead().SingleOrDefaultAsync(It.IsAny<Expression<Func<Attraction, bool>>>(), It.IsAny<CancellationToken>()))
-                            .ReturnsAsync(attraction);
-
-            _attractionInRouteMok.Setup(p => p.AddAsync(It.IsAny<AttractionInRoute>(), It.IsAny<CancellationToken>()))
-                        .ReturnsAsync(attractionInRoute);
+            _toursMok.Setup(p => p.AsAsyncRead(p => p.TourFeedback).SingleOrDefaultAsync(It.IsAny<Expression<Func<Tour, bool>>>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(tour);
+            tour.TourFeedback = new List <TourFeedback> { tourFeedback };
+            tourFeedback.UserId = userId;
 
             // Act & Assert
             await AssertThrowForbiddenFound(command);

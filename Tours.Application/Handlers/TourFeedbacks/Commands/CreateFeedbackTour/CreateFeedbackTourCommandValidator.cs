@@ -2,7 +2,7 @@
 
 namespace Tours.Application.Handlers.TourFeedbacks.Commands.CreateFeedbackTour
 {
-    internal class CreateFeedbackTourCommandValidator : AbstractValidator<CreateFeedbackTourCommand>
+    public class CreateFeedbackTourCommandValidator : AbstractValidator<CreateFeedbackTourCommand>
     {
         public CreateFeedbackTourCommandValidator()
         {

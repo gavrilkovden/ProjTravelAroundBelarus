@@ -4,7 +4,6 @@ using Core.Application.Exceptions;
 using Core.Auth.Application.Abstractions.Service;
 using Core.Auth.Application.Exceptions;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 using Tours.Application.Caches.TourCaches;
 using Tours.Application.Caches.TourFeedbackCaches;
 using Tours.Application.Dtos;
@@ -34,7 +33,7 @@ namespace Tours.Application.Handlers.TourFeedbacks.Commands.CreateFeedbackTour
 
         public async Task<GetFeedbackTourDto> Handle(CreateFeedbackTourCommand request, CancellationToken cancellationToken)
         {
-            var tour = await _tours.AsAsyncRead().Include(a => a.TourFeedback).FirstOrDefaultAsync(e => e.Id == request.TourId, cancellationToken);
+            var tour = await _tours.AsAsyncRead(a => a.TourFeedback).SingleOrDefaultAsync(e => e.Id == request.TourId, cancellationToken);
             if (tour is null)
             {
                 throw new NotFoundException(request);
@@ -56,11 +55,11 @@ namespace Tours.Application.Handlers.TourFeedbacks.Commands.CreateFeedbackTour
             };
             tourFeedback = await _tourFeedbacks.AddAsync(tourFeedback, cancellationToken);
 
-            _cleanTourFeedbacksCacheService.ClearListCaches();
-            
             if (tourFeedback.Value != null)
                 _cleanToursCacheService.ClearAllCaches();
 
+            _cleanTourFeedbacksCacheService.ClearListCaches();
+            
             return _mapper.Map<GetFeedbackTourDto>(tourFeedback);
         }
     }

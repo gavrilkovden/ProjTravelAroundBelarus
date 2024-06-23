@@ -1,7 +1,7 @@
 ﻿namespace Tours.Application.Caches.TourCaches
 {
 
-    internal class CleanToursCacheService : ICleanToursCacheService
+    public class CleanToursCacheService : ICleanToursCacheService
     {
         private readonly TourMemoryCache _tourMemoryCache;
 

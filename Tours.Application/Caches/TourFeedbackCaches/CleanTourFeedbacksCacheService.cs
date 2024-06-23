@@ -1,6 +1,6 @@
 ﻿namespace Tours.Application.Caches.TourFeedbackCaches
 {
-    internal class CleanTourFeedbacksCacheService : ICleanTourFeedbacksCacheService
+    public class CleanTourFeedbacksCacheService : ICleanTourFeedbacksCacheService
     {
         private readonly TourFeedbackMemoryCache _tourFeedbackMemoryCache;
 
