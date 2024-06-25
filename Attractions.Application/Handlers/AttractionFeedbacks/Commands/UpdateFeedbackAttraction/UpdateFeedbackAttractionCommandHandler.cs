@@ -1,18 +1,18 @@
 ﻿using Attractions.Application.Caches.AttractionCaches;
-using Attractions.Application.Handlers.AttractionFeedbacks.Commands.CreateFeedbackAttraction;
 using AutoMapper;
 using Core.Application.Abstractions.Persistence.Repository.Writing;
 using Core.Application.Exceptions;
 using Core.Auth.Application.Abstractions.Service;
 using Core.Auth.Application.Exceptions;
+using Core.Users.Domain.Enums;
 using MediatR;
 using Travel.Application.Caches.AttractionFeedback;
 using Travel.Application.Dtos;
 using Travels.Domain;
 
-namespace Travel.Application.Handlers.Attractions.Commands.CreateFeedbackAttraction
+namespace Attractions.Application.Handlers.AttractionFeedbacks.Commands.UpdateFeedbackAttraction
 {
-    public class CreateFeedbackAttractionCommandHandler : IRequestHandler<CreateFeedbackAttractionCommand, GetFeedbackAttractionDto>
+    public class UpdateFeedbackAttractionCommandHandler : IRequestHandler<UpdateFeedbackAttractionCommand, GetFeedbackAttractionDto>
     {
         private readonly IBaseWriteRepository<AttractionFeedback> _attractionFeedbacks;
         private readonly IBaseWriteRepository<Attraction> _attractions;
@@ -21,7 +21,7 @@ namespace Travel.Application.Handlers.Attractions.Commands.CreateFeedbackAttract
         private readonly ICleanAttractionFeedbacksCacheService _cleanAttractionFeedbacksCacheService;
         private readonly ICleanAttractionsCacheService _cleanAttractionsCacheService;
 
-        public CreateFeedbackAttractionCommandHandler(IBaseWriteRepository<AttractionFeedback> attractionFeedbacks, IBaseWriteRepository<Attraction> attractions, ICurrentUserService currentUserService, IMapper mapper,
+        public UpdateFeedbackAttractionCommandHandler(IBaseWriteRepository<AttractionFeedback> attractionFeedbacks, IBaseWriteRepository<Attraction> attractions, ICurrentUserService currentUserService, IMapper mapper,
             ICleanAttractionsCacheService cleanAttractionsCacheService, ICleanAttractionFeedbacksCacheService cleanAttractionFeedbacksCacheService)
         {
             _attractionFeedbacks = attractionFeedbacks;
@@ -32,31 +32,30 @@ namespace Travel.Application.Handlers.Attractions.Commands.CreateFeedbackAttract
             _attractions = attractions;
         }
 
-        public async Task<GetFeedbackAttractionDto> Handle(CreateFeedbackAttractionCommand request, CancellationToken cancellationToken)
+        public async Task<GetFeedbackAttractionDto> Handle(UpdateFeedbackAttractionCommand request, CancellationToken cancellationToken)
         {
-            var attraction = await _attractions.AsAsyncRead(a => a.AttractionFeedback).FirstOrDefaultAsync(e => e.Id == request.AttractionId, cancellationToken);
+            var attraction = await _attractions.AsAsyncRead(a => a.AttractionFeedback).SingleOrDefaultAsync(e => e.Id == request.AttractionId, cancellationToken);
 
             if (attraction is null)
             {
                 throw new NotFoundException(request);
             }
 
-            var existingFeedback = attraction.AttractionFeedback?.FirstOrDefault(d => d.UserId == _currentUserService.CurrentUserId);
-
-            AttractionFeedback attractionFeedback = new AttractionFeedback()
+            var attractionFeedback = await _attractionFeedbacks.AsAsyncRead().SingleOrDefaultAsync(e => e.Id == request.Id, cancellationToken);
+            if (attractionFeedback is null)
             {
-                UserId = (Guid)_currentUserService.CurrentUserId,
-                ValueRating = request.ValueRating,
-                AttractionId = request.AttractionId,
-                Comment = request.Comment
-            };
-
-            if (existingFeedback != null && existingFeedback.ValueRating.HasValue && attractionFeedback.ValueRating.HasValue)
-            {
-                throw new ForbiddenException("You have already appreciated this attraction. You can only add a comment");
+                throw new NotFoundException(request);
             }
 
-            attractionFeedback = await _attractionFeedbacks.AddAsync(attractionFeedback, cancellationToken);
+            if (attractionFeedback.UserId != _currentUserService.CurrentUserId)
+            {
+                throw new ForbiddenException("Only the owner can update feedback");
+            }
+
+            attractionFeedback.ValueRating = request.ValueRating;
+            attractionFeedback.Comment = request.Comment;
+
+            attractionFeedback = await _attractionFeedbacks.UpdateAsync(attractionFeedback, cancellationToken);
 
             _cleanAttractionFeedbacksCacheService.ClearListCaches();
 

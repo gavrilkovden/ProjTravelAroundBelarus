@@ -1,5 +1,6 @@
 ﻿using Attractions.Application.Handlers.AttractionFeedbacks.Commands.CreateFeedbackAttraction;
 using Attractions.Application.Handlers.AttractionFeedbacks.Commands.DeleteFeedbackAttraction;
+using Attractions.Application.Handlers.AttractionFeedbacks.Commands.UpdateFeedbackAttraction;
 using Attractions.Application.Handlers.AttractionFeedbacks.Queries.GetFeedbackAttraction;
 using Attractions.Application.Handlers.AttractionFeedbacks.Queries.GetFeedbackAttractions;
 using Attractions.Application.Handlers.AttractionFeedbacks.Queries.GetFeedbackAttractionsCount;
@@ -13,6 +14,7 @@ using Attractions.Application.Handlers.Attractions.Queries.GetAttractionsCount;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Tours.Application.Handlers.TourFeedbacks.Commands.UpdateFeedbackTour;
 using Travel.Application.Dtos;
 
 namespace TravelAroundBelarusProj.Api.Apis
@@ -39,14 +41,10 @@ namespace TravelAroundBelarusProj.Api.Apis
             return Ok(createdAttraction);
         }
 
-
-        [HttpGet("id")]
-        public async Task<ActionResult<GetAttractionDto>> GetAttractionById([FromQuery] GetAttractionQuery getAttractionQuery,
-            CancellationToken cancellationToken = default)
+        [HttpGet("{id}")]
+        public async Task<ActionResult<GetAttractionDto>> GetAttractionById([FromRoute] int id, CancellationToken cancellationToken = default)
         {
-            var attraction = await _mediator.Send(getAttractionQuery, cancellationToken);
-
-            return Ok(attraction);
+            return await _mediator.Send(new GetAttractionQuery { Id = id }, cancellationToken);
         }
 
         [HttpGet]
@@ -61,32 +59,32 @@ namespace TravelAroundBelarusProj.Api.Apis
 
 
         [HttpGet("count")]
-        public Task<int> GetAttractionsCount([FromQuery] GetAttractionsCountQuery query, CancellationToken cancellationToken)
+        public async Task<int> GetAttractionsCount([FromQuery] GetAttractionsCountQuery query, CancellationToken cancellationToken)
         {
-            return _mediator.Send(query, cancellationToken);
+            return await _mediator.Send(query, cancellationToken);
         }
 
-        [HttpPut("id")]
-        public Task<GetAttractionDto> PutAttraction(
-            UpdateAttractionCommand command,
-            [FromQuery] int id,
+        [HttpPut("{id}")]
+        public async Task<GetAttractionDto> UpdateAttraction([FromRoute] int id,
+           [FromBody] UpdateAttractionCommand command,
             CancellationToken cancellationToken)
         {
             command.Id = id;
-            return _mediator.Send(command, cancellationToken);
+            return await _mediator.Send(command, cancellationToken);
         }
 
         [HttpPatch("{id}/IsApproved")]
-        public Task<GetAttractionDto> PatchIsApproved(UpdateAttractionStatusCommand command, [FromRoute] int id, CancellationToken cancellationToken)
+        public async Task<GetAttractionDto> PatchIsApproved([FromRoute] int id, [FromBody] UpdateAttractionStatusCommand command, CancellationToken cancellationToken)
         {
             command.Id = id;
-            return _mediator.Send(command, cancellationToken);
+            return await _mediator.Send(command, cancellationToken);
         }
 
         [HttpDelete("{id}")]
-        public Task DeleteAttraction([FromRoute] int id, CancellationToken cancellationToken)
+        public async Task<ActionResult> DeleteAttraction([FromRoute] int id, CancellationToken cancellationToken)
         {
-            return _mediator.Send(new DeleteAttractionCommand { Id = id }, cancellationToken);
+             await _mediator.Send(new DeleteAttractionCommand { Id = id }, cancellationToken);
+            return Ok();
         }
 
         [HttpPost("AttractionFeedback")]
@@ -99,6 +97,17 @@ namespace TravelAroundBelarusProj.Api.Apis
             return Ok(createdAttractionFeedback);
         }
 
+        [HttpPut("AttractionFeedback/{id}")]
+        public async Task<ActionResult> AddAttractionFeedback([FromRoute] int id,
+            [FromBody] UpdateFeedbackAttractionCommand command,
+            CancellationToken cancellationToken)
+        {
+            command.Id = id;
+            var updateAttractionFeedback = await _mediator.Send(command, cancellationToken);
+
+            return Ok(updateAttractionFeedback);
+        }
+
         [HttpGet("AttractionFeedbacks")]
         public async Task<ActionResult<IEnumerable<GetFeedbackAttractionDto>>> GetAttractionFeedbacks(
             [FromQuery] GetFeedbackAttractionsQuery getFeedbackAttractionsQuery,
@@ -109,24 +118,23 @@ namespace TravelAroundBelarusProj.Api.Apis
             return result.Items;
         }
 
-        [HttpGet("AttractionFeedback/id")]
-        public async Task<ActionResult<GetFeedbackAttractionDto>> GetAttractionFeedbackById([FromQuery] GetFeedbackAttractionQuery getFeedbackAttractionQuery,CancellationToken cancellationToken = default)
+        [HttpGet("AttractionFeedback/{id}")]
+        public async Task<ActionResult<GetFeedbackAttractionDto>> GetAttractionFeedbackById([FromRoute] int id, CancellationToken cancellationToken = default)
         {
-            var FeedbackAttraction = await _mediator.Send(getFeedbackAttractionQuery, cancellationToken);
-
-            return Ok(FeedbackAttraction);
+            return await _mediator.Send(new GetFeedbackAttractionQuery { Id = id }, cancellationToken);
         }
 
         [HttpGet("AttractionFeedbacks/count")]
-        public Task<int> GetFeedbackAttractionsCount([FromQuery] GetFeedbackAttractionsCountQuery query, CancellationToken cancellationToken)
+        public async Task<int> GetFeedbackAttractionsCount([FromQuery] GetFeedbackAttractionsCountQuery query, CancellationToken cancellationToken)
         {
-            return _mediator.Send(query, cancellationToken);
+            return await _mediator.Send(query, cancellationToken);
         }
 
-        [HttpDelete("AttractionFeedback {id}")]
-        public Task DeleteAttractionFeedback([FromRoute] int id, CancellationToken cancellationToken)
+        [HttpDelete("AttractionFeedback/{id}")]
+        public async Task<ActionResult> DeleteAttractionFeedback([FromRoute] int id, CancellationToken cancellationToken)
         {
-            return _mediator.Send(new DeleteFeedbackAttractionCommand { Id = id }, cancellationToken);
+            await _mediator.Send(new DeleteFeedbackAttractionCommand { Id = id }, cancellationToken);
+            return Ok();
         }
     }
 }

@@ -1,4 +1,4 @@
-version: '3.8'
+
 
 services:
   auth.api:
@@ -33,3 +33,5 @@ services:
       ACCEPT_EULA: "Y"
     ports:
       - "1433:1433"
+    # volumes:
+    #   - C:/Program Files/Microsoft SQL Server/MSSQL15.MSSQLSERVER/MSSQL/DATA:/var/opt/mssql/data

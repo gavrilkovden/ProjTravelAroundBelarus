@@ -31,9 +31,9 @@ namespace Attractions.Application.Handlers.AttractionFeedbacks.Commands.DeleteFe
                 throw new NotFoundException(request);
             }
 
-            if (!_currentUserService.UserInRole(ApplicationUserRolesEnum.Admin))
+            if (_currentUserService.CurrentUserId != attractionFeedback.UserId && !_currentUserService.UserInRole(ApplicationUserRolesEnum.Admin))
             {
-                throw new ForbiddenException("Only the administrator can delete feedback");
+                throw new ForbiddenException("Only the administrator or owner can delete feedback");
             }
 
             await _attractionFeedbacks.RemoveAsync(attractionFeedback, cancellationToken);

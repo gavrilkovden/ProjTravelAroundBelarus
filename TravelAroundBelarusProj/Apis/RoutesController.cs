@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Routes.Application.Dtos;
 using Routes.Application.Handlers.Commands.CreateAttractionInRoute;
 using Routes.Application.Handlers.Commands.CreateRoute;
+using Routes.Application.Handlers.Commands.DeleteAttractionInRoute;
 using Routes.Application.Handlers.Commands.DeleteRoute;
 using Routes.Application.Handlers.Commands.UpdateRoute;
 using Routes.Application.Handlers.Queries.GetRotesCount;
@@ -24,7 +25,7 @@ namespace TravelAroundBelarusProj.Api.Apis
             _mediator = mediator;
         }
 
-        [HttpPost("Route")]
+        [HttpPost]
         public async Task<ActionResult> AddRoute(
           [FromBody] CreateRouteCommand createRouteCommand,
           CancellationToken cancellationToken)
@@ -44,13 +45,17 @@ namespace TravelAroundBelarusProj.Api.Apis
             return Ok(createAttractionInRoute);
         }
 
-        [HttpGet("id")]
-        public async Task<ActionResult<GetRouteDto>> GetRouteById([FromQuery] GetRouteQuery getRouteQuery,
-            CancellationToken cancellationToken = default)
+        [HttpDelete("AttractionInRoute{id}")]
+        public async Task<ActionResult> DeleteAttractionInRoute([FromRoute] int id, CancellationToken cancellationToken)
         {
-            var route = await _mediator.Send(getRouteQuery, cancellationToken);
+            await _mediator.Send(new DeleteAttractionInRouteCommand { Id = id }, cancellationToken);
+            return Ok();
+        }
 
-            return Ok(route);
+        [HttpGet("{id}")]
+        public async Task<ActionResult<GetRouteDto>> GetRouteById([FromRoute] int id, CancellationToken cancellationToken = default)
+        {
+            return await _mediator.Send(new GetRouteQuery { Id = id }, cancellationToken);
         }
 
         [HttpGet]
@@ -64,25 +69,23 @@ namespace TravelAroundBelarusProj.Api.Apis
         }
 
         [HttpGet("count")]
-        public Task<int> GetRoutesCount([FromQuery] GetRotesCountQuery query, CancellationToken cancellationToken)
+        public async Task<int> GetRoutesCount([FromQuery] GetRotesCountQuery query, CancellationToken cancellationToken)
         {
-            return _mediator.Send(query, cancellationToken);
+            return await _mediator.Send(query, cancellationToken);
         }
 
-        [HttpPut("id")]
-        public Task<GetRouteDto> PutRoute(
-           UpdateRouteCommand command,
-           [FromQuery] int id,
-           CancellationToken cancellationToken)
+        [HttpPut("{id}")]
+        public async Task<GetRouteDto> PutRoute([FromRoute] int id, [FromBody] UpdateRouteCommand command, CancellationToken cancellationToken)
         {
             command.Id = id;
-            return _mediator.Send(command, cancellationToken);
+            return await _mediator.Send(command, cancellationToken);
         }
 
         [HttpDelete("{id}")]
-        public Task DeleteRoute([FromRoute] int id, CancellationToken cancellationToken)
+        public async Task<ActionResult> DeleteRoute([FromRoute] int id, CancellationToken cancellationToken)
         {
-            return _mediator.Send(new DeleteRouteCommand { Id = id }, cancellationToken);
+            await _mediator.Send(new DeleteRouteCommand { Id = id }, cancellationToken);
+            return Ok();
         }
     }
 }

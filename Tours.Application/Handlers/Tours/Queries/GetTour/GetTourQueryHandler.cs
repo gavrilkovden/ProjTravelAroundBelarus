@@ -5,7 +5,6 @@ using Core.Application.Exceptions;
 using Core.Auth.Application.Abstractions.Service;
 using Core.Auth.Application.Exceptions;
 using Core.Users.Domain.Enums;
-using Microsoft.EntityFrameworkCore;
 using Tours.Application.Caches.TourCaches;
 using Tours.Application.Dtos;
 using Travels.Domain;
@@ -28,7 +27,7 @@ namespace Tours.Application.Handlers.Tours.Queries.GetTour
         }
         public override async Task<GetTourDto> SentQueryAsync(GetTourQuery request, CancellationToken cancellationToken)
         {
-            var tour = await _tours.AsAsyncRead().Include(d => d.TourFeedback).SingleOrDefaultAsync(e => e.Id == request.Id, cancellationToken); 
+            var tour = await _tours.AsAsyncRead(d => d.TourFeedback, p => p.Route).SingleOrDefaultAsync(e => e.Id == request.Id, cancellationToken); 
 
             if (tour is null)
             {

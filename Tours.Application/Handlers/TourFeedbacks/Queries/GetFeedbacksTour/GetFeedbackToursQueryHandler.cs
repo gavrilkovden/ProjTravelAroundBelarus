@@ -2,6 +2,8 @@
 using Core.Application.Abstractions.Persistence.Repository.Read;
 using Core.Application.BaseRealizations;
 using Core.Application.DTOs;
+using Core.Application.Exceptions;
+using Microsoft.EntityFrameworkCore;
 using Tours.Application.Caches.TourFeedbackCaches;
 using Tours.Application.Dtos;
 using Travels.Domain;
@@ -32,6 +34,19 @@ namespace Tours.Application.Handlers.TourFeedbacks.Queries.GetFeedbacksTour
             {
                 query = query.Take(request.Limit.Value);
             }
+
+            if (request.TourId.HasValue)
+            {
+                query = query.Where(a => a.TourId == request.TourId.Value);
+            }
+
+            var resultExists = await query.AnyAsync();
+
+            if (!resultExists)
+            {
+                throw new NotFoundException("Nothing was found for the filter");
+            }
+
 
             var entitiesResult = await _tourFeedbacks.AsAsyncRead().ToArrayAsync(query, cancellationToken);
             var entitiesCount = await _tourFeedbacks.AsAsyncRead().CountAsync(query, cancellationToken);

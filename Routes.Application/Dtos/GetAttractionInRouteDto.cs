@@ -6,7 +6,6 @@ namespace Routes.Application.Dtos
 {
     public class GetAttractionInRouteDto : IMapFrom<AttractionInRoute>
     {
-        [JsonIgnore]
         public int Id { get; set; }
         public int Order { get; set; }
         public decimal DistanceToNextAttraction { get; set; }

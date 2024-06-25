@@ -43,12 +43,15 @@ namespace Tours.Application.Handlers.Tours.Commands.CreateTour
                 throw new ForbiddenException("You do not have the rights to use the route");
             }
 
+            var isAdmin = _currentUserService.UserInRole(ApplicationUserRolesEnum.Admin);
+
             var tour = new Tour
             {
                 Name = request.Name,
                 Description = request.Description,
                 RouteId = request.RouteId,
-                Price = (decimal)request.Price
+                Price = (decimal)request.Price,
+                IsApproved = isAdmin
             };
 
             tour = await _tours.AddAsync(tour, cancellationToken);

@@ -7,6 +7,7 @@
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <DocumentationFile>C:\Users\37529\source\repos\TravelAroundBelarusProj\TravelAroundBelarusProj\bin\Debug\net8.0\TravelAroundBelarusProj.Api.xml</DocumentationFile>
     <UserSecretsId>55e426d3-6673-4ca7-85f1-67c9622de248</UserSecretsId>
+    <ErrorOnDuplicatePublishOutputFiles>false</ErrorOnDuplicatePublishOutputFiles>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
   </PropertyGroup>

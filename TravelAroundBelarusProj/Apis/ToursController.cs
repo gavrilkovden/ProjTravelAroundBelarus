@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Tours.Application.Dtos;
 using Tours.Application.Handlers.TourFeedbacks.Commands.CreateFeedbackTour;
 using Tours.Application.Handlers.TourFeedbacks.Commands.DeleteFeedbackTour;
+using Tours.Application.Handlers.TourFeedbacks.Commands.UpdateFeedbackTour;
 using Tours.Application.Handlers.TourFeedbacks.Queries.GetFeedbacksTour;
 using Tours.Application.Handlers.TourFeedbacks.Queries.GetFeedbacksTourCount;
 using Tours.Application.Handlers.TourFeedbacks.Queries.GetFeedbackTour;
@@ -29,7 +30,7 @@ namespace TravelAroundBelarusProj.Api.Apis
             _mediator = mediator;
         }
 
-        [HttpPost("tour")]
+        [HttpPost]
         public async Task<ActionResult> AddTour(
           [FromBody] CreateTourCommand createTourCommand,
           CancellationToken cancellationToken)
@@ -39,12 +40,10 @@ namespace TravelAroundBelarusProj.Api.Apis
             return Ok(createdTour);
         }
 
-        [HttpGet("id")]
-        public async Task<ActionResult<GetTourDto>> GetTourById([FromQuery] GetTourQuery getTourQuery,
-    CancellationToken cancellationToken = default)
+        [HttpGet("{id}")]
+        public async Task<ActionResult<GetTourDto>> GetTourById([FromRoute] int id, CancellationToken cancellationToken)
         {
-            var tour = await _mediator.Send(getTourQuery, cancellationToken);
-
+            var tour = await _mediator.Send(new GetTourQuery { Id = id }, cancellationToken);
             return Ok(tour);
         }
 
@@ -59,31 +58,30 @@ namespace TravelAroundBelarusProj.Api.Apis
         }
 
         [HttpGet("count")]
-        public Task<int> GetToursCount([FromQuery] GetToursCountQuery query, CancellationToken cancellationToken)
+        public async Task<int> GetToursCount([FromQuery] GetToursCountQuery query, CancellationToken cancellationToken)
         {
-            return _mediator.Send(query, cancellationToken);
+            return await _mediator.Send(query, cancellationToken);
         }
 
-        [HttpPut("id")]
-        public Task<GetTourDto> PutRoute(UpdateTourCommand command,
-            [FromQuery] int id,
-            CancellationToken cancellationToken)
+        [HttpPut("{id}")]
+        public async Task<GetTourDto> UpdateRoute([FromRoute] int id, [FromBody] UpdateTourCommand command, CancellationToken cancellationToken)
         {
             command.Id = id;
-            return _mediator.Send(command, cancellationToken);
+            return await _mediator.Send(command, cancellationToken);
         }
 
         [HttpPatch("{id}/IsApproved")]
-        public Task<GetTourDto> PatchIsApproved(UpdateTourStatusCommand command, [FromRoute] int id, CancellationToken cancellationToken)
+        public async Task<GetTourDto> UpdateIsApproved([FromRoute] int id, [FromBody] UpdateTourStatusCommand command, CancellationToken cancellationToken)
         {
             command.Id = id;
-            return _mediator.Send(command, cancellationToken);
+            return await _mediator.Send(command, cancellationToken);
         }
 
         [HttpDelete("{id}")]
-        public Task DeleteTour([FromRoute] int id, CancellationToken cancellationToken)
+        public async Task<ActionResult> DeleteTour([FromRoute] int id, CancellationToken cancellationToken)
         {
-            return _mediator.Send(new DeleteTourCommand { Id = id }, cancellationToken);
+            await _mediator.Send(new DeleteTourCommand { Id = id }, cancellationToken);
+            return Ok();
         }
 
         [HttpPost("FeedbackTour")]
@@ -95,13 +93,22 @@ namespace TravelAroundBelarusProj.Api.Apis
 
             return Ok(createdFeedbackTour);
         }
-        [HttpGet("FeedbackTour /id")]
-        public async Task<ActionResult<GetFeedbackTourDto>> GetFeedbackTourById([FromQuery] GetFeedbackTourQuery getFeedbackTourQuery,
-   CancellationToken cancellationToken = default)
-        {
-            var tour = await _mediator.Send(getFeedbackTourQuery, cancellationToken);
 
-            return Ok(tour);
+        [HttpPut("FeedbackTour/{id}")]
+        public async Task<ActionResult> UpdateTourFeedback(
+            [FromRoute] int id,
+            [FromBody] UpdateFeedbackTourCommand command,
+            CancellationToken cancellationToken)
+        {
+            command.Id = id;
+            var updateFeedback = await _mediator.Send(command, cancellationToken);
+            return Ok(updateFeedback);
+        }
+
+        [HttpGet("FeedbackTour/{id}")]
+        public async Task<ActionResult<GetFeedbackTourDto>> GetFeedbackTourById([FromRoute] int id, CancellationToken cancellationToken = default)
+        {
+            return await _mediator.Send(new GetFeedbackTourQuery { Id = id }, cancellationToken);
         }
 
         [HttpGet("FeedbackTours")]
@@ -115,15 +122,16 @@ namespace TravelAroundBelarusProj.Api.Apis
         }
 
         [HttpGet("FeedbackTours/count")]
-        public Task<int> GetFeedbackToursCount([FromQuery] GetFeedbackToursCountQuery query, CancellationToken cancellationToken)
+        public async Task<int> GetFeedbackToursCount([FromQuery] GetFeedbackToursCountQuery query, CancellationToken cancellationToken)
         {
-            return _mediator.Send(query, cancellationToken);
+            return await _mediator.Send(query, cancellationToken);
         }
 
-        [HttpDelete("FeedbackTour {id}")]
-        public Task DeleteFeedbackTour([FromRoute] int id, CancellationToken cancellationToken)
+        [HttpDelete("FeedbackTour/{id}")]
+        public async Task<ActionResult> DeleteFeedbackTour([FromRoute] int id, CancellationToken cancellationToken)
         {
-            return _mediator.Send(new DeleteFeedbackTourCommand { Id = id }, cancellationToken);
+            await _mediator.Send(new DeleteFeedbackTourCommand { Id = id }, cancellationToken);
+            return Ok();
         }
     }
 }

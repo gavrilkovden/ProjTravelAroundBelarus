@@ -7,6 +7,7 @@
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <DocumentationFile>C:\Users\37529\source\repos\TravelAroundBelarusProj\Auth\bin\Debug\net8.0\Auth.Api.xml</DocumentationFile>
     <UserSecretsId>53796722-7394-45e9-83a3-15265fc18cec</UserSecretsId>
+    <ErrorOnDuplicatePublishOutputFiles>false</ErrorOnDuplicatePublishOutputFiles>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
   </PropertyGroup>

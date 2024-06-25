@@ -4,6 +4,7 @@ using Core.Application.Abstractions.Persistence.Repository.Writing;
 using Core.Application.Exceptions;
 using Core.Auth.Application.Abstractions.Service;
 using Core.Auth.Application.Exceptions;
+using Core.Users.Domain.Enums;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Routes.Application.Caches;
@@ -16,13 +17,15 @@ namespace Routes.Application.Handlers.Commands.CreateAttractionInRoute
     public class CreateAttractionInRouteCommandHandler : IRequestHandler<CreateAttractionInRouteCommand, GetAttractionInRouteDto>
     {
         private readonly IBaseWriteRepository<AttractionInRoute> _attractionInRoutes;
+        private readonly IBaseReadRepository<Route> _routes;
         private readonly IBaseReadRepository<Attraction> _attractions;
         private readonly ICurrentUserService _currentUserService;
         private readonly IMapper _mapper;
         private readonly ICleanRoutesCacheService _cleanRotesCacheService;
 
-        public CreateAttractionInRouteCommandHandler(IBaseWriteRepository<AttractionInRoute> attractionInRoutes, IBaseReadRepository<Attraction> attraction, ICurrentUserService currentUserService, IMapper mapper, ICleanRoutesCacheService cleanRotesCacheService)
+        public CreateAttractionInRouteCommandHandler(IBaseReadRepository<Route> routes, IBaseWriteRepository<AttractionInRoute> attractionInRoutes, IBaseReadRepository<Attraction> attraction, ICurrentUserService currentUserService, IMapper mapper, ICleanRoutesCacheService cleanRotesCacheService)
         {
+            _routes = routes;
             _attractionInRoutes = attractionInRoutes;
             _currentUserService = currentUserService;
             _mapper = mapper;
@@ -32,6 +35,19 @@ namespace Routes.Application.Handlers.Commands.CreateAttractionInRoute
 
         public async Task<GetAttractionInRouteDto> Handle(CreateAttractionInRouteCommand request, CancellationToken cancellationToken)
         {
+            var route = await _routes.AsAsyncRead().SingleOrDefaultAsync(a => a.Id == request.RouteId, cancellationToken);
+            
+            if (route == null)
+            {
+                throw new NotFoundException("Route not found.");
+            }
+
+            if (route.UserId != _currentUserService.CurrentUserId &&
+                !_currentUserService.UserInRole(ApplicationUserRolesEnum.Admin))
+            {
+                throw new ForbiddenException("You don't have the rights to add this route to the attractions. Only the owner or admin of the route can do this");
+            }
+
             var attraction = await _attractions.AsAsyncRead().SingleOrDefaultAsync(a => a.Id == request.AttractionId, cancellationToken);
 
             if (attraction == null)

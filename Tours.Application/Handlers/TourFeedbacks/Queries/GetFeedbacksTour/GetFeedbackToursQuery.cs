@@ -9,5 +9,7 @@ namespace Tours.Application.Handlers.TourFeedbacks.Queries.GetFeedbacksTour
         public int? Limit { get; init; }
 
         public int? Offset { get; init; }
+
+        public int? TourId { get; init; }
     }
 }

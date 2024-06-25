@@ -15,7 +15,8 @@ namespace Infrastructure.Persistence.EntityTypeConfigurations.Attractions
 
             builder.HasMany(r => r.AttractionsInRoutes)
                 .WithOne(a => a.Route)
-                .HasForeignKey(ar => ar.RouteId);
+                .HasForeignKey(ar => ar.RouteId)
+            .OnDelete(DeleteBehavior.Cascade);
 
             builder.HasOne(t => t.User)
                 .WithMany()
@@ -23,7 +24,8 @@ namespace Infrastructure.Persistence.EntityTypeConfigurations.Attractions
 
             builder.HasMany(r => r.Tours)
                 .WithOne(t => t.Route)
-                .HasForeignKey(t => t.RouteId);
+                .HasForeignKey(t => t.RouteId)
+            .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

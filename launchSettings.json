@@ -6,7 +6,8 @@
       "serviceActions": {
         "travelaroundbelarusproj.api": "StartDebugging",
         "users.api": "StartDebugging",
-        "auth.api": "StartDebugging"
+        "auth.api": "StartDebugging",
+        "sql_server": "StartWithoutDebugging"
       }
     }
   }

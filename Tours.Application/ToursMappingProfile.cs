@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using Tours.Application.Handlers.Tours.Commands.UpdateTour;
+using Travels.Domain;
 
 namespace Tours.Application
 {
@@ -6,6 +8,7 @@ namespace Tours.Application
     {
         public ToursMappingProfile()
         {
+            CreateMap<UpdateTourCommand, Tour>();
         }
     }
 }

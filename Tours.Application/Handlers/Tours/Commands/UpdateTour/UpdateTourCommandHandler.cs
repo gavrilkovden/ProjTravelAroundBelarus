@@ -54,7 +54,7 @@ namespace Tours.Application.Handlers.Tours.Commands.UpdateTour
             _mapper.Map(request, tour);
             tour = await _tours.UpdateAsync(tour, cancellationToken);
             _cleanToursCacheService.ClearAllCaches();
-            return _mapper.Map<GetTourDto>(route);
+            return _mapper.Map<GetTourDto>(tour);
         }
     }
 }

@@ -33,9 +33,9 @@ namespace Tours.Application.Handlers.TourFeedbacks.Commands.DeleteFeedbackTour
                 throw new NotFoundException(request);
             }
 
-            if (!_currentUserService.UserInRole(ApplicationUserRolesEnum.Admin))
+            if (_currentUserService.CurrentUserId != tourFeedback.UserId && !_currentUserService.UserInRole(ApplicationUserRolesEnum.Admin))
             {
-                throw new ForbiddenException("Only the administrator can delete feedback");
+                throw new ForbiddenException("Only the administrator or owner can delete feedback");
             }
 
             await _tourFeedbacks.RemoveAsync(tourFeedback, cancellationToken);

@@ -3,7 +3,10 @@ using AutoMapper;
 using Core.Application.Abstractions.Persistence.Repository.Read;
 using Core.Application.BaseRealizations;
 using Core.Application.DTOs;
+using Core.Application.Exceptions;
 using Core.Auth.Application.Abstractions.Service;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Travel.Application.Dtos;
 using Travels.Domain;
 
@@ -35,6 +38,18 @@ namespace Attractions.Application.Handlers.AttractionFeedbacks.Queries.GetFeedba
             if (request.Limit.HasValue)
             {
                 query = query.Take(request.Limit.Value);
+            }
+
+            if (request.AttractionId.HasValue)
+            {
+                query = query.Where(a => a.AttractionId == request.AttractionId.Value);
+            }
+
+            var resultExists = await query.AnyAsync();
+
+            if (!resultExists)
+            {
+                throw new NotFoundException("Nothing was found for the filter");
             }
 
             var entitiesResult = await _attractionFeedbacks.AsAsyncRead().ToArrayAsync(query, cancellationToken);

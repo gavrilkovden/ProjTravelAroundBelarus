@@ -76,7 +76,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Travel.UnitTests", "Travels
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Users.UnitTests", "Users.UnitTests\Users.UnitTests.csproj", "{EB8FFCB9-88AD-4587-9161-5488CF2C36E4}"
 EndProject
-Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{BE340D78-5E2B-49D9-9BE4-68840B1FF378}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A70A7442-05EB-4162-B421-B1CAB7A5D45F}"
+	ProjectSection(SolutionItems) = preProject
+		common.props = common.props
+		XMLSchema1.xsd = XMLSchema1.xsd
+		XMLSchema2.xsd = XMLSchema2.xsd
+	EndProjectSection
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{2A674BEC-A37E-48E4-A150-BFF9DEA3DDBB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -168,10 +175,10 @@ Global
 		{EB8FFCB9-88AD-4587-9161-5488CF2C36E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EB8FFCB9-88AD-4587-9161-5488CF2C36E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EB8FFCB9-88AD-4587-9161-5488CF2C36E4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BE340D78-5E2B-49D9-9BE4-68840B1FF378}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BE340D78-5E2B-49D9-9BE4-68840B1FF378}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BE340D78-5E2B-49D9-9BE4-68840B1FF378}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BE340D78-5E2B-49D9-9BE4-68840B1FF378}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2A674BEC-A37E-48E4-A150-BFF9DEA3DDBB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A674BEC-A37E-48E4-A150-BFF9DEA3DDBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A674BEC-A37E-48E4-A150-BFF9DEA3DDBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A674BEC-A37E-48E4-A150-BFF9DEA3DDBB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
