@@ -31,6 +31,20 @@ public class AttractionConfiguration : IEntityTypeConfiguration<Attraction>
             .HasForeignKey(c => c.AttractionId)
             .OnDelete(DeleteBehavior.Cascade);
 
+        builder.HasMany(a => a.WorkSchedules)
+          .WithOne(ws => ws.Attraction)
+          .HasForeignKey(ws => ws.AttractionId)
+          .OnDelete(DeleteBehavior.Cascade);
+
+        builder.HasOne(a => a.GeoLocation)
+           .WithMany()
+           .HasForeignKey(a => a.GeoLocationId)
+           .OnDelete(DeleteBehavior.Cascade);
+
+        builder.HasOne(a => a.Address)
+           .WithMany()
+           .HasForeignKey(a => a.AddressId)
+           .OnDelete(DeleteBehavior.Cascade);
 
         builder.HasOne(a => a.User)
             .WithMany()

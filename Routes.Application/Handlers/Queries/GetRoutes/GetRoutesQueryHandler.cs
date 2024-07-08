@@ -23,7 +23,7 @@ namespace Routes.Application.Handlers.Queries.GetRoutes
         }
         public override async Task<BaseListDto<GetRoutesDto>> SentQueryAsync(GetRoutesQuery request, CancellationToken cancellationToken)
         {
-            var query = _routes.AsQueryable();
+            var query = _routes.AsQueryable().Where(ListRoteWhere.WhereForClient(request));
 
             if (request.Offset.HasValue)
             {

@@ -23,7 +23,7 @@ namespace Tours.Application.Handlers.TourFeedbacks.Queries.GetFeedbacksTour
         }
         public override async Task<BaseListDto<GetFeedbackTourDto>> SentQueryAsync(GetFeedbackToursQuery request, CancellationToken cancellationToken)
         {
-            var query = _tourFeedbacks.AsQueryable();
+            var query = _tourFeedbacks.AsQueryable().Where(ListFeedbackTourWhere.WhereForClient(request));
 
             if (request.Offset.HasValue)
             {

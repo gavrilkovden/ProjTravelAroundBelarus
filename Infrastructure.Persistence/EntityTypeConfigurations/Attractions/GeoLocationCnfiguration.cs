@@ -19,7 +19,8 @@ namespace Infrastructure.Persistence.EntityTypeConfigurations.Attractions
 
             builder.HasOne(gl => gl.Attraction)
                 .WithOne(a => a.GeoLocation)
-                .HasForeignKey<Attraction>(gl => gl.GeoLocationId);
+                .HasForeignKey<Attraction>(gl => gl.GeoLocationId)
+                .OnDelete(DeleteBehavior.Cascade); ;
         }
     }
 }

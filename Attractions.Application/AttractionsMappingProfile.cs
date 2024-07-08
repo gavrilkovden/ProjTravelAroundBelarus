@@ -18,6 +18,9 @@ namespace Attractions.Application
             CreateMap<AddressDto, Address>();
             CreateMap<GeoLocationDto, GeoLocation>();
             CreateMap<GeoLocation, GeoLocationDto>();
+            CreateMap<WorkScheduleDto, WorkSchedule>();
+            CreateMap<WorkSchedule, WorkScheduleDto>();
+
         }
     }
 }

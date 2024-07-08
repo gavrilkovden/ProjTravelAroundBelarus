@@ -11,3 +11,5 @@ namespace Attractions.Application.Handlers.Attractions.Queries
         }
     }
 }
+
+

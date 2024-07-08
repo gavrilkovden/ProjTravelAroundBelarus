@@ -1,3 +1,4 @@
+using Core.Users.Domain;
 using System.Linq.Expressions;
 using Travels.Domain;
 
@@ -19,3 +20,4 @@ internal static class ListAttractionWhere
                     (filter.IsApproved == null || e.IsApproved == filter.IsApproved);
     }
 }
+

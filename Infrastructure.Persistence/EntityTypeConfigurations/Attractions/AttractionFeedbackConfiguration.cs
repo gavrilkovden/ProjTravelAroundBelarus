@@ -20,7 +20,7 @@ namespace Infrastructure.Persistence.EntityTypeConfigurations.Attractions
             builder.HasOne(r => r.Attraction)
                    .WithMany(a => a.AttractionFeedback)
                    .HasForeignKey(r => r.AttractionId)
-                   .OnDelete(DeleteBehavior.Restrict);
+                   .OnDelete(DeleteBehavior.Cascade);
 
             builder.HasOne(t => t.User)
                 .WithMany()

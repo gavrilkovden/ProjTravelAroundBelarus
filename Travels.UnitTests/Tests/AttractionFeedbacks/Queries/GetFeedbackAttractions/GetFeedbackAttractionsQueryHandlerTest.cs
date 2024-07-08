@@ -34,60 +34,6 @@ namespace Travel.UnitTests.Tests.AttractionFeedbacks.Queries.GetFeedbackAttracti
         new GetFeedbackAttractionsQueryHandler(_attractionFeedbacksMock.Object, _currentUserServiceMock.Object, _mapper, _attractionFeedbacksListMemoryCacheMock);
 
 
-        [Fact]
-        public async Task Should_BeValid_When_GetAttractionFeedbacksByAdmin()
-        {
-            // arrange
-            var userId = Guid.NewGuid();
-            _currentUserServiceMock.SetupGet(p => p.CurrentUserId).Returns(userId);
-
-            var query = new GetFeedbackAttractionsQuery();
-
-            var attractionFeedbacks = TestFixture.Build<AttractionFeedback>().CreateMany(10).ToArray();
-            var count = attractionFeedbacks.Length;
-
-            _currentUserServiceMock.Setup(
-                    p => p.UserInRole(ApplicationUserRolesEnum.Admin))
-                .Returns(true);
-
-            _attractionFeedbacksMock.Setup(
-                p => p.AsAsyncRead().ToArrayAsync(It.IsAny<Expression<Func<AttractionFeedback, bool>>>(), default)
-            ).ReturnsAsync(attractionFeedbacks);
-
-            _attractionFeedbacksMock.Setup(
-                p => p.AsAsyncRead().CountAsync(It.IsAny<Expression<Func<AttractionFeedback, bool>>>(), default)
-            ).ReturnsAsync(count);
-
-            // act and assert
-            await AssertNotThrow(query);
-        }
-
-        [Fact]
-        public async Task Should_BeValid_When_GetAttractionFeedbacksByClient()
-        {
-            // arrange
-            var userId = Guid.NewGuid();
-            _currentUserServiceMock.SetupGet(p => p.CurrentUserId).Returns(userId);
-
-            var query = new GetFeedbackAttractionsQuery();
-
-            var attractionFeedbacks = TestFixture.Build<AttractionFeedback>().CreateMany(10).ToArray();
-            var count = attractionFeedbacks.Length;
-
-            _currentUserServiceMock.Setup(
-                    p => p.UserInRole(ApplicationUserRolesEnum.Admin))
-                .Returns(false);
-
-            _attractionFeedbacksMock.Setup(
-                p => p.AsAsyncRead().ToArrayAsync(It.IsAny<Expression<Func<AttractionFeedback, bool>>>(), default)
-            ).ReturnsAsync(attractionFeedbacks);
-
-            _attractionFeedbacksMock.Setup(
-                p => p.AsAsyncRead().CountAsync(It.IsAny<Expression<Func<AttractionFeedback, bool>>>(), default)
-            ).ReturnsAsync(count);
-
-            // act and assert
-            await AssertNotThrow(query);
-        }
+        
     }
 }

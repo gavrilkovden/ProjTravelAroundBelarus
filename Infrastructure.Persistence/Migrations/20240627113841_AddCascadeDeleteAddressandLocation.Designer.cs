@@ -4,6 +4,7 @@ using Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240627113841_AddCascadeDeleteAddressandLocation")]
+    partial class AddCascadeDeleteAddressandLocation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -140,9 +143,6 @@ namespace Infrastructure.Persistence.Migrations
                     b.Property<int>("AddressId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("AddressId1")
-                        .HasColumnType("int");
-
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -173,8 +173,6 @@ namespace Infrastructure.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AddressId");
-
-                    b.HasIndex("AddressId1");
 
                     b.HasIndex("GeoLocationId")
                         .IsUnique()
@@ -419,14 +417,10 @@ namespace Infrastructure.Persistence.Migrations
             modelBuilder.Entity("Travels.Domain.Attraction", b =>
                 {
                     b.HasOne("Travels.Domain.Address", "Address")
-                        .WithMany()
+                        .WithMany("Attractions")
                         .HasForeignKey("AddressId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("Travels.Domain.Address", null)
-                        .WithMany("Attractions")
-                        .HasForeignKey("AddressId1");
 
                     b.HasOne("Travels.Domain.GeoLocation", "GeoLocation")
                         .WithOne("Attraction")
@@ -451,7 +445,7 @@ namespace Infrastructure.Persistence.Migrations
                     b.HasOne("Travels.Domain.Attraction", "Attraction")
                         .WithMany("AttractionFeedback")
                         .HasForeignKey("AttractionId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Core.Users.Domain.ApplicationUser", "User")

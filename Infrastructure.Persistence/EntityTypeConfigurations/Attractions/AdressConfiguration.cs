@@ -1,10 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Travels.Domain;
 
 namespace Infrastructure.Persistence.EntityTypeConfigurations.Attractions
@@ -20,7 +15,8 @@ namespace Infrastructure.Persistence.EntityTypeConfigurations.Attractions
 
             builder.HasMany(a => a.Attractions)
                       .WithOne(attraction => attraction.Address)
-                      .HasForeignKey(attraction => attraction.AddressId);
+                      .HasForeignKey(attraction => attraction.AddressId)
+                      .OnDelete(DeleteBehavior.Cascade); 
         }
     }
 }

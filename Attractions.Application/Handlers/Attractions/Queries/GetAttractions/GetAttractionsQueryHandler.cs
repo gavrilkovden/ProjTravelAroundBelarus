@@ -29,9 +29,14 @@ namespace Attractions.Application.Handlers.Attractions.Queries.GetAttractions
         {
             var query = _attraction.AsQueryable();
 
-            if (!_currentUserService.UserInRole(ApplicationUserRolesEnum.Admin))
+            if (_currentUserService.UserInRole(ApplicationUserRolesEnum.Client))
             {
-                query = query.Where(e => e.IsApproved || e.UserId == _currentUserService.CurrentUserId);
+                query = query.Where(e => e.IsApproved || e.UserId == _currentUserService.CurrentUserId).Where(ListAttractionWhere.WhereForClient(request, (Guid)_currentUserService.CurrentUserId));
+            }
+
+            if (_currentUserService.UserInRole(ApplicationUserRolesEnum.Admin))
+            {
+                query = query.Where(ListAttractionWhere.WhereForAdmin(request));
             }
 
             if (request.Offset.HasValue)
@@ -44,7 +49,7 @@ namespace Attractions.Application.Handlers.Attractions.Queries.GetAttractions
                 query = query.Take(request.Limit.Value);
             }
 
-            query = query.Include(a => a.Address).Include(a => a.GeoLocation).Include(a => a.AttractionFeedback);
+            query = query.Include(a => a.Address).Include(a => a.GeoLocation).Include(a => a.AttractionFeedback).Include(a => a.WorkSchedules);
 
 
             var entitiesResult = await _attraction.AsAsyncRead().ToArrayAsync(query, cancellationToken);

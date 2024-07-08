@@ -1,4 +1,6 @@
 ﻿using Attractions.Application.Caches.AttractionFeedback;
+using Attractions.Application.Handlers.AttractionFeedbacks.Queries.FeedbackAttractionFilter;
+using Attractions.Application.Handlers.Attractions.Queries;
 using AutoMapper;
 using Core.Application.Abstractions.Persistence.Repository.Read;
 using Core.Application.BaseRealizations;
@@ -28,7 +30,7 @@ namespace Attractions.Application.Handlers.AttractionFeedbacks.Queries.GetFeedba
         }
         public override async Task<BaseListDto<GetFeedbackAttractionDto>> SentQueryAsync(GetFeedbackAttractionsQuery request, CancellationToken cancellationToken)
         {
-            var query = _attractionFeedbacks.AsQueryable();
+            var query = _attractionFeedbacks.AsQueryable().Where(ListFeedbackAttractionWhere.WhereForClient(request));
 
             if (request.Offset.HasValue)
             {

@@ -71,8 +71,8 @@ namespace Routes.Application.Handlers.Commands.CreateAttractionInRoute
 
             attractionInRoute = await _attractionInRoutes.AddAsync(attractionInRoute, cancellationToken);
 
-            _cleanRotesCacheService.ClearListCaches();
-
+            _cleanRotesCacheService.ClearAllCaches();
+           
             return _mapper.Map<GetAttractionInRouteDto>(attractionInRoute);
         }
     }

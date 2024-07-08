@@ -29,7 +29,7 @@ namespace Tours.Application.Handlers.Tours.Queries.GetTours
         }
         public override async Task<BaseListDto<GetTourDto>> SentQueryAsync(GetToursQuery request, CancellationToken cancellationToken)
         {
-            var query = _tours.AsQueryable();
+            var query = _tours.AsQueryable().Where(ListTourWhere.WhereForClient(request));
 
             if (!_currentUserService.UserInRole(ApplicationUserRolesEnum.Admin))
             {
