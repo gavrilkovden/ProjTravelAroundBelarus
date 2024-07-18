@@ -1,13 +1,9 @@
 ﻿using Attractions.Application.Caches.AttractionCaches;
 using Attractions.Application.Caches.AttractionFeedback;
+using Attractions.Application.Caches.ImageCaches;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using Travel.Application.Caches.AttractionFeedback;
 
 namespace Attractions.Application
@@ -27,7 +23,11 @@ namespace Attractions.Application
                 .AddTransient<ICleanAttractionFeedbacksCacheService, CleanAttractionFeedbacksCacheService>()
                 .AddSingleton<AttractionFeedbackMemoryCache>()
                 .AddSingleton<AttractionFeedbacksListMemoryCache>()
-                .AddSingleton<AttractionFeedbacksCountMemoryCache>();
+                .AddSingleton<AttractionFeedbacksCountMemoryCache>()
+                .AddTransient<ICleanImagesCacheService, CleanImagesCacheService>()
+                .AddSingleton<ImageMemoryCache>()
+                .AddSingleton<ImagesListMemoryCache>()
+                .AddSingleton<ImagesCountMemoryCache>();
         }
     }
 }

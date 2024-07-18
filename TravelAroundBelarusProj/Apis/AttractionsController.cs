@@ -1,4 +1,5 @@
-﻿using Attractions.Application.Handlers.AttractionFeedbacks.Commands.CreateFeedbackAttraction;
+﻿using Attractions.Application.Dtos;
+using Attractions.Application.Handlers.AttractionFeedbacks.Commands.CreateFeedbackAttraction;
 using Attractions.Application.Handlers.AttractionFeedbacks.Commands.DeleteFeedbackAttraction;
 using Attractions.Application.Handlers.AttractionFeedbacks.Commands.UpdateFeedbackAttraction;
 using Attractions.Application.Handlers.AttractionFeedbacks.Queries.GetFeedbackAttraction;
@@ -6,11 +7,15 @@ using Attractions.Application.Handlers.AttractionFeedbacks.Queries.GetFeedbackAt
 using Attractions.Application.Handlers.AttractionFeedbacks.Queries.GetFeedbackAttractionsCount;
 using Attractions.Application.Handlers.Attractions.Commands.CreateAttraction;
 using Attractions.Application.Handlers.Attractions.Commands.DeleteAttraction;
+using Attractions.Application.Handlers.Attractions.Commands.DeleteImage;
 using Attractions.Application.Handlers.Attractions.Commands.UpdateAttraction;
 using Attractions.Application.Handlers.Attractions.Commands.UpdateAttractionStatus;
+using Attractions.Application.Handlers.Attractions.Commands.UpdateImageApproveStatus;
+using Attractions.Application.Handlers.Attractions.Commands.UploadImage;
 using Attractions.Application.Handlers.Attractions.Queries.GetAttraction;
 using Attractions.Application.Handlers.Attractions.Queries.GetAttractions;
 using Attractions.Application.Handlers.Attractions.Queries.GetAttractionsCount;
+using Attractions.Application.Handlers.Attractions.Queries.GetImages;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -41,6 +46,17 @@ namespace TravelAroundBelarusProj.Api.Apis
             return Ok(createdAttraction);
         }
 
+        [HttpPost("Image")]
+        [Consumes("multipart/form-data")]
+        public async Task<ActionResult> AddImage(
+        [FromForm] UploadImageCommand uploadImageCommand,
+        CancellationToken cancellationToken)
+        {
+            var UploadImage = await _mediator.Send(uploadImageCommand, cancellationToken);
+
+            return Ok(UploadImage);
+        }
+
         [HttpGet("{id}")]
         public async Task<ActionResult<GetAttractionDto>> GetAttractionById([FromRoute] int id, CancellationToken cancellationToken = default)
         {
@@ -48,7 +64,7 @@ namespace TravelAroundBelarusProj.Api.Apis
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<GetAttractionDto>>> GetAttractions(
+        public async Task<ActionResult<IEnumerable<GetAttractionsDto>>> GetAttractions(
             [FromQuery] GetAttractionsQuery getAttractionsQuery,
             CancellationToken cancellationToken)
         {
@@ -57,6 +73,15 @@ namespace TravelAroundBelarusProj.Api.Apis
             return result.Items;
         }
 
+        [HttpGet("Images")]
+        public async Task<ActionResult<IEnumerable<GetImageDto>>> GetImages(
+            [FromQuery] GetImagesQuery getImagesQuery,
+            CancellationToken cancellationToken)
+        {
+            var result = await _mediator.Send(getImagesQuery, cancellationToken);
+            Response.Headers.Append("X-Total-Count", result.TotalCount.ToString());
+            return result.Items;
+        }
 
         [HttpGet("count")]
         public async Task<int> GetAttractionsCount([FromQuery] GetAttractionsCountQuery query, CancellationToken cancellationToken)
@@ -73,17 +98,31 @@ namespace TravelAroundBelarusProj.Api.Apis
             return await _mediator.Send(command, cancellationToken);
         }
 
-        [HttpPatch("{id}/IsApproved")]
-        public async Task<GetAttractionDto> PatchIsApproved([FromRoute] int id, [FromBody] UpdateAttractionStatusCommand command, CancellationToken cancellationToken)
+        [HttpPatch("{id}/IsApproved/Attraction")]
+        public async Task<GetAttractionDto> PatchIsApprovedAttraction([FromRoute] int id, [FromBody] UpdateAttractionStatusCommand command, CancellationToken cancellationToken)
         {
             command.Id = id;
             return await _mediator.Send(command, cancellationToken);
         }
 
+        [HttpPatch("{id}/IsApproved/Image")]
+        public async Task<GetImageDto> PatchIsApprovedImage([FromRoute] int id, [FromBody] UpdateImageApproveStatusCommand command, CancellationToken cancellationToken)
+        {
+            command.Id = id;
+            return await _mediator.Send(command, cancellationToken);
+        }
+
+        [HttpDelete("Images/{id}")]
+        public async Task<ActionResult> DeleteImages([FromRoute] int id, CancellationToken cancellationToken)
+        {
+             await _mediator.Send(new DeleteImageCommand { Id = id }, cancellationToken);
+            return Ok();
+        }
+
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteAttraction([FromRoute] int id, CancellationToken cancellationToken)
         {
-             await _mediator.Send(new DeleteAttractionCommand { Id = id }, cancellationToken);
+            await _mediator.Send(new DeleteAttractionCommand { Id = id }, cancellationToken);
             return Ok();
         }
 

@@ -3,6 +3,8 @@ using Auth.Domain;
 using Core.Users.Domain;
 using Microsoft.EntityFrameworkCore;
 using Travels.Domain;
+using static System.Net.Mime.MediaTypeNames;
+using Image = Travels.Domain.Image;
 
 namespace Infrastructure.Persistence;
 
@@ -75,6 +77,12 @@ public sealed class ApplicationDbContext : DbContext
     #region GeoLocations
 
     internal DbSet<GeoLocation> GeoLocations { get; } = default!;
+
+    #endregion
+
+    #region GeoLocations
+
+    internal DbSet<Image> Images { get; } = default!;
 
     #endregion
 

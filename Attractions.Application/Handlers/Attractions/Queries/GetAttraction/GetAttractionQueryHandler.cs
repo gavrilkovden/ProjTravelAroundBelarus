@@ -9,6 +9,7 @@ using Attractions.Application.Caches.AttractionCaches;
 using Travels.Domain;
 using Core.Auth.Application.Abstractions.Service;
 using Core.Auth.Application.Exceptions;
+using Attractions.Application.Dtos;
 
 namespace Attractions.Application.Handlers.Attractions.Queries.GetAttraction
 {
@@ -28,7 +29,8 @@ namespace Attractions.Application.Handlers.Attractions.Queries.GetAttraction
         }
         public override async Task<GetAttractionDto> SentQueryAsync(GetAttractionQuery request, CancellationToken cancellationToken)
         {
-            var attraction = await _attractions.AsAsyncRead(a => a.Address, a => a.GeoLocation, a => a.AttractionFeedback, a => a.WorkSchedules).SingleOrDefaultAsync(e => e.Id == request.Id, cancellationToken);
+
+            var attraction = await _attractions.AsAsyncRead(a => a.Address, a => a.GeoLocation, a => a.AttractionFeedback, a => a.WorkSchedules, a => a.Images).SingleOrDefaultAsync(e => e.Id == request.Id, cancellationToken);
 
             if (attraction is null)
             {
@@ -51,6 +53,15 @@ namespace Attractions.Application.Handlers.Attractions.Queries.GetAttraction
             else
             {
                 attractionResult.AverageRating = null; // Не устанавливаем значение, если оценок нет
+            }
+            var currentUserId = _currentUserService.CurrentUserId!.Value;
+
+            // Фильтруем изображения в зависимости от роли пользователя
+            bool isAdmin = _currentUserService.UserInRole(ApplicationUserRolesEnum.Admin);
+
+            if (attraction.Images != null && attraction.Images.Count != 0)
+            {
+                attractionResult.Images = attraction.Images.Where(d => isAdmin || d.IsApproved).Select(_mapper.Map<GetImageDto>).ToList();
             }
 
             return attractionResult;

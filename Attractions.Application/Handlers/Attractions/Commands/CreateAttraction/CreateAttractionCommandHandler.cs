@@ -4,6 +4,7 @@ using Core.Application.Abstractions.Persistence.Repository.Writing;
 using Core.Auth.Application.Abstractions.Service;
 using Core.Users.Domain.Enums;
 using MediatR;
+using Newtonsoft.Json;
 using Travel.Application.Dtos;
 using Travels.Domain;
 
@@ -53,7 +54,7 @@ namespace Attractions.Application.Handlers.Attractions.Commands.CreateAttraction
                 Longitude = request.GeoLocation.Longitude
             };
 
-            var attraction = new Attraction
+              var attraction = new Attraction
             {
                 Name = request.Name,
                 Description = request.Description,
@@ -63,7 +64,7 @@ namespace Attractions.Application.Handlers.Attractions.Commands.CreateAttraction
                 UserId = (Guid)_currentUserService.CurrentUserId,
                 Address = address,
                 GeoLocation = geoLocation,
-                WorkSchedules = workSchedules
+                WorkSchedules = workSchedules,
             };
 
             attraction = await _attractions.AddAsync(attraction, cancellationToken);

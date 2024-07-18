@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,9 +36,17 @@ namespace Attractions.Application.Handlers.Attractions.Commands.CreateAttraction
                                 .NotEmpty();
                         });
         }
+
         private bool BeAValidDayOfWeek(string dayOfWeek)
         {
             return Enum.TryParse<DayOfWeek>(dayOfWeek, ignoreCase: true, out _);
+        }
+
+        private bool BeAValidImage(IFormFile file)
+        {
+            var allowedExtensions = new[] { ".jpg", ".jpeg", ".png", ".gif" };
+            var extension = Path.GetExtension(file.FileName).ToLowerInvariant();
+            return allowedExtensions.Contains(extension);
         }
     }
 }

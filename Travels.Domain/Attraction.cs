@@ -1,4 +1,5 @@
 ﻿using Core.Users.Domain;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Travels.Domain
 {
@@ -13,12 +14,14 @@ namespace Travels.Domain
         public int AddressId { get; set; }
         public int? GeoLocationId { get; set; }
         public bool IsApproved { get; set; }
+        public string? ImagePath { get; set; }
 
         public GeoLocation? GeoLocation { get; set; }
         public Address Address { get; set; }
         public ICollection<AttractionInRoute> AttractionsInRoutes { get; set; }
         public ICollection<AttractionFeedback>? AttractionFeedback { get; set; }
         public ICollection<WorkSchedule>? WorkSchedules { get; set; }
+        public ICollection<Image>? Images { get; set; }
         public ApplicationUser User { get; set; }
     }
 }

@@ -17,6 +17,7 @@ namespace Infrastructure.Persistence.EntityTypeConfigurations.Attractions
                       .WithOne(attraction => attraction.Address)
                       .HasForeignKey(attraction => attraction.AddressId)
                       .OnDelete(DeleteBehavior.Cascade); 
+
         }
     }
 }

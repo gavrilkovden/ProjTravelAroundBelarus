@@ -20,6 +20,7 @@ namespace Attractions.Application
             CreateMap<GeoLocation, GeoLocationDto>();
             CreateMap<WorkScheduleDto, WorkSchedule>();
             CreateMap<WorkSchedule, WorkScheduleDto>();
+            CreateMap<Image, GetImageDto>();
 
         }
     }

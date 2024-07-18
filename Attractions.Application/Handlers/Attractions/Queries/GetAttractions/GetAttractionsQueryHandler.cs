@@ -1,17 +1,16 @@
 ﻿using Attractions.Application.Caches.AttractionCaches;
+using Attractions.Application.Dtos;
 using AutoMapper;
 using Core.Application.Abstractions.Persistence.Repository.Read;
 using Core.Application.BaseRealizations;
 using Core.Application.DTOs;
 using Core.Auth.Application.Abstractions.Service;
 using Core.Users.Domain.Enums;
-using Microsoft.EntityFrameworkCore;
-using Travel.Application.Dtos;
 using Travels.Domain;
 
 namespace Attractions.Application.Handlers.Attractions.Queries.GetAttractions
 {
-    public class GetAttractionsQueryHandler : BaseCashedForUserQuery<GetAttractionsQuery, BaseListDto<GetAttractionDto>>
+    public class GetAttractionsQueryHandler : BaseCashedForUserQuery<GetAttractionsQuery, BaseListDto<GetAttractionsDto>>
     {
         private readonly IBaseReadRepository<Attraction> _attraction;
 
@@ -25,7 +24,7 @@ namespace Attractions.Application.Handlers.Attractions.Queries.GetAttractions
             _mapper = mapper;
             _currentUserService = currentUserService;
         }
-        public override async Task<BaseListDto<GetAttractionDto>> SentQueryAsync(GetAttractionsQuery request, CancellationToken cancellationToken)
+        public override async Task<BaseListDto<GetAttractionsDto>> SentQueryAsync(GetAttractionsQuery request, CancellationToken cancellationToken)
         {
             var query = _attraction.AsQueryable();
 
@@ -49,13 +48,10 @@ namespace Attractions.Application.Handlers.Attractions.Queries.GetAttractions
                 query = query.Take(request.Limit.Value);
             }
 
-            query = query.Include(a => a.Address).Include(a => a.GeoLocation).Include(a => a.AttractionFeedback).Include(a => a.WorkSchedules);
-
-
-            var entitiesResult = await _attraction.AsAsyncRead().ToArrayAsync(query, cancellationToken);
+            var entitiesResult = await _attraction.AsAsyncRead(a => a.Address, a => a.GeoLocation, a => a.AttractionFeedback, a => a.WorkSchedules, a => a.Images).ToArrayAsync(cancellationToken);
             var entitiesCount = await _attraction.AsAsyncRead().CountAsync(query, cancellationToken);
 
-            var items = _mapper.Map<GetAttractionDto[]>(entitiesResult);
+            var items = _mapper.Map<GetAttractionsDto[]>(entitiesResult);
 
             foreach (var item in items)
             {
@@ -70,9 +66,13 @@ namespace Attractions.Application.Handlers.Attractions.Queries.GetAttractions
                 {
                     item.AverageRating = null; // Не устанавливаем значение, если оценок нет
                 }
+
+                var approvedImage = attraction.Images?.FirstOrDefault(d => d.IsApproved);
+                item.ImagePath = approvedImage?.ImagePath;
+
             }
 
-            return new BaseListDto<GetAttractionDto>
+            return new BaseListDto<GetAttractionsDto>
             {
                 Items = items,
                 TotalCount = entitiesCount

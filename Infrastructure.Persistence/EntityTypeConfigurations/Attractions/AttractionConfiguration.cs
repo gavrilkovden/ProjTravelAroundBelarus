@@ -11,15 +11,10 @@ public class AttractionConfiguration : IEntityTypeConfiguration<Attraction>
         builder.HasKey(a => a.Id);
         builder.Property(a => a.Name).IsRequired().HasMaxLength(255);
         builder.Property(a => a.Description).IsRequired();
-        builder.Property(a => a.Price).HasPrecision(18, 2);
+        builder.Property(a => a.Price).HasColumnType("decimal(18, 2)");
         builder.Property(a => a.NumberOfVisitors);
         builder.Property(e => e.IsApproved).IsRequired().HasDefaultValue(false);
-
-        builder.HasMany(a => a.AttractionsInRoutes)
-            .WithOne(i => i.Attraction)
-            .HasForeignKey(s => s.AttractionId);
-        builder.HasMany(a => a.AttractionFeedback).WithOne(c => c.Attraction);
-
+        builder.Property(a => a.ImagePath).HasMaxLength(500);
 
         builder.HasMany(a => a.AttractionsInRoutes)
     .WithOne(i => i.Attraction)
@@ -42,9 +37,9 @@ public class AttractionConfiguration : IEntityTypeConfiguration<Attraction>
            .OnDelete(DeleteBehavior.Cascade);
 
         builder.HasOne(a => a.Address)
-           .WithMany()
-           .HasForeignKey(a => a.AddressId)
-           .OnDelete(DeleteBehavior.Cascade);
+       .WithMany(address => address.Attractions) 
+       .HasForeignKey(a => a.AddressId)
+       .OnDelete(DeleteBehavior.Cascade);
 
         builder.HasOne(a => a.User)
             .WithMany()
