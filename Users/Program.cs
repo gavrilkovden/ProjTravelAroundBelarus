@@ -17,7 +17,18 @@ try
     const string appName = "Users management API v1";
 
     var builder = WebApplication.CreateBuilder(args);
-    
+
+    // Add CORS policy
+    builder.Services.AddCors(options =>
+    {
+        options.AddPolicy("AllowAll", builder =>
+        {
+            builder.AllowAnyOrigin()
+                   .AllowAnyMethod()
+                   .AllowAnyHeader();
+        });
+    });
+
     builder.Host.UseSerilog((ctx, lc) => lc
 #if DEBUG
         .WriteTo.Console()
@@ -51,6 +62,7 @@ try
             options.SwaggerEndpoint("/" + appPrefix + $"/swagger/{version}/swagger.json", version);
             options.RoutePrefix = appPrefix + "/swagger";
         })
+        .UseCors("AllowAll") // Apply CORS policy
         .UseAuthentication()
         .UseAuthorization()
         .UseHttpsRedirection();

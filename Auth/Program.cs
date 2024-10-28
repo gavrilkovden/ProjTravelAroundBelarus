@@ -15,8 +15,26 @@ try
     const string appPrefix = "auth";
     const string version = "v1";
     const string appName = "Auth API v1";
-    
+
     var builder = WebApplication.CreateBuilder(args);
+
+    // Add CORS policy
+    builder.Services.AddCors(options =>
+    {
+        options.AddPolicy("AllowSpecificOrigins", builder =>
+        {
+            //    builder.AllowAnyOrigin()
+            //           .AllowAnyMethod()
+            //           .AllowAnyHeader()
+            //           .AllowCredentials();
+
+            //});
+            builder.WithOrigins("https://localhost:7125", "https://localhost:7098") // Укажите конкретные домены
+                   .AllowAnyMethod()
+                   .AllowAnyHeader()
+                   .AllowCredentials(); // Для работы с куки
+        });
+    });
 
     builder.Host.UseSerilog((ctx, lc) => lc
 #if DEBUG
@@ -28,21 +46,32 @@ try
             rollingInterval: RollingInterval.Day, retainedFileCountLimit: 14, buffered: true)
         .WriteTo.File($"{builder.Configuration["Logging:LogsFolder"]}/Error-.txt", LogEventLevel.Error,
             rollingInterval: RollingInterval.Day, retainedFileCountLimit: 30, buffered: true));
-    
+
     builder.Services
-        .AddSwaggerWidthJwtAuth(Assembly.GetExecutingAssembly(), appName, version, appName )
+        .AddSwaggerWidthJwtAuth(Assembly.GetExecutingAssembly(), appName, version, appName)
         .AddCoreApiServices()
         .AddCoreApplicationServices()
         .AddCoreAuthApiServices(builder.Configuration)
         .AddPersistenceServices(builder.Configuration)
         .AddCoreAuthServices()
-        .AddAllCors()
+        //  .AddAllCors()
         .AddAuthApplication();
 
     var app = builder.Build();
-    
+
+    // Обработка preflight-запросов OPTIONS
+    app.Use(async (context, next) =>
+    {
+        if (context.Request.Method == "OPTIONS")
+        {
+            context.Response.StatusCode = 200;
+            return;
+        }
+        await next();
+    });
+
     app.RunDbMigrations().RegisterApis(Assembly.GetExecutingAssembly(), $"{appPrefix}/api/{version}");
-    
+
     app.UseCoreExceptionHandler()
         .UseAuthExceptionHandler()
         .UseSwagger(c => { c.RouteTemplate = appPrefix + "/swagger/{documentname}/swagger.json"; })
@@ -51,10 +80,11 @@ try
                 options.SwaggerEndpoint("/" + appPrefix + $"/swagger/{version}/swagger.json", version);
                 options.RoutePrefix = appPrefix + "/swagger";
             })
+                .UseHttpsRedirection()
+        .UseCors("AllowSpecificOrigins") // Apply CORS policy
         .UseAuthentication()
-        .UseAuthorization()
-        .UseHttpsRedirection();
-    
+        .UseAuthorization();
+
     app.Run();
 }
 catch (Exception ex)

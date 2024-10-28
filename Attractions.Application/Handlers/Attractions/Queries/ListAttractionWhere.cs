@@ -10,14 +10,16 @@ internal static class ListAttractionWhere
     {
         var freeText = filter.FreeText?.Trim();
         return e => (e.UserId == currentUserId || e.IsApproved == true) &&
-                    (freeText == null || e.Name.Contains(freeText));
+                    (freeText == null || e.Name.Contains(freeText)) &&
+                    (filter.Region == null || e.Address.Region == filter.Region);
     }
 
     public static Expression<Func<Attraction, bool>> WhereForAdmin(ListAttractionsFilter filter)
     {
         var freeText = filter.FreeText?.Trim();
         return e => (freeText == null || e.Name.Contains(freeText)) &&
-                    (filter.IsApproved == null || e.IsApproved == filter.IsApproved);
+                    (filter.IsApproved == null || e.IsApproved == filter.IsApproved) &&
+                    (filter.Region == null || e.Address.Region == filter.Region);
     }
 }
 

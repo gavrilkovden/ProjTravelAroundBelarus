@@ -1,0 +1,195 @@
+<!--index.html-->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Путешествие по Беларуси</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="top-background"></div>
+    <div class="container_body">
+        <header>
+            <div class="navbar-container">
+                <nav class="navbar">
+                    <div class="logo">
+                        <a href="#" id="homeLink">
+                            <img src="./Images/UsersPhotos/Логотип.png" alt="Логотип" class="logo-image">
+                        </a>
+                    </div>
+                    <ul class="nav-links">
+                        <li class="dropdown">
+                            <a href="#" class="dropbtn">Достопримечательности</a>
+                            <div class="dropdown-content">
+                                <a href="#" <button id="createButton">Добавить новую<br /> достопримечательность</button></a>
+                                <a href="#" class="region-link" data-region="Гомельская">Гомельская область</a>
+                                <a href="#" class="region-link" data-region="Брестская">Брестская область</a>
+                                <a href="#" class="region-link" data-region="Витебская">Витебская область</a>
+                                <a href="#" class="region-link" data-region="Гродненская">Гродненская область</a>
+                                <a href="#" class="region-link" data-region="Минская">Минская область</a>
+                                <a href="#" class="region-link" data-region="Могилевская">Могилевская область</a>
+                                <a href="#" class="region-link" data-region="Весь список">Весь список</a>
+                            </div>
+                        </li>
+                        <li><input type="text" id="searchInput" placeholder="Введите название достопримечательности"></li>
+                        <li><button id="searchButton">Поиск</button></li>
+                        <li><a href="#" id="loginButton">Войти</a></li>
+                        <!--<li><button id="createButton" class="btn-primary">Добавить достопримечательность</button></li>-->
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <div class="video-container">
+            <video id="headerVideo" autoplay muted loop>
+                <source src="./Images/VideoHeader.mp4" type="video/mp4">
+                Ваш браузер не поддерживает видео.
+            </video>
+            <div class="video-overlay">
+                <h1>Открой для себя неизвестную Беларусь</h1>
+            </div>
+        </div>
+
+        <!--<div class="content-section">-->
+        <div class="container">
+
+            <main id="content">
+                <!-- Контент будет загружаться здесь -->
+            </main>
+
+        </div>
+
+        <div class="container">
+            <div class="text-group">
+                <p>Исследуй страну и делись впечатлениями</p>
+                <img src="./Images/map.png" alt="Карта Беларуси с метками" class="map-image">
+            </div>
+            <div class="text-group">
+                <img src="./Images/UsersPhotos/Grodno_Building.jpg" alt="Изображение достопримечательности" class="place-image">
+                <div class="column-group">
+                    <p>Добавляй собственные места и находи для себя что-то новое</p>
+                    <div class="row-Images-group">
+                        <li style="list-style-type: none;"><button id="createButton" class="btn-primary">Добавить <br /> достопримечательность</button></li>
+                        <img src="./Images/вожык.png" alt="вожык" class="cat-image">
+                    </div>
+                </div>
+            </div>
+            <div class="text-group"> <p>Места добавленные нашими пользователями</p> </div>
+            <!--<div class="text-group">
+            <img src="./Images/UsersPhotos/Карточка Несвиж.jpg" alt="Изображение достопримечательности" class="UsersPhotos">
+            <img src="./Images/UsersPhotos/Карточка Гродно.jpg" alt="Изображение достопримечательности" class="UsersPhotos">
+        </div>-->
+        </div>
+
+        <div class="text-group slider-container">
+
+            <div class="slider">
+                <img src="./Images/UsersPhotos/Nesvizh_Street.jpg" alt="Изображение достопримечательности" class="Slider_UsersPhotos">
+                <img src="./Images/UsersPhotos/Courtyards_of_Grodno.jpg" alt="Изображение достопримечательности" class="Slider_UsersPhotos">
+                <img src="./Images/UsersPhotos/Drama_Theatre.jpg" alt="Изображение достопримечательности" class="Slider_UsersPhotos">
+                <img src="./Images/UsersPhotos/University.jpg" alt="Изображение достопримечательности" class="Slider_UsersPhotos">
+                <img src="./Images/UsersPhotos/Boris_and_Gleb_Church.jpg" alt="Изображение достопримечательности" class="Slider_UsersPhotos">
+                <img src="./Images/UsersPhotos/The_new_castle.jpg" alt="Изображение достопримечательности" class="Slider_UsersPhotos">
+                <img src="./Images/UsersPhotos/Grodno_Street_1.jpg" alt="Изображение достопримечательности" class="Slider_UsersPhotos">
+                <img src="./Images/UsersPhotos/Grodno_Street_2.jpg" alt="Изображение достопримечательности" class="Slider_UsersPhotos">
+                <img src="./Images/UsersPhotos/The_old_castle.jpg" alt="Изображение достопримечательности" class="Slider_UsersPhotos">
+                <img src="./Images/UsersPhotos/Nesvizh_Street.jpg" alt="Изображение достопримечательности" class="Slider_UsersPhotos">
+                <!-- Добавьте сюда еще изображения, если нужно -->
+            </div>
+        </div>
+
+        <div class="footer">
+            <div class="container">
+                <div class="footer-row">
+                    <div class="footer-copyright">
+                        <div class="footer-copyright-name">© Денис Гаврильков <br /> 2024 Все права защищены </div>
+                        <p>Сайт о путешествии по Беларуси</p>
+
+                    </div> <!--"footer-copyright"-->
+                    <div class="footer-connect">
+                        <p>Связаться со мной в социальных сетях</p>
+                        <div class="footer-icons">
+                            <a href="#">
+                                <img src="./Images/icons/in.jpg" alt="linkedin" class="in-image" />
+                            </a>
+
+                        </div>
+                    </div> <!--"footer-connect"-->
+                    <div class="footer-connect">
+                        <p>Контакты</p>
+                        <p>почта denisgavrilkov1@gmail.com</p>
+                    </div>
+                </div> <!--"footer-row"-->
+            </div> <!--container-->
+        </div> <!--footer-->
+        <!-- Modal для добавления достопримечательности -->
+        <div id="createModal" class="modal">
+            <div class="modal-content">
+                <span class="close">×</span>
+                <h2>Создать новую достопримечательность</h2>
+                <form id="createForm">
+                    <label for="name">Название:</label>
+                    <input type="text" id="name" name="name" required>
+
+                    <label for="description">Описание:</label>
+                    <textarea id="description" name="description" required></textarea>
+
+                    <label for="price">Стоимость:</label>
+                    <input type="number" id="price" name="price" step="0.01" required>
+
+                    <!--<label for="numberOfVisitors">Количество посетителей:</label>
+                <input type="number" id="numberOfVisitors" name="numberOfVisitors" min="0">-->
+
+                    <label for="street">Улица:</label>
+                    <input type="text" id="street" name="street">
+
+                    <label for="city">Город:</label>
+                    <input type="text" id="city" name="city">
+
+                    <label for="region">Область:</label>
+                    <input type="text" id="region" name="region" required>
+
+                    <label for="latitude">Широта:</label>
+                    <input type="number" id="latitude" name="latitude" step="0.000001" min="-90" max="90">
+                    <small>Введите значение от -90 до 90.</small>
+
+                    <label for="longitude">Долгота:</label>
+                    <input type="number" id="longitude" name="longitude" step="0.000001" min="-180" max="180">
+                    <small>Введите значение от -180 до 180.</small>
+
+                    <fieldset id="workSchedules">
+                        <legend>Расписание работы:</legend>
+                        <!-- Блоки расписания будут добавляться динамически -->
+                        <div class="work-schedule">
+                            <label for="workDay0">День недели:</label>
+                            <select id="workDay0" name="workSchedules[0].dayOfWeek">
+                                <option value="" selected disabled>Выберите день недели</option>
+                                <option value="Понедельник">Понедельник</option>
+                                <option value="Вторник">Вторник</option>
+                                <option value="Среда">Среда</option>
+                                <option value="Четверг">Четверг</option>
+                                <option value="Пятница">Пятница</option>
+                                <option value="Суббота">Суббота</option>
+                                <option value="Воскресенье">Воскресенье</option>
+                            </select>
+                            <label for="openTime0">Время открытия:</label>
+                            <input type="time" id="openTime0" name="workSchedules[0].openTime">
+                            <label for="closeTime0">Время закрытия:</label>
+                            <input type="time" id="closeTime0" name="workSchedules[0].closeTime">
+                        </div>
+                    </fieldset>
+
+                    <button type="button" id="addSchedule">Добавить день недели</button>
+                    <label for="imageFile">Загрузить изображение:</label>
+                    <input type="file" id="imageFile" name="imageFile" accept="image/*">
+                    <button type="submit">Создать достопримечательность</button>
+                </form>
+            </div><br class="Apple-interchange-newline">
+        </div>
+        <script src="navigation.js"></script>
+        <script src="script.js"></script>
+    </div>
+</body>
+<div class="bottom-background"></div>
+</html>

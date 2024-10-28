@@ -31,7 +31,7 @@ namespace Attractions.Application.Handlers.Attractions.Commands.UpdateAttraction
 
         public async Task<GetAttractionDto> Handle(UpdateAttractionCommand request, CancellationToken cancellationToken)
         {
-            var attraction = await _attractions.AsAsyncRead().SingleOrDefaultAsync(e => e.Id == request.Id, cancellationToken);
+            var attraction = await _attractions.AsAsyncRead(a => a.Address, a => a.GeoLocation, a => a.AttractionFeedback, a => a.WorkSchedules, a => a.Images).SingleOrDefaultAsync(e => e.Id == request.Id, cancellationToken);
             if (attraction is null)
             {
                 throw new NotFoundException(request);
@@ -42,6 +42,7 @@ namespace Attractions.Application.Handlers.Attractions.Commands.UpdateAttraction
             {
                 throw new ForbiddenException();
             }
+
             _mapper.Map(request, attraction);
             attraction = await _attractions.UpdateAsync(attraction, cancellationToken);
             _cleanAttractionsCacheService.ClearAllCaches();

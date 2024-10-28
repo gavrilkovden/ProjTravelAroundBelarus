@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Путешествие по Беларуси</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="top-background"></div>
+    <div class="container_body">
+        <header>
+            <div class="container">
+                <nav class="navbar">
+                    <div class="logo">
+                        <a href="#" id="homeLink">
+                            <img src="./Images/UsersPhotos/Логотип.png" alt="Логотип" class="logo-image">
+                        </a>
+                    </div>
+                    <ul class="nav-links">
+                        <li class="dropdown">
+                            <a href="#" class="dropbtn">Достопримечательности</a>
+                            <div class="dropdown-content">
+                                <a href="#" data-region="Гомельская область">Гомельская область</a>
+                                <a href="#" data-region="Брестская область">Брестская область</a>
+                                <a href="#" data-region="Витебская область">Витебская область</a>
+                                <a href="#" data-region="Гродненская область">Гродненская область</a>
+                                <a href="#" data-region="Минская область">Минская область</a>
+                                <a href="#" data-region="Могилевская область">Могилевская область</a>
+                                <a href="#" data-region="Весь список">Весь список</a>
+                            </div>
+                        </li>
+                        <li><input type="text" id="searchInput" placeholder="Введите название достопримечательности"></li>
+                        <li><button id="searchButton">Поиск</button></li>
+                        <li><a href="#">Профиль</a></li>
+                        <li><a href="#">Выйти</a></li>
+                        <li><button id="createButton" class="btn-primary">Добавить достопримечательность</button></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <!--<div class="content-section">-->
+        <div class="container">
+
+            <main id="content">
+                <!-- Контент будет загружаться здесь -->
+            </main>
+
+        </div>
+
+
+        <div class="footer">
+            <div class="container">
+                <div class="footer-row">
+                    <div class="footer-copyright">
+                        <div class="footer-copyright-name">© Денис Гаврильков <br /> 2024 Все права защищены </div>
+                        <p>Сайт о путешествии по Беларуси</p>
+                    </div> <!--"footer-copyright"-->
+                    <div class="footer-connect">
+                        <p>Связаться со мной в социальных сетях</p>
+                        <div class="footer-icons">
+                            <a href="#">
+                                <img src="./Images/icons/in.jpg" alt="linkedin" class="in-image" />
+                            </a>
+                        </div>
+
+                    </div> <!--"footer-connect"-->
+                    <div class="footer-connect">
+                        <p>Контакты</p>
+                    </div>
+                </div> <!--"footer-row"-->
+            </div> <!--container-->
+        </div> <!--footer-->
+
+        <script src="results.js" "></script>
+    </div>
+</body>
+<div class="bottom-background"></div>
+</html>
+
+

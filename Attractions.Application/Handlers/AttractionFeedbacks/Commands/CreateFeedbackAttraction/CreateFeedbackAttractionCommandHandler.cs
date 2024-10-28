@@ -41,7 +41,7 @@ namespace Travel.Application.Handlers.Attractions.Commands.CreateFeedbackAttract
                 throw new NotFoundException(request);
             }
 
-            var existingFeedback = attraction.AttractionFeedback?.FirstOrDefault(d => d.UserId == _currentUserService.CurrentUserId);
+            var existingFeedback = attraction.AttractionFeedback?.FirstOrDefault(d => d.UserId == _currentUserService.CurrentUserId && d.ValueRating.HasValue);
 
             AttractionFeedback attractionFeedback = new AttractionFeedback()
             {

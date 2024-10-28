@@ -17,6 +17,7 @@ namespace Travel.Application.Dtos
         public List<WorkScheduleDto> WorkSchedules { get; set; }
         public bool IsApproved { get; set; }
         public List<GetImageDto> Images { get; set; }
+        public DateTime CreatedDate { get; set; }
     }
 }
  

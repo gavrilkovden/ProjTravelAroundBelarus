@@ -11,7 +11,7 @@ namespace Travel.Application.Dtos
     {
         public string? Street { get; set; }
         public string? City { get; set; }
-        public string Region { get; set; }
+        public RegionEnum Region { get; set; }
 
         public static implicit operator AddressDto(Address v)
         {

@@ -19,7 +19,7 @@ namespace Attractions.Application.Handlers.Attractions.Commands.CreateAttraction
             RuleFor(x => x.NumberOfVisitors).GreaterThanOrEqualTo(0).When(x => x.NumberOfVisitors.HasValue).WithMessage("NumberOfVisitors must be greater than or equal to 0.");
             RuleFor(x => x.GeoLocation.Latitude).InclusiveBetween(-90, 90).When(x => x.GeoLocation.Latitude.HasValue).WithMessage("Latitude must be between -90 and 90.");
             RuleFor(x => x.GeoLocation.Longitude).InclusiveBetween(-180, 180).When(x => x.GeoLocation.Longitude.HasValue).WithMessage("Longitude must be between -180 and 180.");
-            RuleFor(x => x.Address.Region).NotEmpty().NotNull().WithMessage("Region is required.");
+         //   RuleFor(x => x.Address.Region).NotEmpty().NotNull().WithMessage("Region is required.");
             RuleFor(x => x.WorkSchedules).Must(workSchedules => workSchedules == null || workSchedules.Any()).WithMessage("WorkSchedules must not be empty.");
             RuleForEach(e => e.WorkSchedules)
                         .ChildRules(ws =>

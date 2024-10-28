@@ -140,12 +140,14 @@ namespace Infrastructure.Persistence.Migrations
                     b.Property<int>("AddressId")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("CreatedDate")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETDATE()");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("GeoLocationId")
-                        .HasColumnType("int");
 
                     b.Property<string>("ImagePath")
                         .HasMaxLength(500)
@@ -173,10 +175,6 @@ namespace Infrastructure.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AddressId");
-
-                    b.HasIndex("GeoLocationId")
-                        .IsUnique()
-                        .HasFilter("[GeoLocationId] IS NOT NULL");
 
                     b.HasIndex("UserId");
 
@@ -252,6 +250,9 @@ namespace Infrastructure.Persistence.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("AttractionId")
+                        .HasColumnType("int");
+
                     b.Property<double?>("Latitude")
                         .HasMaxLength(50)
                         .HasColumnType("float");
@@ -261,6 +262,9 @@ namespace Infrastructure.Persistence.Migrations
                         .HasColumnType("float");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AttractionId")
+                        .IsUnique();
 
                     b.ToTable("GeoLocations");
                 });
@@ -460,11 +464,6 @@ namespace Infrastructure.Persistence.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Travels.Domain.GeoLocation", "GeoLocation")
-                        .WithOne("Attraction")
-                        .HasForeignKey("Travels.Domain.Attraction", "GeoLocationId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
                     b.HasOne("Core.Users.Domain.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
@@ -472,8 +471,6 @@ namespace Infrastructure.Persistence.Migrations
                         .IsRequired();
 
                     b.Navigation("Address");
-
-                    b.Navigation("GeoLocation");
 
                     b.Navigation("User");
                 });
@@ -514,6 +511,17 @@ namespace Infrastructure.Persistence.Migrations
                     b.Navigation("Attraction");
 
                     b.Navigation("Route");
+                });
+
+            modelBuilder.Entity("Travels.Domain.GeoLocation", b =>
+                {
+                    b.HasOne("Travels.Domain.Attraction", "Attraction")
+                        .WithOne("GeoLocation")
+                        .HasForeignKey("Travels.Domain.GeoLocation", "AttractionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Attraction");
                 });
 
             modelBuilder.Entity("Travels.Domain.Image", b =>
@@ -608,15 +616,11 @@ namespace Infrastructure.Persistence.Migrations
 
                     b.Navigation("AttractionsInRoutes");
 
+                    b.Navigation("GeoLocation");
+
                     b.Navigation("Images");
 
                     b.Navigation("WorkSchedules");
-                });
-
-            modelBuilder.Entity("Travels.Domain.GeoLocation", b =>
-                {
-                    b.Navigation("Attraction")
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Travels.Domain.Route", b =>

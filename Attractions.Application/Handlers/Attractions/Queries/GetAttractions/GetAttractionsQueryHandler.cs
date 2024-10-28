@@ -6,6 +6,7 @@ using Core.Application.BaseRealizations;
 using Core.Application.DTOs;
 using Core.Auth.Application.Abstractions.Service;
 using Core.Users.Domain.Enums;
+using Microsoft.EntityFrameworkCore;
 using Travels.Domain;
 
 namespace Attractions.Application.Handlers.Attractions.Queries.GetAttractions
@@ -47,8 +48,9 @@ namespace Attractions.Application.Handlers.Attractions.Queries.GetAttractions
             {
                 query = query.Take(request.Limit.Value);
             }
+            query = query.Include(d => d.Address).Include(d => d.GeoLocation).Include(d => d.AttractionFeedback).Include(d => d.WorkSchedules).Include(d => d.Images);
 
-            var entitiesResult = await _attraction.AsAsyncRead(a => a.Address, a => a.GeoLocation, a => a.AttractionFeedback, a => a.WorkSchedules, a => a.Images).ToArrayAsync(cancellationToken);
+            var entitiesResult = await _attraction.AsAsyncRead().ToArrayAsync(query, cancellationToken);
             var entitiesCount = await _attraction.AsAsyncRead().CountAsync(query, cancellationToken);
 
             var items = _mapper.Map<GetAttractionsDto[]>(entitiesResult);

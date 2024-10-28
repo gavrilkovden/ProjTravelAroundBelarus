@@ -12,9 +12,9 @@ namespace Travels.Domain
         public int? NumberOfVisitors { get; set; } = default;
         public Guid UserId { get; set; }
         public int AddressId { get; set; }
-        public int? GeoLocationId { get; set; }
         public bool IsApproved { get; set; }
         public string? ImagePath { get; set; }
+        public DateTime CreatedDate { get; set; }
 
         public GeoLocation? GeoLocation { get; set; }
         public Address Address { get; set; }

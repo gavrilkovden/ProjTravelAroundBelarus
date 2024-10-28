@@ -65,6 +65,7 @@ namespace Attractions.Application.Handlers.Attractions.Commands.CreateAttraction
                 Address = address,
                 GeoLocation = geoLocation,
                 WorkSchedules = workSchedules,
+                CreatedDate = DateTime.UtcNow
             };
 
             attraction = await _attractions.AddAsync(attraction, cancellationToken);

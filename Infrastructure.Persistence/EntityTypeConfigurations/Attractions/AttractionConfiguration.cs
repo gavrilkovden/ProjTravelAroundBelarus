@@ -15,6 +15,8 @@ public class AttractionConfiguration : IEntityTypeConfiguration<Attraction>
         builder.Property(a => a.NumberOfVisitors);
         builder.Property(e => e.IsApproved).IsRequired().HasDefaultValue(false);
         builder.Property(a => a.ImagePath).HasMaxLength(500);
+        builder.Property(a => a.CreatedDate).IsRequired()
+    .HasDefaultValueSql("GETDATE()");
 
         builder.HasMany(a => a.AttractionsInRoutes)
     .WithOne(i => i.Attraction)
@@ -31,18 +33,15 @@ public class AttractionConfiguration : IEntityTypeConfiguration<Attraction>
           .HasForeignKey(ws => ws.AttractionId)
           .OnDelete(DeleteBehavior.Cascade);
 
-        builder.HasOne(a => a.GeoLocation)
-           .WithMany()
-           .HasForeignKey(a => a.GeoLocationId)
-           .OnDelete(DeleteBehavior.Cascade);
-
         builder.HasOne(a => a.Address)
-       .WithMany(address => address.Attractions) 
-       .HasForeignKey(a => a.AddressId)
-       .OnDelete(DeleteBehavior.Cascade);
+            .WithMany(ad => ad.Attractions)
+            .HasForeignKey(a => a.AddressId)
+            .OnDelete(DeleteBehavior.Cascade);
 
         builder.HasOne(a => a.User)
             .WithMany()
             .HasForeignKey(a => a.UserId);
     }
+
+    
 }

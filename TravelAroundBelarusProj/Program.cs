@@ -31,6 +31,24 @@ try
         .WriteTo.File($"{builder.Configuration["Logging:LogsFolder"]}/Error-.txt", LogEventLevel.Error,
             rollingInterval: RollingInterval.Day, retainedFileCountLimit: 30, buffered: true));
 
+    // Add CORS policy
+    builder.Services.AddCors(options =>
+    {
+        options.AddPolicy("AllowAll", builder =>
+        {
+            //    builder.AllowAnyOrigin()
+            //           .AllowAnyMethod()
+            //           .AllowAnyHeader()
+            //           .AllowCredentials();
+            //});
+            builder.WithOrigins("https://localhost:7125", "https://localhost:7098") // ”кажите конкретные домены
+                   .AllowAnyMethod()
+                   .AllowAnyHeader()
+                   .AllowCredentials(); // ƒл€ работы с куки
+        });
+    });
+
+
     builder.Services
         .AddSwaggerWidthJwtAuth(Assembly.GetExecutingAssembly(), appName, version, appName)
         .AddCoreApiServices()
@@ -44,26 +62,30 @@ try
         .AddRoutesApplication()
         .AddControllers();
 
-    var app = builder.Build();
-    app.MapControllers();
 
-    app.RunDbMigrations().RegisterApis(Assembly.GetExecutingAssembly(), $"api/{version}");
+        var app = builder.Build();
+        app.MapControllers();
+        app.UseStaticFiles();
 
-    app.UseCoreExceptionHandler()
-        .UseAuthExceptionHandler()
-        .UseSwagger(c => { c.RouteTemplate = "swagger/{documentName}/swagger.json"; })
-        .UseSwaggerUI(options =>
-        {
-            options.SwaggerEndpoint($"/swagger/{version}/swagger.json", version);
-            options.RoutePrefix = "swagger";
-        })
-        .UseAuthentication()
-        .UseAuthorization()
-        .UseHttpsRedirection()
-        ;
+        app.RunDbMigrations().RegisterApis(Assembly.GetExecutingAssembly(), $"api/{version}");
 
-    app.Run();
-}
+        app.UseCoreExceptionHandler()
+            .UseAuthExceptionHandler()
+            .UseSwagger(c => { c.RouteTemplate = "swagger/{documentName}/swagger.json"; })
+            .UseSwaggerUI(options =>
+            {
+                options.SwaggerEndpoint($"/swagger/{version}/swagger.json", version);
+                options.RoutePrefix = "swagger";
+            })
+
+            .UseHttpsRedirection()
+            .UseCors("AllowAll") // Apply CORS policy
+            .UseAuthentication()
+            .UseAuthorization()
+            ;
+
+        app.Run();
+    }
 catch (Exception ex)
 {
     var appSettingsFile = $"{Directory.GetCurrentDirectory()}/appsettings.json";

@@ -13,10 +13,11 @@ namespace Infrastructure.Persistence.EntityTypeConfigurations.Attractions
             builder.Property(a => a.City).HasMaxLength(50);
             builder.Property(a => a.Region).IsRequired().HasMaxLength(50);
 
-            builder.HasMany(a => a.Attractions)
-                      .WithOne(attraction => attraction.Address)
-                      .HasForeignKey(attraction => attraction.AddressId)
-                      .OnDelete(DeleteBehavior.Cascade); 
+            builder.Property(a => a.Region).HasConversion(
+        v => v.ToString(),
+        v => (RegionEnum)Enum.Parse(typeof(RegionEnum), v)).IsRequired();
+
+         
 
         }
     }

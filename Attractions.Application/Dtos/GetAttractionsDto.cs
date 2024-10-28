@@ -17,5 +17,6 @@ namespace Attractions.Application.Dtos
         public List<WorkScheduleDto> WorkSchedules { get; set; }
         public bool IsApproved { get; set; }
         public string? ImagePath { get; set; }
+        public DateTime CreatedDate { get; set; }
     }
 }
