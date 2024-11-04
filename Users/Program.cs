@@ -21,11 +21,16 @@ try
     // Add CORS policy
     builder.Services.AddCors(options =>
     {
-        options.AddPolicy("AllowAll", builder =>
+        options.AddPolicy("AllowSpecificOrigins", builder =>
         {
-            builder.AllowAnyOrigin()
-                   .AllowAnyMethod()
-                   .AllowAnyHeader();
+            //builder.AllowAnyOrigin()
+            //       .AllowAnyMethod()
+            //       .AllowAnyHeader();
+            builder.WithOrigins("https://localhost:7125", "https://localhost:7098", "https://localhost:7077") // ”кажите конкретные домены
+       .AllowAnyMethod()
+       .AllowAnyHeader()
+       .AllowCredentials(); // ƒл€ работы с куки
+
         });
     });
 
@@ -51,6 +56,7 @@ try
         .AddUserApplication();
 
     var app = builder.Build();
+    app.UseStaticFiles();
 
     app.RunDbMigrations().RegisterApis(Assembly.GetExecutingAssembly(), $"{appPrefix}/api/{version}");
 

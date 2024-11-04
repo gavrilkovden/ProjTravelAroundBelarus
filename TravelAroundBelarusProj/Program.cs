@@ -63,29 +63,29 @@ try
         .AddControllers();
 
 
-        var app = builder.Build();
-        app.MapControllers();
-        app.UseStaticFiles();
+    var app = builder.Build();
+    app.UseStaticFiles();
+    app.MapControllers();
 
-        app.RunDbMigrations().RegisterApis(Assembly.GetExecutingAssembly(), $"api/{version}");
+    app.RunDbMigrations().RegisterApis(Assembly.GetExecutingAssembly(), $"api/{version}");
 
-        app.UseCoreExceptionHandler()
-            .UseAuthExceptionHandler()
-            .UseSwagger(c => { c.RouteTemplate = "swagger/{documentName}/swagger.json"; })
-            .UseSwaggerUI(options =>
-            {
-                options.SwaggerEndpoint($"/swagger/{version}/swagger.json", version);
-                options.RoutePrefix = "swagger";
-            })
+    app.UseCoreExceptionHandler()
+        .UseAuthExceptionHandler()
+        .UseSwagger(c => { c.RouteTemplate = "swagger/{documentName}/swagger.json"; })
+        .UseSwaggerUI(options =>
+        {
+            options.SwaggerEndpoint($"/swagger/{version}/swagger.json", version);
+            options.RoutePrefix = "swagger";
+        })
 
-            .UseHttpsRedirection()
-            .UseCors("AllowAll") // Apply CORS policy
-            .UseAuthentication()
-            .UseAuthorization()
-            ;
+        .UseHttpsRedirection()
+        .UseCors("AllowAll") // Apply CORS policy
+        .UseAuthentication()
+        .UseAuthorization()
+        ;
 
-        app.Run();
-    }
+    app.Run();
+}
 catch (Exception ex)
 {
     var appSettingsFile = $"{Directory.GetCurrentDirectory()}/appsettings.json";

@@ -59,6 +59,8 @@ try
 
     var app = builder.Build();
 
+    app.UseStaticFiles();
+
     // Обработка preflight-запросов OPTIONS
     app.Use(async (context, next) =>
     {

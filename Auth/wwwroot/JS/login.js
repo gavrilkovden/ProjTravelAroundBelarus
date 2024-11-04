@@ -37,18 +37,12 @@ document.getElementById('login-form').addEventListener('submit', async function 
         if (response.ok) {
             const data = await response.json();
             console.log('Response JSON:', JSON.stringify(data, null, 2));
-        //    // Сохраняем JWT токен в localStorage
-        ////   localStorage.setItem('token', data.token);
-        //    setCookie('token', data.jwtToken, 7);
-        //    console.log('token:', document.cookie); // выводим куки в консоль
-        //    alert('Login successful!');
-
 
             if (data.jwtToken) {
                 setCookie('token', data.jwtToken, 7); // Сохраняем jwtToken в куки
                 console.log('Cookie after setting:', document.cookie); // Логируем состояние куки
                 alert('Login successful!');
-                window.location.href = 'index.html';
+                window.location.replace('https://localhost:7125/HTML/index.html');
             }
 
         } else {
