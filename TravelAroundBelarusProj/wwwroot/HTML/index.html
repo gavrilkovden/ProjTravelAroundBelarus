@@ -148,7 +148,15 @@
                     <input type="text" id="city" name="city">
 
                     <label for="region">Область:</label>
-                    <input type="text" id="region" name="region" required>
+                    <select id="region" name="region" required>
+                        <option value="" disabled selected>Выберите</option>
+                        <option value="Брестская">Брестская</option>
+                        <option value="Гродненская">Гродненская</option>
+                        <option value="Гомельская">Гомельская</option>
+                        <option value="Витебская">Витебская</option>
+                        <option value="Минская">Минская</option>
+                        <option value="Могилевская">Могилевская</option>
+                    </select>
 
                     <label for="latitude">Широта:</label>
                     <input type="number" id="latitude" name="latitude" step="0.000001" min="-90" max="90">
@@ -159,7 +167,7 @@
                     <small>Введите значение от -180 до 180.</small>
 
                     <!--<fieldset id="workSchedules">
-        <legend>Расписание работы:</legend>-->
+    <legend>Расписание работы:</legend>-->
                     <!-- Блоки расписания будут добавляться динамически -->
                     <!--<div class="work-schedule">
             <label for="workDay0">День недели:</label>

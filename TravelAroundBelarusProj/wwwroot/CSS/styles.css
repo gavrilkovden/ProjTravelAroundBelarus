@@ -309,11 +309,14 @@ header {
         font-weight: bold; /* Устанавливает жирное начертание шрифта для меток формы */
     }
 
-    #createForm input, #createForm textarea {
+    #createForm input, #createForm textarea,
+    #createForm select {
         margin-bottom: 15px; /* Добавляет нижний отступ для полей ввода и текстовой области */
         padding: 8px; /* Добавляет внутренние отступы для полей ввода и текстовой области */
         border: 1px solid #ccc; /* Устанавливает серую рамку для полей ввода и текстовой области */
         border-radius: 4px; /* Добавляет скругление углов для полей ввода и текстовой области */
+        height: 40px; /* Устанавливаем одинаковую высоту для всех полей */
+        box-sizing: border-box; /* Учитываем padding и границы */
     }
 
     #createForm button {

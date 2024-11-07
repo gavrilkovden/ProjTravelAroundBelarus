@@ -127,22 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
         //        return acc;
         //    }, []);
 
-        //// Преобразование времени и дней недели только если расписание полностью заполнено
-        //const filledWorkSchedules = workSchedules.filter(schedule =>
-        //    schedule.openTime && schedule.closeTime && schedule.dayOfWeek
-        //);
 
-        //// Преобразование времени и дней недели только если расписание заполнено
-        //if (filledWorkSchedules.length > 0) {
-        //    newAttraction.workSchedules = workSchedules.map(schedule => ({
-        //        ...schedule,
-        //        openTime: formatTime(schedule.openTime),
-        //        closeTime: formatTime(schedule.closeTime),
-        //        dayOfWeek: convertDayOfWeek(schedule.dayOfWeek)
-        //    }));
-        //} else {
-        //    newAttraction.workSchedules = null;
-        //}
 
         // Собираем расписание работы
         const workSchedules = Array.from(workSchedulesContainer.querySelectorAll('.work-schedule')).map(scheduleDiv => {
@@ -162,6 +147,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
         newAttraction.workSchedules = workSchedules.length > 0 ? workSchedules : null;
 
+        // Преобразование времени и дней недели только если расписание полностью заполнено
+        const filledWorkSchedules = workSchedules.filter(schedule =>
+            schedule.openTime && schedule.closeTime && schedule.dayOfWeek
+        );
+
+        // Преобразование времени и дней недели только если расписание заполнено
+        if (filledWorkSchedules.length > 0) {
+            newAttraction.workSchedules = workSchedules.map(schedule => ({
+                ...schedule,
+                openTime: formatTime(schedule.openTime),
+                closeTime: formatTime(schedule.closeTime),
+                dayOfWeek: convertDayOfWeek(schedule.dayOfWeek)
+            }));
+        } else {
+            newAttraction.workSchedules = null;
+        }
 
         try {
             // Отправка запроса на создание новой достопримечательности
@@ -224,26 +225,39 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Функция для форматирования времени в формате "hh:mm:ss"
+  //   Функция для форматирования времени в формате "hh:mm:ss"
     function formatTime(time) {
         if (!time) return null;
         const [hours, minutes] = time.split(':');
         return `${hours.padStart(2, '0')}:${minutes.padStart(2, '0')}:00`;
     }
 
-    //// Функция для конвертации дня недели в английский формат
-    //function convertDayOfWeek(day) {
-    //    const days = {
-    //        "Понедельник": "Monday",
-    //        "Вторник": "Tuesday",
-    //        "Среда": "Wednesday",
-    //        "Четверг": "Thursday",
-    //        "Пятница": "Friday",
-    //        "Суббота": "Saturday",
-    //        "Воскресенье": "Sunday"
-    //    };
-    //    return days[day] || day;
-    //}
+    function GetDayOfWeek(day) {
+        const days = {
+            "Monday": "Понедельник",
+            "Tuesday": "Вторник",
+            "Wednesday": "Среда",
+            "Thursday": "Четверг",
+            "Friday": "Пятница",
+            "Saturday": "Суббота",
+            "Sunday": "Воскресенье"
+        };
+        return days[day] || day; // Возвращаем день на русском или само значение, если оно не найдено
+    }
+
+    // Функция для конвертации дня недели в английский формат
+    function convertDayOfWeek(day) {
+        const days = {
+            "Понедельник": "Monday",
+            "Вторник": "Tuesday",
+            "Среда": "Wednesday",
+            "Четверг": "Thursday",
+            "Пятница": "Friday",
+            "Суббота": "Saturday",
+            "Воскресенье": "Sunday"
+        };
+        return days[day] || day;
+    }
 
     // Функция для показа следующего изображения
     function showNextImage() {

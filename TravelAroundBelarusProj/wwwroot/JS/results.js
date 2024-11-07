@@ -92,6 +92,19 @@ function getCookie(name) {
     return null;
 }
 
+function GetDayOfWeek(day) {
+    const days = {
+        "Monday": "Понедельник",
+        "Tuesday": "Вторник",
+        "Wednesday": "Среда",
+        "Thursday": "Четверг",
+        "Friday": "Пятница",
+        "Saturday": "Суббота",
+        "Sunday": "Воскресенье"
+    };
+    return days[day] || day; // Возвращаем день на русском или само значение, если оно не найдено
+}
+
 // Функция отображения полученных достопримечательностей
 function displayAttractions(attractions) {
     console.log('Отображение достопримечательностей:', attractions);
@@ -109,13 +122,15 @@ function displayAttractions(attractions) {
         const name = attraction.name || 'Название не предоставлено';
         const description = attraction.description || 'Описание не предоставлено';
         const price = attraction.price !== undefined ? attraction.price : 'Цена не указана';
-        const averageRating = attraction.averageRating !== undefined ? attraction.averageRating : 'Рейтинг не указан';
-        const address = attraction.address ? `${attraction.address.street}, ${attraction.address.city}, ${attraction.address.region}` : 'Адрес не указан';
-        const coordinates = attraction.geoLocation ? `${attraction.geoLocation.latitude}, ${attraction.geoLocation.longitude}` : 'Координаты не указаны';
+        const averageRating = (attraction.averageRating !== null && attraction.averageRating !== undefined) ? attraction.averageRating : 'У этого места еще нет оценок';
+        const address = attraction.address ? `${attraction.address.street} ${attraction.address.city} ${attraction.address.region} область` : 'Адрес не указан';
+        const coordinates = (attraction.geoLocation && attraction.geoLocation.latitude !== null && attraction.geoLocation.longitude !== null)
+            ? `${attraction.geoLocation.latitude}, ${attraction.geoLocation.longitude}`
+            : 'Координаты не указаны';
         const createdDate = attraction.createdDate ? new Date(attraction.createdDate).toLocaleDateString() : 'Дата не указана';
         const workSchedules = attraction.workSchedules && attraction.workSchedules.length > 0
             ? attraction.workSchedules.map(schedule =>
-                `<p>${schedule.dayOfWeek}: ${schedule.openTime} - ${schedule.closeTime}</p>`
+                `<p>${GetDayOfWeek(schedule.dayOfWeek)}: ${schedule.openTime} - ${schedule.closeTime}</p>`
             ).join('')
             : 'Рабочее расписание не указано';
 
@@ -154,6 +169,7 @@ function displayAttractions(attractions) {
         content.appendChild(div);
 
     });
+
 
     // Добавляем функционал для выбора звезд
     document.querySelectorAll('.rating-section').forEach(section => {
