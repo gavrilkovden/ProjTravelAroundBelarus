@@ -1,0 +1,95 @@
+﻿/*resultsAttractionId.css*/
+
+body {
+    font-family: cursive;
+    margin: 0;
+    padding-left: 15%; /* Отступ слева */
+    padding-right: 15%; /* Отступ справа */
+    background-color: #2358318c;
+    display: flex;
+}
+
+.container_body {
+    flex-grow: 1; /* Контейнер будет заполнять всё доступное пространство */
+    max-width: 100%; /* Ширина в процентах от экрана */
+    margin: 0 auto; /* Центровка контейнера */
+    padding: 0px; /* Внутренний отступ */
+    background-color: #ffffff;
+    box-sizing: border-box; /* Учитывает padding в общей ширине */
+}
+
+#content {
+    min-height: 100vh;
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Адаптивная сетка */
+    gap: 20px; /* Расстояние между элементами */
+    padding: 10px;
+}
+
+.container {
+    width: inherit; /* Не выходит за пределы родителя */
+    margin: 0 auto;
+    padding: 15px;
+}
+
+.container_body img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+h2 {
+    text-align: center; /* Центрирует текст заголовка */
+}
+
+/* Медиа-запросы для экранов разных размеров */
+@media (max-width: 1200px) {
+    .container_body {
+        max-width: 100%; /* Для меньших экранов */
+        padding: 0;
+    }
+    body {
+        padding-left: 0; /* Убираем отступ слева */
+        padding-right: 0; /* Убираем отступ справа */
+        overflow-x: hidden; /* Убираем горизонтальную прокрутку */
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        font-size: 14px; /* Уменьшаем шрифт на маленьких экранах */
+        overflow-x: hidden; /* Убираем горизонтальную прокрутку */
+    }
+
+    .container_body {
+        padding: 0;
+    }
+
+    body {
+        padding-left: 0; /* Убираем отступ слева */
+        padding-right: 0; /* Убираем отступ справа */
+    }
+
+    #content {
+        grid-template-columns: 1fr; /* Одна колонка */
+    }
+}
+
+.image-gallery {
+    display: flex; /* Используем flexbox для выравнивания */
+    flex-wrap: wrap; /* Переносим изображения на следующую строку при нехватке места */
+    gap: 10px; /* Расстояние между изображениями */
+}
+
+    .image-gallery img {
+        max-width: 150px; /* Ограничиваем максимальную ширину */
+        height: auto; /* Автоматически сохраняем пропорции */
+        cursor: pointer; /* Курсор-указатель для интерактивности */
+        border-radius: 5px; /* Добавляем скругленные углы */
+
+    }
+
+
+

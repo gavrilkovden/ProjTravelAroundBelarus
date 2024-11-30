@@ -1,0 +1,249 @@
+﻿/*nav-bar.css*/
+
+.navbar-container {
+    max-width: 100%; /* Ограничивает ширину до ширины экрана */
+    max-height: 10%; /* Устанавливает фиксированную высоту */
+    margin-left: auto;
+    margin-right: auto;
+    /*padding: 0 15px;*/ /* Добавляет боковые отступы для узких экранов */
+    display: flex; /* Использует Flexbox для выравнивания */
+    justify-content: space-between; /* Распределяет элементы по краям */
+    align-items: center; /* Центрирует содержимое по вертикали */
+    box-sizing: border-box; /* Учитывает padding в размерах элемента */
+    flex-wrap: wrap; /* Позволяет перенос элементов на другую строку */
+
+    background-color: #5b5b5b; /*Устанавливает цвет фона для шапки страницы */
+    z-index: 1;
+    width: 100%;
+    height: auto;
+    top: 0;
+    left: 0;
+    font-family: 'cursive'; /* Задает шрифт для текста навигации */
+    padding-left: 5%;
+    padding-right: 5%;
+    position: relative;
+}
+
+
+/*.top-background {
+    width: 100%;
+    height: 150px;
+    background: #dbd8be;*/ /* Градиент или другой фон */
+/*}
+
+.bottom-background {
+    width: 100%;
+    height: 150px;*/
+    /*background: #dbd8be00;*/ /* Градиент или другой фон */
+/*}*/
+
+
+/*.navbar {
+    display: flex;*/ /* Устанавливает флексбокс для выравнивания элементов навигации */
+    /*justify-content: space-between;*/ /* Размещает элементы на равном расстоянии друг от друга */
+    /*align-items: center;*/ /* Центрирует элементы по вертикали */
+    /*font-family: 'cursive';*/ /* Задает шрифт для текста навигации */
+    /*padding-left: 0px;
+    position: relative;
+    z-index: 1;
+}*/
+
+.logo-image {
+    max-height: 100%; /* Логотип масштабируется в пределах контейнера */
+    max-width: 200px; /* Задает максимальную ширину логотипа */
+    height: auto; /* Поддерживает пропорции изображения */
+    width: auto;
+}
+
+.nav-links {
+    list-style-type: none; /* Убирает маркеры списка */
+    padding: 0; /* Убирает внутренние отступы */
+    display: flex; /* Устанавливает флексбокс */
+    align-items: center; /* Центрирует элементы списка по вертикали */
+    /*gap: 10px;*/ /* Добавляет промежутки между ссылками */
+    flex-wrap: wrap; /* не Позволяет элементам переноситься на новую строку при узком экране */
+    justify-content: flex-start; /* Выравнивание пунктов меню в начале */
+
+}
+
+.nav-links li {
+    margin-left: 0; /* Убирает фиксированный отступ */
+}
+
+    .nav-links a {
+        text-decoration: none; /* Убирает подчеркивание */
+        font-family: Arial, sans-serif; /* Задает шрифт */
+        font-size: 1rem; /* Относительный размер шрифта */
+        color: white; /* Белый цвет текста */
+        padding: 10px 15px; /* Внутренние отступы */
+        border-radius: 4px; /* Скругление углов */
+        background-color: transparent; /* Прозрачный фон */
+        transition: background-color 0.3s; /* Анимация изменения фона */
+    }
+
+.nav-links a:hover {
+    background-color: rgba(255, 255, 255, 0.2); /* Подсветка при наведении */
+}
+
+.nav-links input[type="text"] {
+    padding: 5px;
+    margin-right: 10px;
+    width: 150px; /* Задает ширину поля */
+    max-width: 100%; /* Ограничивает ширину для адаптивности */
+}
+
+    .nav-links button {
+        padding: 5px 10px;
+        font-family: Arial, sans-serif; /* Задает шрифт */
+        font-size: 1rem; /* Относительный размер шрифта */
+        color: rgb(255, 255, 255); /* Устанавливает  цвет текста  */
+        background-color: transparent; /* Прозрачный фон */
+        border: none; /* Убирает рамку */
+        cursor: pointer;
+        /*    color: white;*/
+        /*transition: background-color 0.3s, color 0.3s;*/ /* Анимация изменения стиля */
+    }
+
+/*.nav-links button:hover {
+    background-color: white;
+    color: black;
+}*/
+
+.dropdown {
+    position: relative;
+}
+
+.dropdown-content {
+    display: none; /* Скрывает меню по умолчанию */
+    position: absolute;
+    background-color: #5b5b5b;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: white;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+/*    .dropdown-content a:hover {
+        background-color: #5b5b5b;
+    }*/
+
+.dropdown:hover .dropdown-content {
+    display: block; /* Показывает меню при наведении */
+}
+
+
+/* Медиа-запросы для экранов разных размеров */
+@media (max-width: 1200px) {
+    .navbar-container {
+        flex-direction: column; /* Размещаем элементы в колонку */
+        align-items: flex-start; /* Выровнять элементы по левому краю */
+        max-width: 90%; /* Не выходим за пределы родителя */
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .nav-links {
+        flex-direction: column; /* Переводим список в колонку */
+        width: 90%; /* Пусть занимает всю ширину */
+        gap: 0; /* Меньшее расстояние между элементами */
+    }
+
+        .nav-links li {
+            width: 90%; /* Кнопки на всю ширину */
+            text-align: center; /* Центрируем текст кнопок */
+        }
+
+        .nav-links a {
+            padding: 1% 1%;
+        }
+
+        .nav-links button {
+            padding: 1% 1%;
+        }
+
+    .dropdown-content a {
+        padding: 1px;
+    }
+
+    .dropdown-content {
+        min-width: 5px;
+    }
+
+    #searchInput {
+        width: 90%; /*Растягиваем поле поиска */
+        max-width: 90%; /*Не выходим за пределы родителя */
+    }
+
+    #searchButton, #createButton, #loginButton {
+        width: 90%; /*Кнопки тоже на всю ширину */
+        max-width: 90%; /*Не выходим за пределы родителя */
+    }
+
+    .nav-links input[type="text"] {
+        padding: 0;
+        margin-right: 0;
+        max-width: 90%; /* Задает ширину поля */
+        max-width: 90%; /* Ограничивает ширину для адаптивности */
+    }
+}
+
+
+    @media (max-width: 768px) {
+        .navbar-container {
+            flex-direction: column; /* Размещаем элементы в колонку */
+            align-items: flex-start; /* Выровнять элементы по левому краю */
+            max-width: 100%; /* Не выходим за пределы родителя */
+            padding-left: 0;
+            padding-right: 0;
+        }
+
+        .nav-links {
+            flex-direction: column; /* Переводим список в колонку */
+            width: 100%; /* Пусть занимает всю ширину */
+            gap: 2px; /* Меньшее расстояние между элементами */
+        }
+
+            .nav-links li {
+                width: 100%; /* Кнопки на всю ширину */
+                text-align: center; /* Центрируем текст кнопок */
+            }
+
+            .nav-links a {
+                padding: 1% 1%;
+            }
+
+            .nav-links button {
+                padding: 1% 1%;
+            }
+
+        .dropdown-content a {
+            padding: 5px;
+        }
+
+        .dropdown-content {
+            min-width: 1%;
+        }
+
+        #searchInput {
+            width: 100%; /*Растягиваем поле поиска */
+            max-width: 100%; /*Не выходим за пределы родителя */
+        }
+
+        #searchButton, #createButton, #loginButton {
+            width: 100%; /*Кнопки тоже на всю ширину */
+            max-width: 100%; /*Не выходим за пределы родителя */
+        }
+
+        .nav-links input[type="text"] {
+            padding: 0;
+            margin-right: 0;
+            max-width: 100%; /* Задает ширину поля */
+            max-width: 100%; /* Ограничивает ширину для адаптивности */
+        }
+    }

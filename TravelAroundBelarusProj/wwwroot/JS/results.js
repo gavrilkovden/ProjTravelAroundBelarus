@@ -3,7 +3,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     const content = document.getElementById('content');
     const query = new URLSearchParams(window.location.search).get('query');
     const region = new URLSearchParams(window.location.search).get('region');
+    const city = new URLSearchParams(window.location.search).get('city');
     const token = getCookie('token'); // Функция getCookie используется для извлечения куки
+
+    console.log('query', query);
+    console.log('region', region);
+    console.log('city', city);
 
     if (homeLink) {
         homeLink.addEventListener('click', (event) => {
@@ -15,6 +20,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (query) {
         // Логика поиска по тексту
         try {
+            console.log('Зашло в query');
             const response = await fetch(`https://localhost:7125/Api/Attractions?FreeText=${encodeURIComponent(query)}`, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -38,6 +44,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (region === 'Весь список') {
             // Запрос без параметров
             try {
+                console.log('Зашло в region');
                 const response = await fetch(`https://localhost:7125/Api/Attractions`, {
                     headers: {
                         'Authorization': `Bearer ${token}`,
@@ -60,6 +67,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         } else {
             // Запрос по региону
             try {
+                console.log('Зашло в Запрос по региону');
                 const response = await fetch(`https://localhost:7125/Api/Attractions?Region=${encodeURIComponent(region)}`, {
                     headers: {
                         'Authorization': `Bearer ${token}`,
@@ -79,8 +87,60 @@ document.addEventListener('DOMContentLoaded', async () => {
                 content.innerHTML = `<p style="color: red;">Ошибка: ${error.message}</p>`;
             }
         }
-    } else {
-        content.innerHTML = '<p style="color: red;">Ошибка: отсутствует запрос.</p>';
+    }
+    else {
+        if (city) {
+            // Логика поиска по городу
+            if (city === 'Вся область') {
+                // Запрос по региону
+                try {
+                    console.log('Зашло в city === Вся область');
+                    const response = await fetch(`https://localhost:7125/Api/Attractions?Region=${encodeURIComponent(region)}`, {
+                        headers: {
+                            'Authorization': `Bearer ${token}`,
+                            'Accept': 'application/json'
+                        }
+                    });
+
+                    if (!response.ok) {
+                        const errorText = await response.text();
+                        throw new Error(`HTTP error! статус: ${response.status}, детали: ${errorText}`);
+                    }
+
+                    const attractions = await response.json();
+                    displayAttractions(attractions);
+                } catch (error) {
+                    console.error('Ошибка при получении достопримечательностей по региону:', error);
+                    content.innerHTML = `<p style="color: red;">Ошибка: ${error.message}</p>`;
+                }
+            }
+            else {
+                // Запрос по городу
+                try {
+                    console.log('Зашло в Запрос по городу');
+                    const response = await fetch(`https://localhost:7125/Api/Attractions?City=${encodeURIComponent(city)}`, {
+                        headers: {
+                            'Authorization': `Bearer ${token}`,
+                            'Accept': 'application/json'
+                        }
+                    });
+
+                    if (!response.ok) {
+                        const errorText = await response.text();
+                        throw new Error(`HTTP error! статус: ${response.status}, детали: ${errorText}`);
+                    }
+
+                    const attractions = await response.json();
+                    displayAttractions(attractions);
+                } catch (error) {
+                    console.error('Ошибка при получении достопримечательностей по региону:', error);
+                    content.innerHTML = `<p style="color: red;">Ошибка: ${error.message}</p>`;
+                }
+            }
+        }
+        else {
+            content.innerHTML = '<p style="color: red;">Ошибка: отсутствует запрос.</p>';
+        }
     }
 });
 
@@ -136,36 +196,16 @@ function displayAttractions(attractions) {
 
         const imagePath = attraction.imagePath ? `<img src="https://localhost:7125/${attraction.imagePath.replace(/\\/g, '/')}" alt="${name}" style="max-width: 100%; height: auto;">` : '';
 
+
         div.innerHTML = `
-                <h2>${name}</h2>
+            <a href="/HTML/attractionDetails.html?id=${attraction.id}" class="attraction-link">
+                <p><strong>${name}</strong></p>
                 ${imagePath}
-                <p><strong>Описание:</strong> ${description}</p>
-                <p><strong>Стоимость посещения:</strong> ${price} руб.</p>
-                <p><strong>Рейтинг:</strong> ${averageRating} </p>
                 <p><strong>Адрес:</strong> ${address}</p>
-                <p><strong>Координаты:</strong> ${coordinates}</p>
-                <p><strong>Дата создания:</strong> ${createdDate}</p>
-                <div><strong>Рабочее расписание:</strong> ${workSchedules}</div>
+                <p><strong>Рейтинг:</strong> ${averageRating} </p>
+            </a>
+        `;
 
-                <div class="rating-section" id="rating-section-${attraction.id}" data-attraction-id="${attraction.id}" style="display: flex; align-items: center;">
-                <p style="margin-right: 10px;"><strong>Оцените достопримечательность:</strong></p>
-                <span class="star" data-rating="1">&#9734;</span>
-                <span class="star" data-rating="2">&#9734;</span>
-                <span class="star" data-rating="3">&#9734;</span>
-                <span class="star" data-rating="4">&#9734;</span>
-                <span class="star" data-rating="5">&#9734;</span>
-            </div>
-
-    <div class="comment-section" style="margin-top: 15px;">
-    <textarea id="comment-${attraction.id}" placeholder="Оставьте комментарий"></textarea>
-    <button class="submit-feedback" data-id="${attraction.id}">Отправить</button>
-        </div>
-
-               <p> <button class="comment-button" data-id="${attraction.id}"> Посмотреть все комментарии</button></p>
-                <div class="comments-section" id="comments-${attraction.id}" style="display: none;">
-                    <p>Загрузка комментариев...</p>
-                </div>
-            `;
         content.appendChild(div);
 
     });
@@ -275,7 +315,7 @@ function displayAttractions(attractions) {
 
                 // Если запрос успешен, обновим комментарии
                 const commentsSection = document.getElementById(`comments-${attractionId}`);
-      
+
                 commentsSection.innerHTML = '<p>Загрузка комментариев...</p>';
                 await loadComments(attractionId, commentsSection); // Перезагружаем комментарии
 

@@ -19,12 +19,15 @@ namespace Attractions.Application.Handlers.Attractions.Queries.GetAttractions
 
         private readonly ICurrentUserService _currentUserService;
 
-        public GetAttractionsQueryHandler(IBaseReadRepository<Attraction> attraction, ICurrentUserService currentUserService, IMapper mapper, AttractionsListMemoryCache cache) : base(cache, currentUserService.CurrentUserId!.Value)
+        public GetAttractionsQueryHandler(IBaseReadRepository<Attraction> attraction, ICurrentUserService currentUserService, IMapper mapper, AttractionsListMemoryCache cache)
+    : base(cache, currentUserService.CurrentUserId ?? Guid.Empty) // Используем Guid.Empty если пользователь неавторизован
         {
             _attraction = attraction;
             _mapper = mapper;
             _currentUserService = currentUserService;
         }
+
+
         public override async Task<BaseListDto<GetAttractionsDto>> SentQueryAsync(GetAttractionsQuery request, CancellationToken cancellationToken)
         {
             var query = _attraction.AsQueryable();
@@ -34,9 +37,14 @@ namespace Attractions.Application.Handlers.Attractions.Queries.GetAttractions
                 query = query.Where(e => e.IsApproved || e.UserId == _currentUserService.CurrentUserId).Where(ListAttractionWhere.WhereForClient(request, (Guid)_currentUserService.CurrentUserId));
             }
 
-            if (_currentUserService.UserInRole(ApplicationUserRolesEnum.Admin))
+            else if (_currentUserService.UserInRole(ApplicationUserRolesEnum.Admin))
             {
                 query = query.Where(ListAttractionWhere.WhereForAdmin(request));
+            }
+            else
+            {
+                // Для неавторизованных пользователей показываем только утвержденные записи
+                query = query.Where(ListAttractionWhere.WhereForUnauthenticated(request));
             }
 
             if (request.Offset.HasValue)

@@ -12,5 +12,7 @@ namespace Attractions.Application.Handlers.Attractions.Queries
         public string? FreeText { get; init; }
         public bool? IsApproved { get; init; }
         public RegionEnum? Region { get; init; }
+        public CityEnum? City { get; init; }
+        public List<int>? Ids { get; set; }
     }
 }

@@ -10,7 +10,7 @@ namespace Travel.Application.Dtos
     public class AddressDto
     {
         public string? Street { get; set; }
-        public string? City { get; set; }
+        public CityEnum City { get; set; }
         public RegionEnum Region { get; set; }
 
         public static implicit operator AddressDto(Address v)

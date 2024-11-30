@@ -10,15 +10,16 @@ namespace Infrastructure.Persistence.EntityTypeConfigurations.Attractions
         {
             builder.HasKey(a => a.Id);
             builder.Property(a => a.Street).HasMaxLength(50);
-            builder.Property(a => a.City).HasMaxLength(50);
+            builder.Property(a => a.City).IsRequired().HasMaxLength(50);
             builder.Property(a => a.Region).IsRequired().HasMaxLength(50);
 
             builder.Property(a => a.Region).HasConversion(
         v => v.ToString(),
         v => (RegionEnum)Enum.Parse(typeof(RegionEnum), v)).IsRequired();
 
-         
-
+            builder.Property(a => a.City).HasConversion(
+                v => v.ToString(),
+                v => (CityEnum)Enum.Parse(typeof(CityEnum), v)).IsRequired();
         }
     }
 }

@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const searchButton = document.getElementById('searchButton');
     const searchInput = document.getElementById('searchInput');
     const regionLinks = document.querySelectorAll('.region-link'); // Получаем все ссылки регионов
+    const cityLinks = document.querySelectorAll('.city-link');
     const loginButton = document.getElementById('loginButton'); // Найдем кнопку Войти
     const token = getCookie('token');
 
@@ -11,6 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (homeLink) {
         homeLink.addEventListener('click', (event) => {
             event.preventDefault();
+           // window.location.reload();
             window.location.href = 'index.html'; // Замените на URL вашей стартовой страницы
         });
     }
@@ -19,8 +21,8 @@ document.addEventListener('DOMContentLoaded', () => {
     regionLinks.forEach(link => {
         link.addEventListener('click', async (event) => {
             event.preventDefault(); // Предотвращаем переход по ссылке
-            const region = link.getAttribute('data-region'); // Получаем значение региона
-
+            const region = link.getAttribute('region'); // Получаем значение региона
+            
             try {
                 // Перенаправление на results.html с параметром региона
                 window.location.href = `results.html?region=${encodeURIComponent(region)}`;
@@ -30,6 +32,23 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+
+    // Обработчик события для поиска достопримечательностей по городу
+    cityLinks.forEach(link => {
+        link.addEventListener('click', async (event) => {
+            event.preventDefault(); // Предотвращаем переход по ссылке
+            const city = link.getAttribute('city'); // Получаем значение региона
+
+            try {
+                // Перенаправление на results.html с параметром региона
+                window.location.href = `results.html?city=${encodeURIComponent(city)}`;
+            } catch (error) {
+                console.error('Ошибка при формировании ссылки по city:', error);
+                content.innerHTML = `<p style="color: red;">Ошибка: ${error.message}</p>`;
+            }
+        });
+    });
+
 
     // Обработчик события для поиска достопримечательностей по тексту
     searchButton.addEventListener('click', async () => {

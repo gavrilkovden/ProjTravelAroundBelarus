@@ -24,7 +24,6 @@ using Travel.Application.Dtos;
 
 namespace TravelAroundBelarusProj.Api.Apis
 {
-    [Authorize]
     [ApiController]
     [Route("Api/Attractions")]
     public class AttractionsController : ControllerBase
@@ -35,7 +34,7 @@ namespace TravelAroundBelarusProj.Api.Apis
         {
             _mediator = mediator;
         }
-
+        [Authorize]
         [HttpPost]
         public async Task<ActionResult> AddAttraction(
           [FromBody] CreateAttractionCommand createAttractionCommand,
@@ -45,7 +44,7 @@ namespace TravelAroundBelarusProj.Api.Apis
 
             return Ok(createdAttraction);
         }
-
+        [Authorize]
         [HttpPost("Image")]
         [Consumes("multipart/form-data")]
         public async Task<ActionResult> AddImage(
@@ -89,6 +88,7 @@ namespace TravelAroundBelarusProj.Api.Apis
             return await _mediator.Send(query, cancellationToken);
         }
 
+        [Authorize]
         [HttpPut("{id}")]
         public async Task<GetAttractionDto> UpdateAttraction([FromRoute] int id,
            [FromBody] UpdateAttractionCommand command,
@@ -98,6 +98,7 @@ namespace TravelAroundBelarusProj.Api.Apis
             return await _mediator.Send(command, cancellationToken);
         }
 
+        [Authorize]
         [HttpPatch("{id}/IsApproved/Attraction")]
         public async Task<GetAttractionDto> PatchIsApprovedAttraction([FromRoute] int id, [FromBody] UpdateAttractionStatusCommand command, CancellationToken cancellationToken)
         {
@@ -105,6 +106,7 @@ namespace TravelAroundBelarusProj.Api.Apis
             return await _mediator.Send(command, cancellationToken);
         }
 
+        [Authorize]
         [HttpPatch("{id}/IsApproved/Image")]
         public async Task<GetImageDto> PatchIsApprovedImage([FromRoute] int id, [FromBody] UpdateImageApproveStatusCommand command, CancellationToken cancellationToken)
         {
@@ -112,6 +114,7 @@ namespace TravelAroundBelarusProj.Api.Apis
             return await _mediator.Send(command, cancellationToken);
         }
 
+        [Authorize]
         [HttpDelete("Images/{id}")]
         public async Task<ActionResult> DeleteImages([FromRoute] int id, CancellationToken cancellationToken)
         {
@@ -119,6 +122,7 @@ namespace TravelAroundBelarusProj.Api.Apis
             return Ok();
         }
 
+        [Authorize]
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteAttraction([FromRoute] int id, CancellationToken cancellationToken)
         {
@@ -126,6 +130,7 @@ namespace TravelAroundBelarusProj.Api.Apis
             return Ok();
         }
 
+        [Authorize]
         [HttpPost("AttractionFeedback")]
         public async Task<ActionResult> AddAttractionFeedback(
             [FromBody] CreateFeedbackAttractionCommand createFeedbackAttractionCommand,
@@ -136,6 +141,7 @@ namespace TravelAroundBelarusProj.Api.Apis
             return Ok(createdAttractionFeedback);
         }
 
+        [Authorize]
         [HttpPut("AttractionFeedback/{id}")]
         public async Task<ActionResult> AddAttractionFeedback([FromRoute] int id,
             [FromBody] UpdateFeedbackAttractionCommand command,
@@ -169,6 +175,7 @@ namespace TravelAroundBelarusProj.Api.Apis
             return await _mediator.Send(query, cancellationToken);
         }
 
+        [Authorize]
         [HttpDelete("AttractionFeedback/{id}")]
         public async Task<ActionResult> DeleteAttractionFeedback([FromRoute] int id, CancellationToken cancellationToken)
         {

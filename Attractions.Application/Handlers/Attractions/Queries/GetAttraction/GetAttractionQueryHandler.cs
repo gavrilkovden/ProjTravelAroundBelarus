@@ -21,7 +21,7 @@ namespace Attractions.Application.Handlers.Attractions.Queries.GetAttraction
 
         private readonly ICurrentUserService _currentUserService;
 
-        public GetAttractionQueryHandler(IBaseReadRepository<Attraction> attraction, ICurrentUserService currentUserService, IMapper mapper, AttractionMemoryCache cache) : base(cache, currentUserService.CurrentUserId!.Value)
+        public GetAttractionQueryHandler(IBaseReadRepository<Attraction> attraction, ICurrentUserService currentUserService, IMapper mapper, AttractionMemoryCache cache) : base(cache, currentUserService.CurrentUserId ?? Guid.Empty) // Используем Guid.Empty если пользователь неавторизован
         {
             _attractions = attraction;
             _mapper = mapper;
@@ -54,7 +54,8 @@ namespace Attractions.Application.Handlers.Attractions.Queries.GetAttraction
             {
                 attractionResult.AverageRating = null; // Не устанавливаем значение, если оценок нет
             }
-            var currentUserId = _currentUserService.CurrentUserId!.Value;
+            //var currentUserId = _currentUserService.CurrentUserId!.Value;
+            var currentUserId = _currentUserService.CurrentUserId ?? Guid.Empty;
 
             // Фильтруем изображения в зависимости от роли пользователя
             bool isAdmin = _currentUserService.UserInRole(ApplicationUserRolesEnum.Admin);
