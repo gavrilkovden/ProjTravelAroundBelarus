@@ -48,7 +48,7 @@ namespace Attractions.Application.Handlers.Attractions.Commands.UploadImage
 
                 try
                 {
-                    // Создание директории, если она не существует
+                    // Создание директории
                     Directory.CreateDirectory(uploadsFolder);
 
                     // Сохранение файла

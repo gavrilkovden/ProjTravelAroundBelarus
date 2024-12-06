@@ -2,7 +2,7 @@
 
 document.addEventListener('DOMContentLoaded', async () => {
     const content = document.getElementById('content');
-    const attractionIds = [32,36,37]; // Укажите здесь нужные id достопримечательностей
+    const attractionIds = [32,36,37]; // для загрузки на стартовой странице
 
     // Создаем параметры запроса с несколькими значениями Ids
     const urlParams = new URLSearchParams();

@@ -39,21 +39,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Application", "Core.Ap
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Users.Domain", "Core.Users.Domain\Core.Users.Domain.csproj", "{69AA9582-2C90-468F-9183-1C669187F86B}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Views", "Views", "{16CF5605-7191-4E47-969E-BCF1EE4AEF60}"
-	ProjectSection(SolutionItems) = preProject
-		index.html = index.html
-		results.html = results.html
-		styles.css = styles.css
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Account", "Account", "{34A25E49-7315-49F0-947C-16AC89777186}"
-	ProjectSection(SolutionItems) = preProject
-		Login.html = Login.html
-		register.html = register.html
-		StyleAuth.css = StyleAuth.css
-		stylesAuth.css = stylesAuth.css
-	EndProjectSection
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Users.Api", "Users\Users.Api.csproj", "{D4B73E96-98DF-47A1-BB98-D85ACB9D154E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Auth.Api", "Auth\Auth.Api.csproj", "{ABECEACA-A296-4E8B-9D76-E1BA11EB511A}"
@@ -83,15 +68,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Users.UnitTests", "Users.UnitTests\Users.UnitTests.csproj", "{EB8FFCB9-88AD-4587-9161-5488CF2C36E4}"
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{2A674BEC-A37E-48E4-A150-BFF9DEA3DDBB}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "JavaScript", "JavaScript", "{E319838E-4B97-4537-834A-3EDC5A706E8D}"
-	ProjectSection(SolutionItems) = preProject
-		login.js = login.js
-		navigation.js = navigation.js
-		register.js = register.js
-		results.js = results.js
-		script.js = script.js
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -207,8 +183,6 @@ Global
 		{D5C18F09-007A-4A70-9EBF-49551CF87454} = {A5F85361-9A1E-49E0-A946-26381294A56B}
 		{A1C8F3ED-9CAA-4A33-BB56-12F8F4EF0B73} = {A5F85361-9A1E-49E0-A946-26381294A56B}
 		{69AA9582-2C90-468F-9183-1C669187F86B} = {A5F85361-9A1E-49E0-A946-26381294A56B}
-		{16CF5605-7191-4E47-969E-BCF1EE4AEF60} = {DD57BC00-2BB2-4794-B9FD-5EDCE2727D1D}
-		{34A25E49-7315-49F0-947C-16AC89777186} = {16CF5605-7191-4E47-969E-BCF1EE4AEF60}
 		{D4B73E96-98DF-47A1-BB98-D85ACB9D154E} = {3B343CF1-5D0C-4053-B7C4-49CAEB9C9C88}
 		{ABECEACA-A296-4E8B-9D76-E1BA11EB511A} = {3B343CF1-5D0C-4053-B7C4-49CAEB9C9C88}
 		{F70DD479-AA80-4E2D-A44D-777966E124A0} = {54543CE9-05AF-4340-90DA-0163D9905300}
@@ -222,7 +196,6 @@ Global
 		{FA28EAE2-E7BF-4A71-B07E-DE2EDAEE71CF} = {AB58EEAF-1B83-45CE-9448-B4ED69FC6468}
 		{FE5DC3EB-ADAB-4977-8B05-12DAC577B1ED} = {AB58EEAF-1B83-45CE-9448-B4ED69FC6468}
 		{EB8FFCB9-88AD-4587-9161-5488CF2C36E4} = {AB58EEAF-1B83-45CE-9448-B4ED69FC6468}
-		{E319838E-4B97-4537-834A-3EDC5A706E8D} = {16CF5605-7191-4E47-969E-BCF1EE4AEF60}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6A6E9721-7AE3-41F7-AA90-8A678E580352}

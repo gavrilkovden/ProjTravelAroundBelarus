@@ -78,9 +78,6 @@ namespace Attractions.Application.Handlers.Attractions.Queries.GetAttractions
                     item.AverageRating = null; // Не устанавливаем значение, если оценок нет
                 }
 
-                //var approvedImage = attraction.Images?.FirstOrDefault(d => d.IsApproved);
-                //item.ImagePath = approvedImage?.ImagePath;
-
                 // Устанавливаем ImagePath для изображения с IsCover = true
                 var coverImage = attraction.Images?.FirstOrDefault(img => img.IsCover && img.IsApproved);
                 item.ImagePath = coverImage?.ImagePath;

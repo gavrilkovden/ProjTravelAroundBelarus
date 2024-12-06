@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
         homeLink.addEventListener('click', (event) => {
             event.preventDefault();
            // window.location.reload();
-            window.location.href = 'index.html'; // Замените на URL вашей стартовой страницы
+            window.location.href = 'index.html'; 
         });
     }
 

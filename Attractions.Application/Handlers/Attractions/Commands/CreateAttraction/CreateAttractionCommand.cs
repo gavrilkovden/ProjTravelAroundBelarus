@@ -14,6 +14,6 @@ namespace Attractions.Application.Handlers.Attractions.Commands.CreateAttraction
         public AddressDto Address { get; set; }
         public GeoLocationDto GeoLocation { get; set; }
         public List<WorkScheduleDto>? WorkSchedules { get; set; }
-      //  public IFormFile? Image { get; set; }
+
     }
 }
