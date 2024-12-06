@@ -1,249 +1,157 @@
 ﻿/*nav-bar.css*/
-
 .navbar-container {
-    max-width: 100%; /* Ограничивает ширину до ширины экрана */
-    max-height: 10%; /* Устанавливает фиксированную высоту */
+    display: flex; /* Устанавливает флексбокс для выравнивания элементов навигации */
+    justify-content: space-between;
+    flex-direction: row;
+    max-height: 130px;
     margin-left: auto;
     margin-right: auto;
-    /*padding: 0 15px;*/ /* Добавляет боковые отступы для узких экранов */
-    display: flex; /* Использует Flexbox для выравнивания */
-    justify-content: space-between; /* Распределяет элементы по краям */
-    align-items: center; /* Центрирует содержимое по вертикали */
-    box-sizing: border-box; /* Учитывает padding в размерах элемента */
-    flex-wrap: wrap; /* Позволяет перенос элементов на другую строку */
+}
 
-    background-color: #5b5b5b; /*Устанавливает цвет фона для шапки страницы */
-    z-index: 1;
+header {
     width: 100%;
-    height: auto;
     top: 0;
     left: 0;
-    font-family: 'cursive'; /* Задает шрифт для текста навигации */
-    padding-left: 5%;
-    padding-right: 5%;
-    position: relative;
+    background: 
+    radial-gradient(circle at 15% 20%, rgba(4, 26, 6, 0.9) 25%, rgba(0, 0, 0, 0) 60%),
+    radial-gradient(circle at 85% 80%, rgba(101, 129, 100, 0.8) 20%, rgba(0, 0, 0, 0) 70%),
+    radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.05) 0%, rgba(0, 0, 0, 0.1) 80%),
+    conic-gradient(from 180deg at 50% 50%, rgba(0, 0, 0, 0.3), rgba(63, 84, 153, 0.2), rgba(0, 0, 0, 0.3)),
+    linear-gradient(45deg, rgba(4, 26, 6, 1), rgba(31, 107, 63, 0.7) 30%, rgba(63, 84, 153, 0.9) 70%, rgba(0, 0, 0, 1));
+Разбор слоёв:
+    max-height: 100%;
 }
 
 
-/*.top-background {
-    width: 100%;
-    height: 150px;
-    background: #dbd8be;*/ /* Градиент или другой фон */
-/*}
-
-.bottom-background {
-    width: 100%;
-    height: 150px;*/
-    /*background: #dbd8be00;*/ /* Градиент или другой фон */
-/*}*/
-
-
-/*.navbar {
-    display: flex;*/ /* Устанавливает флексбокс для выравнивания элементов навигации */
-    /*justify-content: space-between;*/ /* Размещает элементы на равном расстоянии друг от друга */
-    /*align-items: center;*/ /* Центрирует элементы по вертикали */
-    /*font-family: 'cursive';*/ /* Задает шрифт для текста навигации */
-    /*padding-left: 0px;
+.navbar {
+    display: flex; /* Устанавливает флексбокс для выравнивания элементов навигации */
+    justify-content: space-between; /* Размещает элементы на равном расстоянии друг от друга */
+    align-items: center; /* Центрирует элементы по вертикали */
+    padding: 0 5px; /* Добавляет отступы слева и справа внутри навигационной панели */
+    font-family: 'cursive'; /* Задает шрифт для текста навигации */
+    font-size: 20px; /* Устанавливает размер шрифта для текста навигации */
+    color: #ffffff; /* Устанавливает белый цвет текста навигации */
+    padding-left: 7px;
     position: relative;
     z-index: 1;
-}*/
+    max-height: 130px;
+}
+
+#homeLink {
+    display: inline-block; /* Устраняет отступы от строчного элемента */
+    padding: 0; /* Убирает внутренние отступы */
+    margin: 0; /* Убирает внешние отступы */
+    text-decoration: none; /* Убирает подчеркивание */
+}
 
 .logo-image {
-    max-height: 100%; /* Логотип масштабируется в пределах контейнера */
-    max-width: 200px; /* Задает максимальную ширину логотипа */
-    height: auto; /* Поддерживает пропорции изображения */
-    width: auto;
+    max-height: 125px;
+    max-width: 125px;
+    object-fit: contain; /* Масштабирует изображение, чтобы оно поместилось */
+    border-radius: 50%; /* Делает форму круглой */
+    overflow: hidden; /* Обрезает содержимое по форме круга */
+    position: relative; /* Для теней и эффектов */
+    /*    box-shadow: 0 0 10px rgba(0, 255, 255, 0.6), 0 0 20px rgba(0, 255, 255, 0.4), 0 0 40px rgba(0, 255, 255, 0.3);
+    transition: box-shadow 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;*/
+    transition: transform 0.6s ease;
+    padding-top: 3px;
 }
+
+    .logo-image:hover {
+        transform: rotate(360deg);
+    }
 
 .nav-links {
     list-style-type: none; /* Убирает маркеры списка */
-    padding: 0; /* Убирает внутренние отступы */
-    display: flex; /* Устанавливает флексбокс */
-    align-items: center; /* Центрирует элементы списка по вертикали */
-    /*gap: 10px;*/ /* Добавляет промежутки между ссылками */
-    flex-wrap: wrap; /* не Позволяет элементам переноситься на новую строку при узком экране */
-    justify-content: flex-start; /* Выравнивание пунктов меню в начале */
-
+    padding: 0; /* Убирает отступы внутри списка */
+    display: flex; /* Устанавливает флексбокс для элементов списка */
+    align-items: flex-end; /* Выравнивание элементов по нижнему краю */
+    list-style-type: none; /* Убираем маркеры списка */
+    padding: 0; /* Убираем внутренние отступы */
+    margin: 0; /* Убираем внешние отступы */
+    gap: 15px; /* Промежуток между элементами */
 }
 
-.nav-links li {
-    margin-left: 0; /* Убирает фиксированный отступ */
-}
-
-    .nav-links a {
-        text-decoration: none; /* Убирает подчеркивание */
-        font-family: Arial, sans-serif; /* Задает шрифт */
-        font-size: 1rem; /* Относительный размер шрифта */
-        color: white; /* Белый цвет текста */
-        padding: 10px 15px; /* Внутренние отступы */
-        border-radius: 4px; /* Скругление углов */
-        background-color: transparent; /* Прозрачный фон */
-        transition: background-color 0.3s; /* Анимация изменения фона */
+    .nav-links li {
+        margin-left: 5px; /* Добавляет отступ слева между элементами списка */
     }
 
-.nav-links a:hover {
-    background-color: rgba(255, 255, 255, 0.2); /* Подсветка при наведении */
-}
-
-.nav-links input[type="text"] {
-    padding: 5px;
-    margin-right: 10px;
-    width: 150px; /* Задает ширину поля */
-    max-width: 100%; /* Ограничивает ширину для адаптивности */
-}
-
-    .nav-links button {
-        padding: 5px 10px;
-        font-family: Arial, sans-serif; /* Задает шрифт */
-        font-size: 1rem; /* Относительный размер шрифта */
-        color: rgb(255, 255, 255); /* Устанавливает  цвет текста  */
-        background-color: transparent; /* Прозрачный фон */
-        border: none; /* Убирает рамку */
-        cursor: pointer;
-        /*    color: white;*/
-        /*transition: background-color 0.3s, color 0.3s;*/ /* Анимация изменения стиля */
-    }
-
-/*.nav-links button:hover {
-    background-color: white;
-    color: black;
-}*/
-
-.dropdown {
-    position: relative;
-}
-
-.dropdown-content {
-    display: none; /* Скрывает меню по умолчанию */
-    position: absolute;
-    background-color: #5b5b5b;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
-    z-index: 1;
-}
-
-.dropdown-content a {
-    color: white;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-}
-
-/*    .dropdown-content a:hover {
-        background-color: #5b5b5b;
-    }*/
-
-.dropdown:hover .dropdown-content {
-    display: block; /* Показывает меню при наведении */
-}
-
-
-/* Медиа-запросы для экранов разных размеров */
-@media (max-width: 1200px) {
-    .navbar-container {
-        flex-direction: column; /* Размещаем элементы в колонку */
-        align-items: flex-start; /* Выровнять элементы по левому краю */
-        max-width: 90%; /* Не выходим за пределы родителя */
-        padding-left: 0;
-        padding-right: 0;
-    }
-
-    .nav-links {
-        flex-direction: column; /* Переводим список в колонку */
-        width: 90%; /* Пусть занимает всю ширину */
-        gap: 0; /* Меньшее расстояние между элементами */
-    }
-
-        .nav-links li {
-            width: 90%; /* Кнопки на всю ширину */
-            text-align: center; /* Центрируем текст кнопок */
-        }
-
-        .nav-links a {
-            padding: 1% 1%;
-        }
-
-        .nav-links button {
-            padding: 1% 1%;
-        }
-
-    .dropdown-content a {
-        padding: 1px;
-    }
-
-    .dropdown-content {
-        min-width: 5px;
-    }
-
-    #searchInput {
-        width: 90%; /*Растягиваем поле поиска */
-        max-width: 90%; /*Не выходим за пределы родителя */
-    }
-
-    #searchButton, #createButton, #loginButton {
-        width: 90%; /*Кнопки тоже на всю ширину */
-        max-width: 90%; /*Не выходим за пределы родителя */
+    .nav-links a, .nav-links button {
+        text-decoration: none; /* Убирает подчеркивание у ссылок */
+        color: white; /* Устанавливает белый цвет текста ссылок */
+        padding: 10px 20px; /* Добавляет внутренние отступы у ссылок и кнопок */
+               border: none; /* Убирает границы у ссылок и кнопок */
+        cursor: pointer; /* Устанавливает указатель курсора при наведении на ссылку или кнопку */
     }
 
     .nav-links input[type="text"] {
-        padding: 0;
-        margin-right: 0;
-        max-width: 90%; /* Задает ширину поля */
-        max-width: 90%; /* Ограничивает ширину для адаптивности */
+        padding: 5px; /* Добавляет внутренние отступы внутри текстового поля */
+        margin-right: 10px; /* Добавляет отступ справа от текстового поля */
     }
+
+    .nav-links button {
+        padding: 5px 10px; /* Добавляет внутренние отступы у кнопки */
+        background-color: #47574700; /* Устанавливает прозрачный фон для кнопки */
+        border: none; /* Убирает границы у кнопки */
+        border-radius: 4px; /* Добавляет скругление углов у кнопки */
+        font-size: 20px; /* Устанавливает размер шрифта для кнопки */
+        font-family: 'cursive'; /* Задает шрифт для текста на кнопке */
+    }
+
+    .nav-links button,
+    .nav-links a,
+    .nav-links input {
+        display: inline-block; /* Унифицируем поведение всех элементов */
+        text-align: center; /* Центрируем текст */
+        padding: 5px 10px; /* Внутренние отступы */
+        line-height: 1.2; /* Высота строки для элементов с переносом */
+    }
+
+.dropdown {
+    position: relative; /* Устанавливает относительное позиционирование для выпадающего списка */
+}
+
+.dropdown-content {
+    display: none; /* Скрывает содержимое выпадающего списка */
+    position: absolute; /* Устанавливает абсолютное позиционирование для содержимого выпадающего списка */
+    background-color: #374037; /* Устанавливает цвет фона для выпадающего списка */
+    min-width: 160px; /* Устанавливает минимальную ширину выпадающего списка */
+    box-shadow: 0px 8px 16px 0px rgb(253 252 252 / 32%); /* Добавляет тень к выпадающему списку */
+    z-index: 1; /* Устанавливает порядок слоев для выпадающего списка */
+}
+
+    .dropdown-content a {
+        color: white; /* Устанавливает белый цвет текста ссылок в выпадающем списке */
+        padding: 12px 16px; /* Добавляет внутренние отступы у ссылок в выпадающем списке */
+        text-decoration: none; /* Убирает подчеркивание у ссылок в выпадающем списке */
+        display: block; /* Задает блочное отображение для ссылок в выпадающем списке */
+    }
+
+        .dropdown-content a:hover {
+            background-color: #80866c; /* Изменяет цвет фона ссылки при наведении */
+        }
+
+.dropdown:hover .dropdown-content {
+    display: block; /* Показывает выпадающее меню при наведении на родительский элемент */
 }
 
 
-    @media (max-width: 768px) {
-        .navbar-container {
-            flex-direction: column; /* Размещаем элементы в колонку */
-            align-items: flex-start; /* Выровнять элементы по левому краю */
-            max-width: 100%; /* Не выходим за пределы родителя */
-            padding-left: 0;
-            padding-right: 0;
-        }
 
-        .nav-links {
-            flex-direction: column; /* Переводим список в колонку */
-            width: 100%; /* Пусть занимает всю ширину */
-            gap: 2px; /* Меньшее расстояние между элементами */
-        }
+/* Стиль для подменю */
 
-            .nav-links li {
-                width: 100%; /* Кнопки на всю ширину */
-                text-align: center; /* Центрируем текст кнопок */
-            }
+.sub-dropdown {
+    display: none;
+    position: absolute;
+    left: 100%;
+    top: 0;
+    background-color: #374037;
+    box-shadow: 0px 8px 16px 0px rgb(253 252 252 / 32%); /* Добавляет тень к выпадающему списку */
+    min-width: 300px;
+    font-size: 15px;
+}
 
-            .nav-links a {
-                padding: 1% 1%;
-            }
-
-            .nav-links button {
-                padding: 1% 1%;
-            }
-
-        .dropdown-content a {
-            padding: 5px;
-        }
-
-        .dropdown-content {
-            min-width: 1%;
-        }
-
-        #searchInput {
-            width: 100%; /*Растягиваем поле поиска */
-            max-width: 100%; /*Не выходим за пределы родителя */
-        }
-
-        #searchButton, #createButton, #loginButton {
-            width: 100%; /*Кнопки тоже на всю ширину */
-            max-width: 100%; /*Не выходим за пределы родителя */
-        }
-
-        .nav-links input[type="text"] {
-            padding: 0;
-            margin-right: 0;
-            max-width: 100%; /* Задает ширину поля */
-            max-width: 100%; /* Ограничивает ширину для адаптивности */
-        }
-    }
+/* Показ подменю при наведении */
+.region-link:hover .sub-dropdown {
+    display: block;
+}

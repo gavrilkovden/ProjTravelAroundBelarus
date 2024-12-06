@@ -82,7 +82,7 @@ header {
     font-family: 'cursive'; /* Задает шрифт для текста навигации */
     font-size: 20px; /* Устанавливает размер шрифта для текста навигации */
     color: #ffffff; /* Устанавливает белый цвет текста навигации */
-    padding-left: 0px;
+    padding: 7px;
     position: relative;
     z-index: 1;
 }
@@ -99,7 +99,19 @@ header {
     width: auto;
     max-width: 1110px;
     max-height: 110px;
+    border-radius: 50%; /* Делает форму круглой */
+    overflow: hidden; /* Обрезает содержимое по форме круга */
+    position: relative; /* Для теней и эффектов */
+    /*    box-shadow: 0 0 10px rgba(0, 255, 255, 0.6), 0 0 20px rgba(0, 255, 255, 0.4), 0 0 40px rgba(0, 255, 255, 0.3);
+    transition: box-shadow 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;*/
+    transition: transform 0.6s ease;
+    position: relative;
+
 }
+    .logo-image:hover {
+        transform: rotate(360deg);
+    }
 
 .nav-links {
     list-style-type: none; /* Убирает маркеры списка */
@@ -118,7 +130,7 @@ header {
 
     .nav-links a, .nav-links button {
         text-decoration: none; /* Убирает подчеркивание у ссылок */
-        color: black; /* Устанавливает белый цвет текста ссылок */
+        color:white; /* Устанавливает белый цвет текста ссылок */
         padding: 10px 20px; /* Добавляет внутренние отступы у ссылок и кнопок */
         background-color: #92949200; /* Устанавливает прозрачный фон для ссылок и кнопок */
         border: none; /* Убирает границы у ссылок и кнопок */
@@ -459,25 +471,6 @@ header {
     /* Высота будет составлять 50% от ширины экрана */
 }
 
-/*стилизация footer*/
-.footer {
-    background-color: #5b5b5b;
-    color: white;
-    padding-top: 45px;
-    padding-bottom: 100px;
-    font-family: Arial; /* Задает шрифт  */
-    font-size: 16px; /* Задает размер шрифта */
-}
-
-.footer-row{
-    display:flex;
-    flex-direction:row;
-    justify-content:space-between;
-}
-
-.footer-icons img {
-    width: 30px;
-}
 
 .star {
     font-size: 24px;
@@ -520,4 +513,8 @@ header {
         text-decoration: underline;
     }
 
+.frame {
+    height: 10px;
+    background: #132316;
+}
 

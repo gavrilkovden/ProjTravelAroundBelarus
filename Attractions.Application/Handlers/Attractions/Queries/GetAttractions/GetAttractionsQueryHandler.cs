@@ -58,6 +58,7 @@ namespace Attractions.Application.Handlers.Attractions.Queries.GetAttractions
             }
             query = query.Include(d => d.Address).Include(d => d.GeoLocation).Include(d => d.AttractionFeedback).Include(d => d.WorkSchedules).Include(d => d.Images);
 
+
             var entitiesResult = await _attraction.AsAsyncRead().ToArrayAsync(query, cancellationToken);
             var entitiesCount = await _attraction.AsAsyncRead().CountAsync(query, cancellationToken);
 
@@ -77,8 +78,12 @@ namespace Attractions.Application.Handlers.Attractions.Queries.GetAttractions
                     item.AverageRating = null; // Не устанавливаем значение, если оценок нет
                 }
 
-                var approvedImage = attraction.Images?.FirstOrDefault(d => d.IsApproved);
-                item.ImagePath = approvedImage?.ImagePath;
+                //var approvedImage = attraction.Images?.FirstOrDefault(d => d.IsApproved);
+                //item.ImagePath = approvedImage?.ImagePath;
+
+                // Устанавливаем ImagePath для изображения с IsCover = true
+                var coverImage = attraction.Images?.FirstOrDefault(img => img.IsCover && img.IsApproved);
+                item.ImagePath = coverImage?.ImagePath;
 
             }
 

@@ -2,7 +2,7 @@
 /*стилизация footer*/
 
 .footer {
-    background: radial-gradient(circle at top left, #416767, transparent), radial-gradient(circle at bottom right, #69786d, transparent), linear-gradient(90deg, #000000, #dbda21);
+    background: radial-gradient(circle at top left, #041a06, transparent), radial-gradient(circle at bottom right, #658164, transparent), linear-gradient(90deg, #000000, #3f5499);
     color: white;
     padding: 45px 5%; /* Используем проценты для отступов */
     font-family: Arial, sans-serif; /* Задает шрифт */

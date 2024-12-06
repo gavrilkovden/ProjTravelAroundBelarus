@@ -130,39 +130,6 @@ document.addEventListener('DOMContentLoaded', () => {
             // Загружаем изображения после создания достопримечательности
             await uploadImages(attractionId);
 
-           //  Если файл изображения был выбран, загружаем его
-            //if (imageFileInput.files.length > 0) {
-            //    const imageFormData = new FormData();
-            //    imageFormData.append('Image', imageFileInput.files[0]);
-            //    imageFormData.append('AttractionId', attractionId);
-            //    imageFormData.append('IsCover', 'true'); // Подставляем true, если это обложка
-
-            //    try {
-            //        console.log('Отправка изображения:', imageFormData.get('file'));
-            //        console.log('AttractionId:', imageFormData.get('AttractionId'));
-            //        console.log('IsCover:', imageFormData.get('IsCover'));
-            //        const uploadResponse = await fetch('https://localhost:7125/Api/Attractions/Image', {
-            //            method: 'POST',
-            //            headers: {
-            //                'Authorization': `Bearer ${token}`
-            //            },
-            //            body: imageFormData
-            //        });
-
-            //        if (!uploadResponse.ok) {
-            //            const errorText = await uploadResponse.text();
-            //            throw new Error(`HTTP ошибка! Статус: ${uploadResponse.status}, детали: ${errorText}`);
-            //        }
-
-            //        console.log('Изображение успешно загружено');
-
-            //    } catch (error) {
-            //        console.error('Ошибка при загрузке изображения:', error);
-            //        alert('Ошибка при загрузке изображения: ' + error.message);
-            //    }
-            //}
-
-
             alert('Достопримечательность успешно добавлена!');
             createModal.style.display = 'none';
         } catch (error) {
@@ -171,7 +138,50 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Функция для загрузки нескольких изображений
+    // Функция для загрузки изображений
+    //async function uploadImages(attractionId) {
+    //    const imageFiles = document.getElementById('imageFiles').files;
+
+    //    if (imageFiles.length === 0) {
+    //        alert('Пожалуйста, выберите хотя бы одно изображение.');
+    //        return;
+    //    }
+
+    //    const token = getCookie('token');
+    //    const coverImageIndex = document.querySelector('input[name="coverImage"]:checked')?.value;
+
+    //    for (const [index, file] of Array.from(imageFiles).entries()) {
+    //        const imageFormData = new FormData();
+    //        imageFormData.append('Image', file);
+    //        imageFormData.append('AttractionId', attractionId);
+    //        imageFormData.append('IsCover', index == coverImageIndex ? 'true' : 'false'); // Устанавливаем, если это обложка
+
+    //        try {
+    //            console.log('Отправка изображения:', file.name);
+    //            const uploadResponse = await fetch('https://localhost:7125/Api/Attractions/Image', {
+    //                method: 'POST',
+    //                headers: {
+    //                    'Authorization': `Bearer ${token}`
+    //                },
+    //                body: imageFormData
+    //            });
+
+    //            if (!uploadResponse.ok) {
+    //                const errorText = await uploadResponse.text();
+    //                throw new Error(`HTTP ошибка! Статус: ${uploadResponse.status}, детали: ${errorText}`);
+    //            }
+
+    //            console.log(`Изображение ${file.name} успешно загружено`);
+    //        } catch (error) {
+    //            console.error(`Ошибка при загрузке изображения ${file.name}:`, error);
+    //            alert(`Ошибка при загрузке изображения ${file.name}: ` + error.message);
+    //        }
+    //    }
+
+    //    alert('Все изображения успешно загружены!');
+    //}
+
+
     async function uploadImages(attractionId) {
         const imageFiles = document.getElementById('imageFiles').files;
 
@@ -181,12 +191,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         const token = getCookie('token');
+        const coverImageIndex = document.querySelector('input[name="coverImage"]:checked')?.value;
 
-        for (const file of imageFiles) {
+        for (const [index, file] of Array.from(imageFiles).entries()) {
             const imageFormData = new FormData();
             imageFormData.append('Image', file);
             imageFormData.append('AttractionId', attractionId);
-            imageFormData.append('IsCover', 'false'); // Устанавливаем, если это не обложка
+            imageFormData.append('IsCover', index == coverImageIndex ? 'true' : 'false'); // Устанавливаем обложку
 
             try {
                 console.log('Отправка изображения:', file.name);
@@ -212,6 +223,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         alert('Все изображения успешно загружены!');
     }
+
 
   //   Функция для форматирования времени в формате "hh:mm:ss"
     function formatTime(time) {
@@ -453,3 +465,44 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+
+function displaySelectedImages() {
+    const imageFiles = document.getElementById('imageFiles').files;
+    const selectedImagesContainer = document.getElementById('selectedImages');
+    selectedImagesContainer.innerHTML = ''; // Очистить контейнер
+
+    Array.from(imageFiles).forEach((file, index) => {
+        const fileElement = document.createElement('div');
+        fileElement.style.marginBottom = '10px';
+        fileElement.style.display = 'flex';
+        fileElement.style.alignItems = 'center';
+
+        // Создание FileReader для чтения изображения
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            const preview = document.createElement('img');
+            preview.src = e.target.result;
+            preview.style.width = '100px'; // Устанавливаем ширину превью
+            preview.style.height = '100px'; // Устанавливаем высоту превью
+            preview.style.objectFit = 'cover'; // Сохраняем пропорции
+            preview.style.marginRight = '10px'; // Отступ от радиокнопки
+
+            // Добавляем превью в контейнер
+            fileElement.insertBefore(preview, fileElement.firstChild);
+        };
+
+        // Чтение файла как Data URL
+        reader.readAsDataURL(file);
+
+        // Создание радио-кнопки для выбора обложки
+        fileElement.innerHTML += `
+            <label>
+                <input type="radio" name="coverImage" value="${index}" ${index === 0 ? 'checked' : ''}>
+                Обложка
+            </label>
+        `;
+
+        selectedImagesContainer.appendChild(fileElement);
+    });
+}
+

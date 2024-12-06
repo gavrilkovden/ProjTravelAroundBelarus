@@ -21,7 +21,8 @@ document.addEventListener('DOMContentLoaded', () => {
     regionLinks.forEach(link => {
         link.addEventListener('click', async (event) => {
             event.preventDefault(); // Предотвращаем переход по ссылке
-            const region = link.getAttribute('region'); // Получаем значение региона
+            event.stopPropagation(); // Останавливаем распространение события
+            const region = link.getAttribute('data-region'); // Получаем значение региона
             
             try {
                 // Перенаправление на results.html с параметром региона
@@ -37,7 +38,8 @@ document.addEventListener('DOMContentLoaded', () => {
     cityLinks.forEach(link => {
         link.addEventListener('click', async (event) => {
             event.preventDefault(); // Предотвращаем переход по ссылке
-            const city = link.getAttribute('city'); // Получаем значение региона
+            event.stopPropagation(); // Останавливаем распространение события
+            const city = link.getAttribute('data-city'); // Получаем значение региона
 
             try {
                 // Перенаправление на results.html с параметром региона

@@ -39,109 +39,86 @@ document.addEventListener('DOMContentLoaded', async () => {
             console.error('Ошибка при получении достопримечательностей:', error);
             content.innerHTML = `<p style="color: red;">Ошибка: ${error.message}</p>`;
         }
-    } else if (region) {
-        // Логика поиска по региону
-        if (region === 'Весь список') {
-            // Запрос без параметров
-            try {
-                console.log('Зашло в region');
-                const response = await fetch(`https://localhost:7125/Api/Attractions`, {
-                    headers: {
-                        'Authorization': `Bearer ${token}`,
-                        'Accept': 'application/json'
-                    }
-                });
-
-                if (!response.ok) {
-                    const errorText = await response.text();
-                    throw new Error(`HTTP error! статус: ${response.status}, детали: ${errorText}`);
+    }
+    /*     if (region) {*/
+    // Логика поиска по региону
+    else if (region === 'Весь список') {
+        // Запрос без параметров
+        try {
+            console.log('Зашло в region');
+            const response = await fetch(`https://localhost:7125/Api/Attractions`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Accept': 'application/json'
                 }
+            });
 
-                const attractions = await response.json();
-                displayAttractions(attractions);
-            } catch (error) {
-                console.error('Ошибка при получении всех достопримечательностей:', error);
-                console.log('MyToken:', token);
-                content.innerHTML = `<p style="color: red;">Ошибка: ${error.message}</p>`;
+            if (!response.ok) {
+                const errorText = await response.text();
+                throw new Error(`HTTP error! статус: ${response.status}, детали: ${errorText}`);
             }
-        } else {
-            // Запрос по региону
-            try {
-                console.log('Зашло в Запрос по региону');
-                const response = await fetch(`https://localhost:7125/Api/Attractions?Region=${encodeURIComponent(region)}`, {
-                    headers: {
-                        'Authorization': `Bearer ${token}`,
-                        'Accept': 'application/json'
-                    }
-                });
 
-                if (!response.ok) {
-                    const errorText = await response.text();
-                    throw new Error(`HTTP error! статус: ${response.status}, детали: ${errorText}`);
-                }
-
-                const attractions = await response.json();
-                displayAttractions(attractions);
-            } catch (error) {
-                console.error('Ошибка при получении достопримечательностей по региону:', error);
-                content.innerHTML = `<p style="color: red;">Ошибка: ${error.message}</p>`;
-            }
+            const attractions = await response.json();
+            displayAttractions(attractions);
+        } catch (error) {
+            console.error('Ошибка при получении всех достопримечательностей:', error);
+            console.log('MyToken:', token);
+            content.innerHTML = `<p style="color: red;">Ошибка: ${error.message}</p>`;
         }
     }
+    else if (region) {
+        // Запрос по региону
+        try {
+            console.log('Зашло в Запрос по региону');
+            const response = await fetch(`https://localhost:7125/Api/Attractions?Region=${encodeURIComponent(region)}`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Accept': 'application/json'
+                }
+            });
+
+            if (!response.ok) {
+                const errorText = await response.text();
+                throw new Error(`HTTP error! статус: ${response.status}, детали: ${errorText}`);
+            }
+
+
+            const attractions = await response.json();
+            displayAttractions(attractions);
+        } catch (error) {
+            console.error('Ошибка при получении достопримечательностей по региону:', error);
+            content.innerHTML = `<p style="color: red;">Ошибка: ${error.message}</p>`;
+        }
+    }
+
+    else if (city) {
+        // Запрос по городу
+        try {
+            console.log('Зашло в Запрос по городу');
+            const response = await fetch(`https://localhost:7125/Api/Attractions?City=${encodeURIComponent(city)}`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Accept': 'application/json'
+                }
+            });
+
+            if (!response.ok) {
+                const errorText = await response.text();
+                throw new Error(`HTTP error! статус: ${response.status}, детали: ${errorText}`);
+            }
+
+            const attractions = await response.json();
+            displayAttractions(attractions);
+        } catch (error) {
+            console.error('Ошибка при получении достопримечательностей по региону:', error);
+            content.innerHTML = `<p style="color: red;">Ошибка: ${error.message}</p>`;
+        }
+    }
+
     else {
-        if (city) {
-            // Логика поиска по городу
-            if (city === 'Вся область') {
-                // Запрос по региону
-                try {
-                    console.log('Зашло в city === Вся область');
-                    const response = await fetch(`https://localhost:7125/Api/Attractions?Region=${encodeURIComponent(region)}`, {
-                        headers: {
-                            'Authorization': `Bearer ${token}`,
-                            'Accept': 'application/json'
-                        }
-                    });
-
-                    if (!response.ok) {
-                        const errorText = await response.text();
-                        throw new Error(`HTTP error! статус: ${response.status}, детали: ${errorText}`);
-                    }
-
-                    const attractions = await response.json();
-                    displayAttractions(attractions);
-                } catch (error) {
-                    console.error('Ошибка при получении достопримечательностей по региону:', error);
-                    content.innerHTML = `<p style="color: red;">Ошибка: ${error.message}</p>`;
-                }
-            }
-            else {
-                // Запрос по городу
-                try {
-                    console.log('Зашло в Запрос по городу');
-                    const response = await fetch(`https://localhost:7125/Api/Attractions?City=${encodeURIComponent(city)}`, {
-                        headers: {
-                            'Authorization': `Bearer ${token}`,
-                            'Accept': 'application/json'
-                        }
-                    });
-
-                    if (!response.ok) {
-                        const errorText = await response.text();
-                        throw new Error(`HTTP error! статус: ${response.status}, детали: ${errorText}`);
-                    }
-
-                    const attractions = await response.json();
-                    displayAttractions(attractions);
-                } catch (error) {
-                    console.error('Ошибка при получении достопримечательностей по региону:', error);
-                    content.innerHTML = `<p style="color: red;">Ошибка: ${error.message}</p>`;
-                }
-            }
-        }
-        else {
-            content.innerHTML = '<p style="color: red;">Ошибка: отсутствует запрос.</p>';
-        }
+        content.innerHTML = '<p style="color: red;">Ошибка: отсутствует запрос.</p>';
     }
+
 });
 
 // Функция для получения куки по имени
@@ -183,7 +160,7 @@ function displayAttractions(attractions) {
         const description = attraction.description || 'Описание не предоставлено';
         const price = attraction.price !== undefined ? attraction.price : 'Цена не указана';
         const averageRating = (attraction.averageRating !== null && attraction.averageRating !== undefined) ? attraction.averageRating : 'У этого места еще нет оценок';
-        const address = attraction.address ? `${attraction.address.street} ${attraction.address.city} ${attraction.address.region} область` : 'Адрес не указан';
+        const address = attraction.address ? `${attraction.address.street} ${GetCities(attraction.address.city)} ${attraction.address.region} область` : 'Адрес не указан';
         const coordinates = (attraction.geoLocation && attraction.geoLocation.latitude !== null && attraction.geoLocation.longitude !== null)
             ? `${attraction.geoLocation.latitude}, ${attraction.geoLocation.longitude}`
             : 'Координаты не указаны';
@@ -398,4 +375,129 @@ async function loadComments(attractionId, commentsSection) {
         console.error('Ошибка при получении комментариев:', error);
         commentsSection.innerHTML = `<p style="color: red;">Ошибка: ${error.message}</p>`;
     }
+}
+
+function GetCities(city) {
+    const cities = {
+        "Брест": "Брест и Брестский район,",
+        "Барановичи": "Барановичи и Барановичский район,",
+        "Берёза": "Берёза и Берёзовский район,",
+        "Ганцевичи": "Ганцевичи и Ганцевичский район,",
+        "Дрогичин": "Дрогичин и Дрогичинский район,",
+        "Жабинка": "Жабинка и Жабинковский район,",
+        "Иваново": "Иваново и Ивановский район,",
+        "Ивацевичи": "Ивацевичи и Ивацевичский район,",
+        "Каменец": "Каменец и Каменецкий район,",
+        "Кобрин": "Кобрин и Кобринский район,",
+        "Лунинец": "Лунинец и Лунинецкий район,",
+        "Ляховичи": "Ляховичи и Ляховичский район,",
+        "Малорита": "Малорита и Малоритский район,",
+        "Пинск": "Пинск и Пинский район,",
+        "Пружаны": "Пружаны и Пружанский район,",
+        "Столин": "Столин и Столинский район,",
+        "Гродно": "Гродно и Гродненский район,",
+        "Берестовица": "Берестовица и Берестовицкий район,",
+        "Волковыск": "Волковыск и Волковысский район,",
+        "Вороново": "Вороново и Вороновский район,",
+        "Дятлово": "Дятлово и Дятловский район,",
+        "Зельва": "Зельва и Зельвенский район,",
+        "Ивье": "Ивье и Ивьевский район,",
+        "Кореличи": "Кореличи и Кореличский район,",
+        "Лида": "Лида и Лидский район,",
+        "Мосты": "Мосты и Мостовский район,",
+        "Новогрудок": "Новогрудок и Новогрудский район,",
+        "Ошмяны": "Ошмяны и Ошмянский район,",
+        "Островец": "Островец и Островецкий район,",
+        "Свислочь": "Свислочь и Свислочский район,",
+        "Слоним": "Слоним и Слонимский район,",
+        "Сморгонь": "Сморгонь и Сморгонский район,",
+        "Щучин": "Щучин и Щучинский район,",
+        "Гомель": "Гомель и Гомельский район,",
+        "Брагин": "Брагин и Брагинский район,",
+        "Буда-Кошелёво": "Буда-Кошелёво и Буда-Кошелевский район,",
+        "Ветка": "Ветка и Ветковский район,",
+        "Добруш": "Добруш и Добрушский район,",
+        "Ельск": "Ельск и Ельский район,",
+        "Житковичи": "Житковичи и Житковский район,",
+        "Жлобин": "Жлобин и Жлобинский район,",
+        "Калинковичи": "Калинковичи и Калинковичский район,",
+        "Корма": "Корма и Кормянский район,",
+        "Лельчицы": "Лельчицы и Лельчицкий район,",
+        "Лоев": "Лоев и Лоевский район,",
+        "Мозырь": "Мозырь и Мозырский район,",
+        "Наровля": "Наровля и Наровлянский район,",
+        "Октябрьский": "Октябрьский и Октябрьский район,",
+        "Петриков": "Петриков и Петриковский район,",
+        "Речица": "Речица и Речицкий район,",
+        "Рогачёв": "Рогачёв и Рогачёвский район,",
+        "Светлогорск": "Светлогорск и Светлогорский район,",
+        "Хойники": "Хойники и Хойникский район,",
+        "Чечерск": "Чечерск и Чечерский район,",
+        "Витебск": "Витебск и Витебский район,",
+        "Бешенковичи": "Бешенковичи и Бешенковичский район,",
+        "Браслав": "Браслав и Браславский район,",
+        "Верхнедвинск": "Верхнедвинск и Верхнедвинский район,",
+        "Глубокое": "Глубокое и Глубокский район,",
+        "Городок": "Городок и Городокский район,",
+        "Докшицы": "Докшицы и Докшицкий район,",
+        "Дубровно": "Дубровно и Дубровенский район,",
+        "Лепель": "Лепель и Лепельский район,",
+        "Лиозно": "Лиозно и Лиозненский район,",
+        "Миоры": "Миоры и Миорский район,",
+        "Орша": "Орша и Оршанский район,",
+        "Полоцк": "Полоцк и Полоцкий район,",
+        "Поставы": "Поставы и Поставский район,",
+        "Россоны": "Россоны и Россонский район,",
+        "Сенно": "Сенно и Сенненский район",
+        "Толочин": "Толочин и Толочинский район,",
+        "Ушачи": "Ушачи и Ушачский район,",
+        "Чашники": "Чашники и Чашникский район,",
+        "Шарковщина": "Шарковщина и Шарковщинский район,",
+        "Шумилино": "Шумилино и Шумилинский район,",
+        "Минск": "Минск и Минский район,",
+        "Березино": "Березино и Березинский район,",
+        "Борисов": "Борисов и Борисовский район,",
+        "Вилейка": "Вилейка и Вилейский район,",
+        "Воложин": "Воложин и Воложинский район,",
+        "Дзержинск": "Дзержинск и Дзержинский район,",
+        "Клецк": "Клецк и Клецкий район,",
+        "Копыль": "Копыль и Копыльский район,",
+        "Крупки": "Крупки и Крупский район,",
+        "Логойск": "Логойск и Логойский район,",
+        "Любань": "Любань и Любанский район,",
+        "Молодечно": "Молодечно и Молодечненский район,",
+        "Мядель": "Мядель и Мядельский район,",
+        "Несвиж": "Несвиж и Несвижский район,",
+        "Пуховичи": "Пуховичи и Пуховичский район,",
+        "Слуцк": "Слуцк и Слуцкий район,",
+        "Смолевичи": "Смолевичи и Смолевичский район,",
+        "Солигорск": "Солигорск и Солигорский район,",
+        "Старые Дороги": "Старые Дороги и Стародорожский район,",
+        "Столбцы": "Столбцы и Столбцовский район,",
+        "Узда": "Узда и Узденский район,",
+        "Червень": "Червень и Червенский район,",
+        "Могилёв": "Могилёв и Могилёвский район,",
+        "Белыничи": "Белыничи и Белыничский район,",
+        "Бобруйск": "Бобруйск и Бобруйский район,",
+        "Быхов": "Быхов и Быховский район,",
+        "Глуск": "Глуск и Глусский район,",
+        "Горки": "Горки и Горецкий район,",
+        "Дрибин": "Дрибин и Дрибинский район,",
+        "Кировск": "Кировск и Кировский район,",
+        "Климовичи": "Климовичи и Климовичский район,",
+        "Кличев": "Кличев и Кличевский район,",
+        "Краснополье": "Краснополье и Краснопольский район,",
+        "Кричев": "Кричев и Кричевский район,",
+        "Круглое": "Круглое и Круглянский район,",
+        "Костюковичи": "Костюковичи и Костюковичский район,",
+        "Мстиславль": "Мстиславль и Мстиславский район,",
+        "Осиповичи": "Осиповичи и Осиповичский район,",
+        "Славгород": "Славгород и Славгородский район,",
+        "Хотимск": "Хотимск и Хотимский район,",
+        "Чаусы": "Чаусы и Чаусский район,",
+        "Чериков": "Чериков и Чериковский район,",
+        "Шклов": "Шклов и Шкловский район,"
+
+    };
+    return cities[city] || city;
 }

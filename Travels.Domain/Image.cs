@@ -12,7 +12,7 @@ namespace Travels.Domain
     {
         public int Id { get; set; }
         public int AttractionId { get; set; }
-        public string ImagePath { get; set; }
+        public string? ImagePath { get; set; }
         public bool IsApproved { get; set; }
         public bool IsCover { get; set; }
         public Guid UserId { get; set; }
