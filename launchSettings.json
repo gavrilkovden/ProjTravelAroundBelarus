@@ -1,0 +1,14 @@
+{
+  "profiles": {
+    "Docker Compose": {
+      "commandName": "DockerCompose",
+      "commandVersion": "1.0",
+      "serviceActions": {
+        "travelaroundbelarusproj.api": "StartDebugging",
+        "users.api": "StartDebugging",
+        "auth.api": "StartDebugging",
+        "sql_server": "StartWithoutDebugging"
+      }
+    }
+  }
+}

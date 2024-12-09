@@ -1,0 +1,41 @@
+﻿/*footer.css*/
+/*стилизация footer*/
+
+.footer {
+    background: radial-gradient(circle at top left, #041a06, transparent), radial-gradient(circle at bottom right, #658164, transparent), linear-gradient(90deg, #000000, #3f5499);
+    color: white;
+    padding: 45px 5%; /* Используем проценты для отступов */
+    font-family: Arial, sans-serif; /* Задает шрифт */
+    font-size: 1rem; /* Относительный размер шрифта */
+    box-sizing: border-box; /* Учитываем padding в ширине */
+    width: 100%; /* Футер занимает всю ширину экрана */
+    margin-top: auto; /* Отодвигает футер к нижней части экрана */
+}
+
+/* Контейнер для строк в футере */
+.footer-row {
+    display: flex;
+    flex-wrap: wrap; /* Разрешаем перенос строк при недостатке места */
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 20px; /* Добавляем расстояние между элементами */
+}
+
+/* Иконки в футере */
+.footer-icons img {
+    width: 30px;
+    height: auto; /* Поддерживаем пропорции */
+}
+
+/* Медиа-запросы для адаптивности */
+@media (max-width: 768px) {
+    .footer-row {
+        flex-direction: column; /* На маленьких экранах элементы идут в колонку */
+        align-items: center; /* Центруем элементы */
+        text-align: center; /* Выравниваем текст по центру */
+    }
+
+    .footer-icons img {
+        width: 25px; /* Уменьшаем размер иконок */
+    }
+}

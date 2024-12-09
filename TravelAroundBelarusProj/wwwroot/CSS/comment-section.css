@@ -1,0 +1,109 @@
+﻿/*comment-section.css*/
+
+.star {
+    font-size: 2rem; /* Увеличиваем размер звезд для читабельности */
+    cursor: pointer;
+    color: gold;
+    margin: 0 5px; /* Добавляем отступы между звездами */
+    transition: transform 0.3s; /* Добавляем анимацию при наведении */
+}
+
+    .star:hover {
+        transform: scale(1.2); /* Увеличиваем звезду при наведении */
+    }
+
+/* Секция комментариев */
+.comment-section {
+    max-width: 600px; /* Ограничиваем ширину секции для удобного чтения */
+    margin: 20px auto; /* Центрируем секцию на странице */
+    padding: 20px;
+    background-color: #f9f9f9; /* Светлый фон для выделения секции */
+    border-radius: 8px; /* Скругленные углы */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Легкая тень */
+}
+
+    .comment-section textarea {
+        width: 100%; /* Текстовая область растягивается на всю ширину секции */
+        height: 100px; /* Фиксированная высота */
+        padding: 10px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+        border: 1px solid #cccccc;
+        font-size: 1rem; /* Удобный размер шрифта */
+        resize: vertical; /* Позволяет пользователю изменять только высоту */
+        box-sizing: border-box; /* Учитывает отступы и границы в ширине */
+    }
+
+    .comment-section button {
+        width: 100%; /* Кнопка занимает всю ширину на маленьких экранах */
+        max-width: 150px; /* Ограничиваем максимальную ширину */
+        padding: 10px;
+        margin: 0 auto; /* Центрируем кнопку */
+        display: block;
+        background-color: #4caf50; /* Зеленый цвет кнопки */
+        color: white;
+        border: none; /* Убираем границу */
+        border-radius: 5px;
+        font-size: 1rem; /* Адаптивный размер шрифта */
+        cursor: pointer;
+        transition: background-color 0.3s; /* Анимация изменения цвета */
+    }
+
+        .comment-section button:hover {
+            background-color: #45a049; /* Темно-зеленый цвет при наведении */
+        }
+
+/* Кнопка "Добавить комментарий" */
+.comment-button {
+    border: none;
+    cursor: pointer;
+    background-color: transparent; /* Прозрачный фон */
+    color: #007bff; /* Синий текст */
+    font-size: 1rem; /* Размер текста */
+    text-align: center;
+    display: inline-block;
+    padding: 5px 10px;
+    transition: color 0.3s, text-decoration 0.3s; /* Анимация */
+}
+
+    .comment-button:hover {
+        color: #0056b3; /* Темно-синий цвет текста */
+        text-decoration: underline;
+    }
+
+/* Адаптивные настройки */
+@media (max-width: 768px) {
+    .comment-section {
+        padding: 15px; /* Уменьшаем отступы */
+        margin: 10px; /* Увеличиваем отступы от краев экрана */
+    }
+
+        .comment-section textarea {
+            font-size: 0.9rem; /* Уменьшаем размер текста */
+        }
+
+        .comment-section button {
+            font-size: 0.9rem; /* Уменьшаем размер кнопки */
+            max-width: 100%; /* Кнопка занимает всю ширину */
+        }
+}
+
+@media (max-width: 480px) {
+    .comment-section {
+        margin: 5px; /* Минимальные отступы для узких экранов */
+        padding: 10px;
+    }
+
+    .star {
+        font-size: 1.5rem; /* Уменьшаем размер звезд для узких экранов */
+    }
+
+    .comment-section textarea {
+        height: 80px; /* Уменьшаем высоту текстовой области */
+    }
+
+    .comment-section button {
+        font-size: 0.8rem; /* Уменьшаем текст кнопки */
+        padding: 8px; /* Уменьшаем внутренние отступы */
+    }
+}

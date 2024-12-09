@@ -1,0 +1,489 @@
+<!--attractionDetails.html-->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Путешествие по Беларуси</title>
+    <link rel="stylesheet" href="/CSS/resultsAttractionId.css">
+    <link rel="stylesheet" href="/CSS/nav-bar.css">
+    <link rel="stylesheet" href="/CSS/footer.css">
+    <link rel="stylesheet" href="/CSS/comment-section.css">
+    <link rel="stylesheet" href="/CSS/createForm.css">
+
+</head>
+<body>
+    <div class="container_body">
+        <div class="navbar-container">
+            <header>
+                <nav class="navbar">
+                    <div class="logo">
+                        <a href="#" id="homeLink">
+                            <img src="/Images/UsersPhotos/Логотип.png" alt="Логотип" class="logo-image">
+                        </a>
+                    </div>
+                    <ul class="nav-links">
+                        <li><button id="createButton">Добавить<br />достопримечательность</button></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropbtn">Достопримечательности</a>
+                            <div class="dropdown-content">
+                                <!-- Parent link (Гомельская область) -->
+                                <div class="region-link" data-region="Гомельская">
+                                    <a href="#">Гомельская область</a>
+                                    <!-- Sub-dropdown for Гомельская область -->
+                                    <div class="sub-dropdown">
+                                        <a href="#" class="region-link" data-region="Гомельская">Вся область</a>
+                                        <div class="city-link" data-city="Гомель">
+                                            <a href="#">Гомель и Гомельский район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Брагин">
+                                            <a href="#">Брагин и Брагинский район</a>
+                                        </div>
+                                        <div class="city-link" data-city="БудаКошелёво">
+                                            <a href="#">Буда-Кошелёво и Буда-Кошелевский район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Ветка">
+                                            <a href="#">Ветка и Ветковский район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Добруш">
+                                            <a href="#">Добруш и Добрушский район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Ельск">
+                                            <a href="#">Ельск и Ельский район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Житковичи">
+                                            <a href="#">Житковичи и Житковичский район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Жлобин">
+                                            <a href="#">Жлобин и Жлобинский район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Калинковичи">
+                                            <a href="#">Калинковичи и Калинковичский район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Корма">
+                                            <a href="#">Корма и Кормянский район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Лельчицы">
+                                            <a href="#">Лельчицы и Лельчицкий район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Лоев">
+                                            <a href="#">Лоев и Лоевский район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Мозырь">
+                                            <a href="#">Мозырь и Мозырский район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Наровля">
+                                            <a href="#">Наровля и Наровлянский район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Октябрьский">
+                                            <a href="#">Октябрьский и Октябрьский район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Петриков">
+                                            <a href="#">Петриков и Петриковский район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Речица">
+                                            <a href="#">Речица и Речицкий район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Рогачёв">
+                                            <a href="#">Рогачёв и Рогачёвский район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Светлогорск">
+                                            <a href="#">Светлогорск и Светлогорский район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Хойники">
+                                            <a href="#">Хойники и Хойникский район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Чечерск">
+                                            <a href="#">Чечерск и Чечерский район</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Parent link (Брестская область) -->
+                                <div class="region-link" data-region="Брестская">
+                                    <a href="#">Брестская область</a>
+                                    <!-- Sub-dropdown for Брестская область -->
+                                    <div class="sub-dropdown">
+                                        <a href="#" class="region-link" data-region="Брестская">Вся область</a>
+                                        <div class="city-link" data-city="Брест">
+                                            <a href="#">Брест и Брестский район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Барановичи">
+                                            <a href="#">Барановичи и Барановичский район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Берёза">
+                                            <a href="#">Берёза и Берёзовский район</a>
+                                        </div>
+
+                                        <div class="city-link" data-city="Ганцевичи">
+                                            <a href="#">Ганцевичи и Ганцевичский район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Дрогичин">
+                                            <a href="#">Дрогичин и Дрогичинский район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Жабинка">
+                                            <a href="#">Жабинка и Жабинковский район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Иваново">
+                                            <a href="#">Иваново и Ивановский район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Ивацевичи">
+                                            <a href="#">Ивацевичи и Ивацевичский район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Каменец">
+                                            <a href="#">Каменец и Каменецкий район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Кобрин">
+                                            <a href="#">Кобрин и Кобринский район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Лунинец">
+                                            <a href="#">Лунинец и Лунинецкий район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Ляховичи">
+                                            <a href="#">Ляховичи и Ляховичский район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Малорита">
+                                            <a href="#">Малорита и Малоритский район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Пинск">
+                                            <a href="#">Пинск и Пинский район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Пружаны">
+                                            <a href="#">Пружаны и Пружанский район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Столин">
+                                            <a href="#">Столин и Столинский район</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Parent link (Витебская область) -->
+                                <div class="region-link" data-region="Витебская">
+                                    <a href="#">Витебская область</a>
+                                    <!-- Sub-dropdown for Витебская область -->
+                                    <div class="sub-dropdown">
+                                        <a href="#" class="region-link" data-region="Витебская">Вся область</a>
+                                        <div class="city-link" data-city="Витебск">
+                                            <a href="#">Витебск и Витебский район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Бешенковичи">
+                                            <a href="#">Бешенковичи и Бешенковичский район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Браслав">
+                                            <a href="#">Браслав и Браславский район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Верхнедвинск">
+                                            <a href="#">Верхнедвинск и Верхнедвинский район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Глубокое">
+                                            <a href="#">Глубокое и Глубокский район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Городок">
+                                            <a href="#">Городок и Городокский район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Докшицы">
+                                            <a href="#">Докшицы и Докшицкий район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Дубровно">
+                                            <a href="#">Дубровно и Дубровенский район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Лепель">
+                                            <a href="#">Лепель и Лепельский район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Лиозно">
+                                            <a href="#">Лиозно и Лиозненский район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Миоры">
+                                            <a href="#">Миоры и Миорский район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Орша">
+                                            <a href="#">Орша и Оршанский район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Полоцк">
+                                            <a href="#">Полоцк и Полоцкий район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Поставы">
+                                            <a href="#">Поставы и Поставский район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Россоны">
+                                            <a href="#">Россоны и Россонский район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Сенно">
+                                            <a href="#">Сенно и Сенненский район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Толочин">
+                                            <a href="#">Толочин и Толочинский район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Ушачи">
+                                            <a href="#">Ушачи и Ушачский район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Чашники">
+                                            <a href="#">Чашники и Чашникский район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Шарковщина">
+                                            <a href="#">Шарковщина и Шарковщинский район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Шумилино">
+                                            <a href="#">Шумилино и Шумилинский район</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <!-- Parent link (Гродненская область) -->
+                                <div class="region-link" data-region="Гродненская">
+                                    <a href="#">Гродненская область</a>
+                                    <!-- Sub-dropdown for Гродненская область -->
+                                    <div class="sub-dropdown">
+                                        <a href="#" class="region-link" data-region="Гродненская">Вся область</a>
+                                        <div class="city-link" data-city="Гродно">
+                                            <a href="#">Гродно и Гродненский район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Берестовица">
+                                            <a href="#">Берестовица и Берестовицкий район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Волковыск">
+                                            <a href="#">Волковыск и Волковысский район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Вороново">
+                                            <a href="#">Вороново и Вороновский район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Дятлово">
+                                            <a href="#">Дятлово и Дятловский район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Зельва">
+                                            <a href="#">Зельва и Зельвенский район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Ивье">
+                                            <a href="#">Ивье и Ивьевский район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Кореличи">
+                                            <a href="#">Кореличи и Кореличский район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Лида">
+                                            <a href="#">Лида и Лидский район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Мосты">
+                                            <a href="#">Мосты и Мостовский район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Новогрудок">
+                                            <a href="#">Новогрудок и Новогрудский район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Ошмяны">
+                                            <a href="#">Ошмяны и Ошмянский район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Островец">
+                                            <a href="#">Островец и Островецкий район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Свислочь">
+                                            <a href="#">Свислочь и Свислочский район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Слоним">
+                                            <a href="#">Слоним и Слонимский район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Сморгонь">
+                                            <a href="#">Сморгонь и Сморгонский район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Щучин">
+                                            <a href="#">Щучин и Щучинский район</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <!-- Parent link (Минская область) -->
+                                <div class="region-link" data-region="Минская">
+                                    <a href="#">Минская область</a>
+                                    <!-- Sub-dropdown for Минская область -->
+                                    <div class="sub-dropdown">
+                                        <a href="#" class="region-link" data-region="Минская">Вся область</a>
+                                        <div class="city-link" data-city="Минск">
+                                            <a href="#">Минск и Минский район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Березино">
+                                            <a href="#">Березино и Березинский район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Борисов">
+                                            <a href="#">Борисов и Борисовский район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Вилейка">
+                                            <a href="#">Вилейка и Вилейский район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Воложин">
+                                            <a href="#">Воложин и Воложинский район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Дзержинск">
+                                            <a href="#">Дзержинск и Дзержинский район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Клецк">
+                                            <a href="#">Клецк и Клецкий район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Копыль">
+                                            <a href="#">Копыль и Копыльский район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Крупки">
+                                            <a href="#">Крупки и Крупский район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Логойск">
+                                            <a href="#">Логойск и Логойский район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Любань">
+                                            <a href="#">Любань и Любанский район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Молодечно">
+                                            <a href="#">Молодечно и Молодечненский район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Мядель">
+                                            <a href="#">Мядель и Мядельский район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Несвиж">
+                                            <a href="#">Несвиж и Несвижский район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Пуховичи">
+                                            <a href="#">Пуховичи и Пуховичский район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Слуцк">
+                                            <a href="#">Слуцк и Слуцкий район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Смолевичи">
+                                            <a href="#">Смолевичи и Смолевичский район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Солигорск">
+                                            <a href="#">Солигорск и Солигорский район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Старые Дороги">
+                                            <a href="#">Старые Дороги и Стародорожский район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Столбцы">
+                                            <a href="#">Столбцы и Столбцовский район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Узда">
+                                            <a href="#">Узда и Узденский район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Червень">
+                                            <a href="#">Червень и Червенский район</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Parent link (Могилевская область) -->
+                                <div class="region-link" data-region="Могилевская">
+                                    <a href="#">Могилевская область</a>
+                                    <!-- Sub-dropdown for Могилевская область -->
+                                    <div class="sub-dropdown">
+                                        <a href="#" class="region-link" data-region="Могилевская">Вся область</a>
+                                        <div class="city-link" data-city="Могилёв">
+                                            <a href="#">Могилёв и Могилёвский район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Белыничы">
+                                            <a href="#">Белыничы и Белыничский район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Бобруйск">
+                                            <a href="#">Бобруйск и Бобруйский район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Быхов">
+                                            <a href="#">Быхов и Быховский район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Глуск">
+                                            <a href="#">Глуск и Глусский район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Горки">
+                                            <a href="#">Горки и Горецкий район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Дрибин">
+                                            <a href="#">Дрибин и Дрибинский район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Кировск">
+                                            <a href="#">Кировск и Кировский район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Климовичи">
+                                            <a href="#">Климовичи и Климовичский район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Кличев">
+                                            <a href="#">Кличев и Кличевский район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Краснополье">
+                                            <a href="#">Краснополье и Краснопольский район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Кричев">
+                                            <a href="#">Кричев и Кричевский район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Круглое">
+                                            <a href="#">Круглое и Круглянский район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Костюковичи">
+                                            <a href="#">Костюковичи и Костюковичский район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Мстиславль">
+                                            <a href="#">Мстиславль и Мстиславский район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Осиповичи">
+                                            <a href="#">Осиповичи и Осиповичский район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Славгород">
+                                            <a href="#">Славгород и Славгородский район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Хотимск">
+                                            <a href="#">Хотимск и Хотимский район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Чаусы">
+                                            <a href="#">Чаусы и Чаусский район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Чериков">
+                                            <a href="#">Чериков и Чериковский район</a>
+                                        </div>
+                                        <div class="city-link" data-city="Шклов">
+                                            <a href="#">Шклов и Шкловский район</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a href="#" class="region-link" data-region="Весь список">Весь список</a>
+                            </div>
+                        </li>
+                        <li><input type="text" id="searchInput" placeholder="Введите название достопримечательности"></li>
+                        <li><button id="searchButton">Поиск</button></li>
+                        <li><a href="#" id="loginButton">Войти</a></li>
+                    </ul>
+                </nav>
+            </header>
+        </div>
+
+
+
+        <!--<div class="content-section">-->
+        <div class="container">
+            <main id="attraction-details">
+                <!-- Контент будет загружаться здесь -->
+            </main>
+        </div>
+
+
+        <div class="footer">
+            <div class="container">
+                <div class="footer-row">
+                    <div class="footer-copyright">
+                        <div class="footer-copyright-name">© Денис Гаврильков <br /> 2024 Все права защищены </div>
+                        <p>Сайт о путешествии по Беларуси</p>
+                    </div> <!--"footer-copyright"-->
+                    <div class="footer-connect">
+                        <p>Связаться со мной в социальных сетях</p>
+                        <div class="footer-icons">
+                            <a href="#">
+                                <img src="./Images/icons/in.jpg" alt="linkedin" class="in-image" />
+                            </a>
+                        </div>
+
+                    </div> <!--"footer-connect"-->
+                    <div class="footer-connect">
+                        <p>Контакты</p>
+                    </div>
+                </div> <!--"footer-row"-->
+            </div> <!--container-->
+        </div> <!--footer-->
+        <!--<script src="/JS/results.js"></script>-->
+        <script src="/JS/navigation.js"></script>
+        <script src="/JS/attractionDetails.js"></script>
+        <script src="/JS/results.js"></script>
+    </div>
+</body>
+</html>

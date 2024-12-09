@@ -1,0 +1,37 @@
+
+
+services:
+  auth.api:
+    image: ${DOCKER_REGISTRY-}authapi
+    build:
+      context: .
+      dockerfile: Auth/Dockerfile
+    ports:
+      - "8080:8080"
+
+  travelaroundbelarusproj.api:
+    image: ${DOCKER_REGISTRY-}travelaroundbelarusprojapi
+    build:
+      context: .
+      dockerfile: TravelAroundBelarusProj/Dockerfile
+    ports:
+      - "8081:8081"
+
+  users.api:
+    image: ${DOCKER_REGISTRY-}usersapi
+    build:
+      context: .
+      dockerfile: Users/Dockerfile
+    ports:
+      - "8082:8082"
+
+  sql_server:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    container_name: sql-server-db
+    environment:
+      SA_PASSWORD: "0bd7903b-f568-4894-8d72-3c1b507e5644"
+      ACCEPT_EULA: "Y"
+    ports:
+      - "1433:1433"
+    # volumes:
+    #   - C:/Program Files/Microsoft SQL Server/MSSQL15.MSSQLSERVER/MSSQL/DATA:/var/opt/mssql/data

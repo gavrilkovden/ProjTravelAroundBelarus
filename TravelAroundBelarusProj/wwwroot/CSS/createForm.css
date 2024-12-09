@@ -1,0 +1,118 @@
+﻿/*createForm.css*/
+/* Стили для формы создания достопримечательности */
+
+#createForm {
+    display: flex;
+    flex-direction: column; /* Элементы в колонку */
+    gap: 10px; /* Расстояние между элементами */
+    padding: 10px; /* Внутренние отступы */
+    box-sizing: border-box; /* Учитываем padding и границы */
+    max-width: 600px; /* Ограничиваем ширину формы */
+    margin: 0 auto; /* Центрируем форму */
+}
+
+    #createForm label {
+        margin-bottom: 5px;
+        font-weight: bold;
+        font-size: 1rem; /* Размер шрифта для адаптации */
+    }
+
+    #createForm input,
+    #createForm textarea,
+    #createForm select {
+        margin-bottom: 15px;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        height: 40px;
+        font-size: 1rem; /* Гибкий размер текста */
+        width: 100%; /* Заполняет всю ширину контейнера */
+        box-sizing: border-box;
+    }
+
+    #createForm textarea {
+        resize: vertical; /* Ограничиваем изменение размеров только по вертикали */
+        height: auto; /* Автоматическая высота */
+    }
+
+    #createForm button {
+        align-self: flex-start;
+        padding: 10px 15px;
+        background-color: #8fa090;
+        color: white;
+        border: none; /* Убираем границу */
+        border-radius: 4px; /* Увеличенное скругление */
+        cursor: pointer;
+        font-size: 1rem;
+    }
+
+        #createForm button:hover {
+            background-color: #788d79;
+        }
+
+/* Модальное окно */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+    padding-top: 60px;
+    box-sizing: border-box;
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto; /* Центрирование */
+    padding: 15px;
+    border: 1px solid #888;
+    width: 90%; /* Занимает 90% ширины экрана */
+    max-width: 600px; /* Ограничиваем максимальную ширину */
+    box-sizing: border-box;
+    border-radius: 8px; /* Добавляем скругление */
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+/* Медиа-запросы для адаптивности */
+@media (max-width: 768px) {
+    #createForm {
+        padding: 10px;
+        max-width: 90%; /* Занимает почти всю ширину */
+    }
+
+        #createForm button {
+            align-self: stretch; /* Растягиваем кнопку на всю ширину */
+        }
+
+    .modal-content {
+        width: 95%; /* Увеличиваем ширину на маленьких экранах */
+    }
+}
+
+@media (max-width: 480px) {
+    #createForm label {
+        font-size: 0.9rem; /* Уменьшаем размер текста */
+    }
+
+    #createForm button {
+        font-size: 0.9rem; /* Уменьшаем размер кнопки */
+        padding: 8px 10px; /* Уменьшаем внутренние отступы */
+    }
+}

@@ -1,0 +1,78 @@
+﻿/*attraction.css*/
+
+.attraction {
+    padding: 10px; /* Увеличиваем внутренние отступы */
+    margin-bottom: 15px; /* Увеличиваем расстояние между достопримечательностями */
+    background-color: #fff; /* Белый фон */
+    border-radius: 8px; /* Более выраженное скругление углов */
+    font-size: 1rem; /* Размер шрифта для гибкости */
+    font-family: cursive; /* Шрифт для текста */
+    display: flex; /* Флексбокс для расположения элементов */
+    flex-direction: column; /* Элементы располагаются в колонку */
+    align-items: center; /* Центрируем элементы внутри */
+    text-align: center; /* Выравнивание текста */
+    height: auto; /* Убедитесь, что высота не фиксирована */
+}
+
+    .attraction img {
+        max-width: 100%; /* Изображение занимает всю ширину контейнера */
+        height: auto; /* Поддерживает соотношение сторон */
+        border-radius: 8px; /* Скруглённые углы */
+        margin-bottom: 10px; /* Отступ между изображением и текстом */
+        margin: 0 auto; /* Центрируем изображение по горизонтали */
+    }
+
+    /* Текстовый блок */
+    .attraction .description {
+        font-size: 1rem; /* Адаптивный размер шрифта */
+        margin-top: 5px; /* Отступ сверху */
+        line-height: 1.5; /* Увеличенный межстрочный интервал для читабельности */
+    }
+/* Стили для ссылок */
+    .attraction .attraction-link {
+        text-decoration: none; /* Убираем подчеркивание */
+        color: inherit; /* Цвет текста наследуется */
+        display: block; /* Распространяем ссылку на всю область */
+        padding: 10px; /* Отступы для удобного клика */
+        transition: transform 0.3s ease, box-shadow 0.3s ease; /* Добавляем плавный эффект */
+    }
+
+    /* Эффект при наведении */
+        .attraction .attraction-link:hover {
+            transform: scale(1.10); /* Увеличение на 5% */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Добавляем тень */
+        }
+
+
+
+
+/* Контейнер для всех достопримечательностей */
+.attractions-container {
+    display: grid; /* Используем CSS Grid */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Колонки автоматически подстраиваются */
+    gap: 15px; /* Расстояние между элементами */
+    padding: 15px; /* Внутренние отступы у контейнера */
+}
+
+/* Медиа-запросы */
+@media (max-width: 768px) {
+    .attractions-container {
+        grid-template-columns: 1fr; /* Одна колонка на маленьких экранах */
+    }
+
+    .attraction {
+        font-size: 0.9rem; /* Уменьшенный размер текста */
+        padding: 8px; /* Уменьшенные отступы */
+    }
+}
+
+@media (max-width: 480px) {
+    .attraction img {
+        max-width: 90%; /* Уменьшаем ширину изображения для совсем маленьких экранов */
+    }
+
+    .attraction {
+        font-size: 0.8rem; /* Ещё меньше размер текста */
+        padding: 5px; /* Минимальные отступы */
+    }
+}

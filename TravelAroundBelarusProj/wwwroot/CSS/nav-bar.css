@@ -1,0 +1,157 @@
+﻿/*nav-bar.css*/
+.navbar-container {
+    display: flex; /* Устанавливает флексбокс для выравнивания элементов навигации */
+    justify-content: space-between;
+    flex-direction: row;
+    max-height: 130px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+header {
+    width: 100%;
+    top: 0;
+    left: 0;
+    background: 
+    radial-gradient(circle at 15% 20%, rgba(4, 26, 6, 0.9) 25%, rgba(0, 0, 0, 0) 60%),
+    radial-gradient(circle at 85% 80%, rgba(101, 129, 100, 0.8) 20%, rgba(0, 0, 0, 0) 70%),
+    radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.05) 0%, rgba(0, 0, 0, 0.1) 80%),
+    conic-gradient(from 180deg at 50% 50%, rgba(0, 0, 0, 0.3), rgba(63, 84, 153, 0.2), rgba(0, 0, 0, 0.3)),
+    linear-gradient(45deg, rgba(4, 26, 6, 1), rgba(31, 107, 63, 0.7) 30%, rgba(63, 84, 153, 0.9) 70%, rgba(0, 0, 0, 1));
+Разбор слоёв:
+    max-height: 100%;
+}
+
+
+.navbar {
+    display: flex; /* Устанавливает флексбокс для выравнивания элементов навигации */
+    justify-content: space-between; /* Размещает элементы на равном расстоянии друг от друга */
+    align-items: center; /* Центрирует элементы по вертикали */
+    padding: 0 5px; /* Добавляет отступы слева и справа внутри навигационной панели */
+    font-family: 'cursive'; /* Задает шрифт для текста навигации */
+    font-size: 20px; /* Устанавливает размер шрифта для текста навигации */
+    color: #ffffff; /* Устанавливает белый цвет текста навигации */
+    padding-left: 7px;
+    position: relative;
+    z-index: 1;
+    max-height: 130px;
+}
+
+#homeLink {
+    display: inline-block; /* Устраняет отступы от строчного элемента */
+    padding: 0; /* Убирает внутренние отступы */
+    margin: 0; /* Убирает внешние отступы */
+    text-decoration: none; /* Убирает подчеркивание */
+}
+
+.logo-image {
+    max-height: 125px;
+    max-width: 125px;
+    object-fit: contain; /* Масштабирует изображение, чтобы оно поместилось */
+    border-radius: 50%; /* Делает форму круглой */
+    overflow: hidden; /* Обрезает содержимое по форме круга */
+    position: relative; /* Для теней и эффектов */
+    /*    box-shadow: 0 0 10px rgba(0, 255, 255, 0.6), 0 0 20px rgba(0, 255, 255, 0.4), 0 0 40px rgba(0, 255, 255, 0.3);
+    transition: box-shadow 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;*/
+    transition: transform 0.6s ease;
+    padding-top: 3px;
+}
+
+    .logo-image:hover {
+        transform: rotate(360deg);
+    }
+
+.nav-links {
+    list-style-type: none; /* Убирает маркеры списка */
+    padding: 0; /* Убирает отступы внутри списка */
+    display: flex; /* Устанавливает флексбокс для элементов списка */
+    align-items: flex-end; /* Выравнивание элементов по нижнему краю */
+    list-style-type: none; /* Убираем маркеры списка */
+    padding: 0; /* Убираем внутренние отступы */
+    margin: 0; /* Убираем внешние отступы */
+    gap: 15px; /* Промежуток между элементами */
+}
+
+    .nav-links li {
+        margin-left: 5px; /* Добавляет отступ слева между элементами списка */
+    }
+
+    .nav-links a, .nav-links button {
+        text-decoration: none; /* Убирает подчеркивание у ссылок */
+        color: white; /* Устанавливает белый цвет текста ссылок */
+        padding: 10px 20px; /* Добавляет внутренние отступы у ссылок и кнопок */
+               border: none; /* Убирает границы у ссылок и кнопок */
+        cursor: pointer; /* Устанавливает указатель курсора при наведении на ссылку или кнопку */
+    }
+
+    .nav-links input[type="text"] {
+        padding: 5px; /* Добавляет внутренние отступы внутри текстового поля */
+        margin-right: 10px; /* Добавляет отступ справа от текстового поля */
+    }
+
+    .nav-links button {
+        padding: 5px 10px; /* Добавляет внутренние отступы у кнопки */
+        background-color: #47574700; /* Устанавливает прозрачный фон для кнопки */
+        border: none; /* Убирает границы у кнопки */
+        border-radius: 4px; /* Добавляет скругление углов у кнопки */
+        font-size: 20px; /* Устанавливает размер шрифта для кнопки */
+        font-family: 'cursive'; /* Задает шрифт для текста на кнопке */
+    }
+
+    .nav-links button,
+    .nav-links a,
+    .nav-links input {
+        display: inline-block; /* Унифицируем поведение всех элементов */
+        text-align: center; /* Центрируем текст */
+        padding: 5px 10px; /* Внутренние отступы */
+        line-height: 1.2; /* Высота строки для элементов с переносом */
+    }
+
+.dropdown {
+    position: relative; /* Устанавливает относительное позиционирование для выпадающего списка */
+}
+
+.dropdown-content {
+    display: none; /* Скрывает содержимое выпадающего списка */
+    position: absolute; /* Устанавливает абсолютное позиционирование для содержимого выпадающего списка */
+    background-color: #374037; /* Устанавливает цвет фона для выпадающего списка */
+    min-width: 160px; /* Устанавливает минимальную ширину выпадающего списка */
+    box-shadow: 0px 8px 16px 0px rgb(253 252 252 / 32%); /* Добавляет тень к выпадающему списку */
+    z-index: 1; /* Устанавливает порядок слоев для выпадающего списка */
+}
+
+    .dropdown-content a {
+        color: white; /* Устанавливает белый цвет текста ссылок в выпадающем списке */
+        padding: 12px 16px; /* Добавляет внутренние отступы у ссылок в выпадающем списке */
+        text-decoration: none; /* Убирает подчеркивание у ссылок в выпадающем списке */
+        display: block; /* Задает блочное отображение для ссылок в выпадающем списке */
+    }
+
+        .dropdown-content a:hover {
+            background-color: #80866c; /* Изменяет цвет фона ссылки при наведении */
+        }
+
+.dropdown:hover .dropdown-content {
+    display: block; /* Показывает выпадающее меню при наведении на родительский элемент */
+}
+
+
+
+/* Стиль для подменю */
+
+.sub-dropdown {
+    display: none;
+    position: absolute;
+    left: 100%;
+    top: 0;
+    background-color: #374037;
+    box-shadow: 0px 8px 16px 0px rgb(253 252 252 / 32%); /* Добавляет тень к выпадающему списку */
+    min-width: 300px;
+    font-size: 15px;
+}
+
+/* Показ подменю при наведении */
+.region-link:hover .sub-dropdown {
+    display: block;
+}
