@@ -50,9 +50,16 @@ document.addEventListener('DOMContentLoaded', async () => {
         const price = attraction.price !== undefined ? attraction.price : 'Цена не указана';
         const averageRating = (attraction.averageRating !== null && attraction.averageRating !== undefined) ? attraction.averageRating : 'У этого места еще нет оценок';
         const address = attraction.address ? `${attraction.address.street} ${attraction.address.city} ${attraction.address.region} область` : 'Адрес не указан';
-        const coordinates = (attraction.geoLocation && attraction.geoLocation.latitude !== null && attraction.geoLocation.longitude !== null)
-            ? `${attraction.geoLocation.latitude}, ${attraction.geoLocation.longitude}`
+        //const coordinates = (attraction.geoLocation && attraction.geoLocation.latitude !== null && attraction.geoLocation.longitude !== null)
+        //    ? `${attraction.geoLocation.latitude}, ${attraction.geoLocation.longitude}`
+        //    : 'Координаты не указаны';
+
+        // Check if coordinates exist and create a Yandex Maps link
+        const yandexMapLink = (attraction.geoLocation && attraction.geoLocation.latitude !== null && attraction.geoLocation.longitude !== null)
+            ? `<a href="https://yandex.com/maps/?ll=${attraction.geoLocation.longitude},${attraction.geoLocation.latitude}&z=15" target="_blank">Посмотреть на карте</a>`
             : 'Координаты не указаны';
+
+
         const createdDate = attraction.createdDate ? new Date(attraction.createdDate).toLocaleDateString() : 'Дата не указана';
         const workSchedules = attraction.workSchedules && attraction.workSchedules.length > 0
             ? attraction.workSchedules.map(schedule =>
@@ -80,7 +87,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                 <p><strong>Стоимость посещения:</strong> ${price} руб.</p>
                 <p><strong>Рейтинг:</strong> ${averageRating} </p>
                 <p><strong>Адрес:</strong> ${address}</p>
-                <p><strong>Координаты:</strong> ${coordinates}</p>
+             
+                <p><strong>Координаты:</strong> ${yandexMapLink}</p>
                 <p><strong>Дата создания:</strong> ${createdDate}</p>
                 <div><strong>Рабочее расписание:</strong> ${workSchedules}</div>
 

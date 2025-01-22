@@ -11,10 +11,6 @@ body {
     position: relative;
     margin-left: auto; /* Центрируем содержимое */
     margin-right: auto; /* Центрируем содержимое */
-    /*background-image: url('/Images/attractions/20240629_061816.jpg');
-    background-attachment: fixed;*/ /* Закрепляет изображение, чтобы оно не прокручивалось */
-    /*background-size: cover;*/ /* Масштабирует изображение, чтобы покрыть видимую область */
-    /*background-position: center;*/ /* Центрирует изображение в видимой области */
 }
 
 .container_body {
@@ -87,13 +83,6 @@ header {
     z-index: 1;
 }
 
-/*.logo {
-    height: 60px;
-    display: flex;
-    align-items: center;
-    max-height: 100%;
-}*/
-
 .logo-image {
     height: 100%; /* Убедитесь, что изображение не выходит за границы логотипа */
     width: auto;
@@ -102,9 +91,6 @@ header {
     border-radius: 50%; /* Делает форму круглой */
     overflow: hidden; /* Обрезает содержимое по форме круга */
     position: relative; /* Для теней и эффектов */
-    /*    box-shadow: 0 0 10px rgba(0, 255, 255, 0.6), 0 0 20px rgba(0, 255, 255, 0.4), 0 0 40px rgba(0, 255, 255, 0.3);
-    transition: box-shadow 0.3s ease;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;*/
     transition: transform 0.6s ease;
     position: relative;
 
@@ -188,8 +174,6 @@ header {
     display: block; /* Показывает выпадающее меню при наведении на родительский элемент */
 }
 
-
-
 /* Стиль для подменю */
 
 .sub-dropdown {
@@ -207,9 +191,6 @@ header {
 .region-link:hover .sub-dropdown {
     display: block;
 }
-
-
-
 
 #content {
     display: grid;
@@ -355,78 +336,6 @@ header {
     border-radius: 0px; /* Добавляет скругление углов для изображения места */
 }
 
-
-.modal {
-    display: none; /* Скрывает модальное окно по умолчанию */
-    position: fixed; /* Фиксирует модальное окно относительно экрана */
-    z-index: 1; /* Устанавливает порядок слоев для модального окна */
-    left: 0; /* Устанавливает модальное окно по левому краю экрана */
-    top: 0; /* Устанавливает модальное окно по верхнему краю экрана */
-    width: 100%; /* Растягивает модальное окно на всю ширину экрана */
-    height: 100%; /* Растягивает модальное окно на всю высоту экрана */
-    overflow: auto; /* Включает прокрутку, если содержимое модального окна выходит за его пределы */
-    background-color: rgba(0,0,0,0.4); /* Устанавливает полупрозрачный черный фон для затемнения экрана за модальным окном */
-    padding-top: 60px; /* Добавляет отступ сверху внутри модального окна */
-}
-
-.modal-content {
-    background-color: #fefefe; /* Устанавливает белый цвет фона для содержимого модального окна */
-    margin: 10% auto; /* Добавляет отступы сверху и снизу, центрируя модальное окно */
-    padding: 15px; /* Добавляет внутренние отступы для содержимого модального окна */
-    border: 1px solid #888; /* Устанавливает серую рамку вокруг содержимого модального окна */
-    width: 50%; /* Устанавливает ширину содержимого модального окна на 80% от ширины экрана */
-    max-width: 600px; /* Ограничивает максимальную ширину содержимого модального окна */
-}
-
-.close {
-    color: #aaa; /* Устанавливает серый цвет для кнопки закрытия модального окна */
-    float: right; /* Размещает кнопку закрытия справа */
-    font-size: 28px; /* Устанавливает размер шрифта для кнопки закрытия */
-    font-weight: bold; /* Устанавливает жирное начертание шрифта для кнопки закрытия */
-}
-
-    .close:hover,
-    .close:focus {
-        color: black; /* Изменяет цвет кнопки закрытия на черный при наведении или фокусе */
-        text-decoration: none; /* Убирает подчеркивание у кнопки закрытия */
-        cursor: pointer; /* Устанавливает указатель курсора при наведении на кнопку закрытия */
-    }
-
-/* Стили для формы создания достопримечательности */
-#createForm {
-    display: flex; /* Устанавливает флексбокс для формы */
-    flex-direction: column; /* Размещает элементы формы в колонку */
-}
-
-    #createForm label {
-        margin-bottom: 5px; /* Добавляет нижний отступ для меток формы */
-        font-weight: bold; /* Устанавливает жирное начертание шрифта для меток формы */
-    }
-
-    #createForm input, #createForm textarea,
-    #createForm select {
-        margin-bottom: 15px; /* Добавляет нижний отступ для полей ввода и текстовой области */
-        padding: 8px; /* Добавляет внутренние отступы для полей ввода и текстовой области */
-        border: 1px solid #ccc; /* Устанавливает серую рамку для полей ввода и текстовой области */
-        border-radius: 4px; /* Добавляет скругление углов для полей ввода и текстовой области */
-        height: 40px; /* Устанавливаем одинаковую высоту для всех полей */
-        box-sizing: border-box; /* Учитываем padding и границы */
-    }
-
-    #createForm button {
-        align-self: flex-start; /* Выравнивает кнопку по левому краю формы */
-        padding: 10px 15px; /* Добавляет внутренние отступы у кнопки */
-        background-color: #8fa090; /* Устанавливает цвет фона для кнопки */
-        color: white; /* Устанавливает белый цвет текста для кнопки */
-        border: 1; /* Задает толщину границы кнопки */
-        border-radius: 2px; /* Добавляет скругление углов у кнопки */
-        cursor: pointer; /* Устанавливает указатель курсора при наведении на кнопку */
-    }
-
-        #createForm button:hover {
-            background-color: #788d79; /* Изменяет цвет фона кнопки при наведении */
-        }
-
 .slider-container {
     width: 100%;
     overflow: hidden; /* Скрываем части изображений, которые выходят за границы контейнера */
@@ -446,50 +355,101 @@ header {
     /* Высота будет составлять 50% от ширины экрана */
 }
 
-
-.star {
-    font-size: 24px;
-    cursor: pointer;
-    color: gold;
-}
-
-.comment-section textarea {
-    width: 30%;
-    height: 100px;
-    padding: 10px;
-    margin-bottom: 0;
-    border-radius: 5px; /* Скругленные углы */
-    border: 1px solid #cccccc; /* Тусклая граница */
-}
-
-.comment-section button {
-    width: 10%;
-    padding: 10px;
-    display: block;
-    margin-top: 0;
-    background-color: aliceblue; /* Цвет фона кнопки */
-    color: #0a0a0a; /* Цвет текста */
-    border: 5px; /* Убирает границу у кнопки */
-    border-radius: 5px; /* Скругленные углы */
-    cursor: pointer; /* Устанавливает указатель курсора при наведении на кнопку */
-}
-
-    .comment-section button:hover {
-        background-color: #7dc8c896; /* Цвет фона при наведении */
-    }
-
-.comment-button {
-    border: 5px; /* Убирает границу у кнопки */
-    cursor: pointer; /* Устанавливает указатель курсора при наведении на кнопку */
-    background-color: white; /* Цвет фона кнопки */
-}
-
-    .comment-button:hover {
-        text-decoration: underline;
-    }
-
 .frame {
     height: 10px;
     background: #132316;
 }
+
+@media (max-width: 768px) {
+    body {
+        max-width: 100%; /* Используем всю ширину экрана */
+        padding: 10px; /* Добавляем небольшой отступ */
+    }
+
+
+    .container_body, .container {
+        max-width: 100%; /* Убираем ограничения по ширине */
+        padding: 0 15px; /* Добавляем отступы */
+    }
+
+    .body-text {
+        flex-direction: column; /* Перестраиваем элементы в колонку */
+        align-items: flex-start; /* Выравниваем элементы по началу */
+        font-size: 20px; /* Уменьшаем размер шрифта */
+    }
+
+    #content {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Уменьшаем минимальную ширину колонок */
+        gap: 5px; /* Уменьшаем расстояние между элементами */
+    }
+
+    .btn-primary {
+        padding: 8px 16px; /* Уменьшаем размер кнопки */
+        font-size: 14px; /* Уменьшаем размер шрифта */
+        margin-top: 10px; /* Уменьшаем верхний отступ */
+    }
+
+    .row-Images-group {
+        flex-direction: column; /* Располагаем элементы в колонку */
+        gap: 10px; /* Добавляем расстояние между элементами */
+    }
+
+    .video-container {
+        width: 100%; /* Используем всю ширину экрана */
+    }
+
+    .video-overlay {
+        display: none;
+    }
+
+    .content-section {
+        flex-direction: column; /* Перестраиваем элементы в колонку */
+        gap: 20px; /* Добавляем промежуток между элементами */
+        text-align: center; /* Центрируем текст */
+    }
+
+    .text-group {
+        flex-direction: column; /* Располагаем текстовые группы в колонку */
+        font-size: 24px; /* Уменьшаем размер шрифта */
+    }
+
+    .map-image, .place-image {
+        width: 100%; /* Масштабируем изображения до ширины экрана */
+    }
+
+    .cat-image, .UsersPhotos {
+        width: 100%; /* Масштабируем изображения */
+    }
+
+
+    .navbar {
+        flex-direction: column; /* Меню располагается вертикально */
+        align-items: center; /* Центруем элементы */
+        text-align: center; /* Выравниваем текст по центру */
+    }
+
+    .nav-links {
+        flex-direction: column; /* Элементы навигации располагаются вертикально */
+        gap: 10px; /* Увеличиваем промежуток между элементами */
+        width: 100%;
+    }
+
+        .nav-links li {
+            width: 100%; /* Элементы навигации занимают всю ширину */
+        }
+
+        .nav-links a,
+        .nav-links button {
+            text-align: center; /* Выравниваем текст по центру */
+            width: 100%; /* Растягиваем элементы на всю ширину */
+            padding: 0px;
+        }
+
+    .logo-image {
+        display: none;
+    }
+}
+
+
+
 

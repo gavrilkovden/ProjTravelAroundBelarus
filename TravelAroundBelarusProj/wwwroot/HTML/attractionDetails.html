@@ -23,7 +23,7 @@
                         </a>
                     </div>
                     <ul class="nav-links">
-                        <li><button id="createButton">Добавить<br />достопримечательность</button></li>
+                        <li><button class="createButton">Добавить<br />достопримечательность</button></li>
                         <li class="dropdown">
                             <a href="#" class="dropbtn">Достопримечательности</a>
                             <div class="dropdown-content">
@@ -457,6 +457,96 @@
             </main>
         </div>
 
+        <!-- Modal для добавления достопримечательности -->
+        <div id="createModal" class="modal">
+            <div class="modal-content">
+                <span class="close">×</span>
+                <h2>Создать новую достопримечательность</h2>
+                <form id="createForm">
+                    <label for="name">Название:</label>
+                    <input type="text" id="name" name="name" required>
+
+                    <label for="description">Описание:</label>
+                    <textarea id="description" name="description" required></textarea>
+
+                    <label for="price">Стоимость:</label>
+                    <input type="number" id="price" name="price" step="0.01" required>
+                    <label for="region">Область:</label>
+                    <select id="region" name="region" required>
+                        <option value="" disabled selected>Выберите</option>
+                        <option value="Брестская">Брестская</option>
+                        <option value="Гродненская">Гродненская</option>
+                        <option value="Гомельская">Гомельская</option>
+                        <option value="Витебская">Витебская</option>
+                        <option value="Минская">Минская</option>
+                        <option value="Могилевская">Могилевская</option>
+                    </select>
+
+                    <label for="city">Город:</label>
+                    <select id="city" name="city" required>
+                        <option value="" disabled selected>Сначала выберите область</option>
+                    </select>
+
+                    <label for="street">Укажите улицу и номер дома, при необходиости населенный пункт (деревня, агрогородок и тд.):</label>
+                    <input type="text" id="street" name="street">
+
+                    <label for="latitude">Широта:</label>
+                    <input type="number" id="latitude" name="latitude" step="0.000001" min="-90" max="90">
+                    <small>Введите значение от -90 до 90.</small>
+
+                    <label for="longitude">Долгота:</label>
+                    <input type="number" id="longitude" name="longitude" step="0.000001" min="-180" max="180">
+                    <small>Введите значение от -180 до 180.</small>
+
+                    <div id="workSchedulesContainer">
+                        <h3>Расписание работы:</h3>
+                        <div class="work-schedule" data-day="Sunday">
+                            <label>Воскресенье:</label>
+                            <input type="time" name="workSchedules[0].openTime" placeholder="Время открытия">
+                            <input type="time" name="workSchedules[0].closeTime" placeholder="Время закрытия">
+                        </div>
+                        <div class="work-schedule" data-day="Monday">
+                            <label>Понедельник:</label>
+                            <input type="time" name="workSchedules[1].openTime" placeholder="Время открытия">
+                            <input type="time" name="workSchedules[1].closeTime" placeholder="Время закрытия">
+                        </div>
+                        <div class="work-schedule" data-day="Tuesday">
+                            <label>Вторник:</label>
+                            <input type="time" name="workSchedules[2].openTime" placeholder="Время открытия">
+                            <input type="time" name="workSchedules[2].closeTime" placeholder="Время закрытия">
+                        </div>
+                        <div class="work-schedule" data-day="Wednesday">
+                            <label>Среда:</label>
+                            <input type="time" name="workSchedules[3].openTime" placeholder="Время открытия">
+                            <input type="time" name="workSchedules[3].closeTime" placeholder="Время закрытия">
+                        </div>
+                        <div class="work-schedule" data-day="Thursday">
+                            <label>Четверг:</label>
+                            <input type="time" name="workSchedules[4].openTime" placeholder="Время открытия">
+                            <input type="time" name="workSchedules[4].closeTime" placeholder="Время закрытия">
+                        </div>
+                        <div class="work-schedule" data-day="Friday">
+                            <label>Пятница:</label>
+                            <input type="time" name="workSchedules[5].openTime" placeholder="Время открытия">
+                            <input type="time" name="workSchedules[5].closeTime" placeholder="Время закрытия">
+                        </div>
+                        <div class="work-schedule" data-day="Saturday">
+                            <label>Суббота:</label>
+                            <input type="time" name="workSchedules[6].openTime" placeholder="Время открытия">
+                            <input type="time" name="workSchedules[6].closeTime" placeholder="Время закрытия">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="imageFiles">Выберите изображения:</label>
+                        <input type="file" id="imageFiles" name="imageFiles" multiple accept="image/*" onchange="displaySelectedImages()">
+                        <div id="selectedImages"></div>
+                    </div>
+
+                    <button type="submit">Создать достопримечательность</button>
+                </form>
+            </div><br class="Apple-interchange-newline">
+        </div>
 
         <div class="footer">
             <div class="container">
@@ -464,18 +554,19 @@
                     <div class="footer-copyright">
                         <div class="footer-copyright-name">© Денис Гаврильков <br /> 2024 Все права защищены </div>
                         <p>Сайт о путешествии по Беларуси</p>
+
                     </div> <!--"footer-copyright"-->
                     <div class="footer-connect">
                         <p>Связаться со мной в социальных сетях</p>
                         <div class="footer-icons">
-                            <a href="#">
-                                <img src="./Images/icons/in.jpg" alt="linkedin" class="in-image" />
+                            <a href="https://www.linkedin.com/in/denis-gavrilkov-137782292/">
+                                <img src="/Images/icons/in.jpg" alt="linkedin" class="in-image" />
                             </a>
                         </div>
-
                     </div> <!--"footer-connect"-->
                     <div class="footer-connect">
                         <p>Контакты</p>
+                        <p>почта: denisgavrilkov1@gmail.com</p>
                     </div>
                 </div> <!--"footer-row"-->
             </div> <!--container-->
@@ -484,6 +575,7 @@
         <script src="/JS/navigation.js"></script>
         <script src="/JS/attractionDetails.js"></script>
         <script src="/JS/results.js"></script>
+        <script src="/JS/script.js"></script>
     </div>
 </body>
 </html>

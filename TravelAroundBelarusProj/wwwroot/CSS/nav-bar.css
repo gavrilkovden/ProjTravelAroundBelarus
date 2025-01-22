@@ -1,9 +1,8 @@
 ﻿/*nav-bar.css*/
+
 .navbar-container {
-    display: flex; /* Устанавливает флексбокс для выравнивания элементов навигации */
-    justify-content: space-between;
-    flex-direction: row;
-    max-height: 130px;
+    display: contents; 
+
     margin-left: auto;
     margin-right: auto;
 }
@@ -34,7 +33,7 @@ header {
     padding-left: 7px;
     position: relative;
     z-index: 1;
-    max-height: 130px;
+
 }
 
 #homeLink {
@@ -154,4 +153,38 @@ header {
 /* Показ подменю при наведении */
 .region-link:hover .sub-dropdown {
     display: block;
+}
+
+.wrapper {
+    flex: 1; /* Растягивает основной контент */
+}
+
+@media screen and (max-width: 1024px) {
+    .navbar {
+        flex-direction: column; /* Меню располагается вертикально */
+        align-items: center; /* Центруем элементы */
+        text-align: center; /* Выравниваем текст по центру */
+    }
+
+    .nav-links {
+        flex-direction: column; /* Элементы навигации располагаются вертикально */
+        gap: 10px; /* Увеличиваем промежуток между элементами */
+        width: 100%;
+    }
+
+        .nav-links li {
+            width: 100%; /* Элементы навигации занимают всю ширину */
+        }
+
+        .nav-links a,
+        .nav-links button {
+            text-align: center; /* Выравниваем текст по центру */
+            width: 100%; /* Растягиваем элементы на всю ширину */
+            padding: 0px;
+        }
+
+    .logo-image {
+        max-width: 80px; /* Уменьшаем размер логотипа */
+        max-height: 80px;
+    }
 }

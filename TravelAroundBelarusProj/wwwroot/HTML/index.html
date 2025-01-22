@@ -5,9 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Путешествие по Беларуси</title>
-    <link rel="stylesheet" href="/CSS/styles.css">
+    <link rel="stylesheet" href="/CSS/createForm.css">
+    <link rel="stylesheet" href="/CSS/index.css">
     <link rel="stylesheet" href="/CSS/attraction.css">
     <link rel="stylesheet" href="/CSS/footer.css">
+
 </head>
 <body>
     <div class="video-container">
@@ -24,7 +26,7 @@
                         </a>
                     </div>
                     <ul class="nav-links">
-                        <li><button id="createButton">Добавить<br />достопримечательность</button></li>
+                        <li><button class="createButton">Добавить<br />достопримечательность</button></li>
                         <li class="dropdown">
                             <a href="#" class="dropbtn">Достопримечательности</a>
                             <div class="dropdown-content">
@@ -486,7 +488,9 @@
                 <div class="column-group">
                     <p>Добавляй собственные места и находи для себя что-то новое</p>
                     <div class="row-Images-group">
-                        <li style="list-style-type: none;"><button id="createButton" class="btn-primary">Добавить <br /> достопримечательность</button></li>
+                        <li style="list-style-type: none;">
+                            <button class="createButton btn-primary">Добавить <br /> достопримечательность</button>
+                        </li>
                         <img src="/Images/вожык.png" alt="вожык" class="cat-image">
                     </div>
                 </div>
@@ -576,7 +580,6 @@
                             <label for="imageFiles">Выберите изображения:</label>
                             <input type="file" id="imageFiles" name="imageFiles" multiple accept="image/*" onchange="displaySelectedImages()">
                             <div id="selectedImages"></div>
-                            <button type="button" onclick="uploadImages()">Загрузить</button>
                         </div>
 
                         <button type="submit">Создать достопримечательность</button>
@@ -618,15 +621,14 @@
                 <div class="footer-connect">
                     <p>Связаться со мной в социальных сетях</p>
                     <div class="footer-icons">
-                        <a href="#">
+                        <a href="https://www.linkedin.com/in/denis-gavrilkov-137782292/">
                             <img src="/Images/icons/in.jpg" alt="linkedin" class="in-image" />
                         </a>
-
                     </div>
                 </div> <!--"footer-connect"-->
                 <div class="footer-connect">
                     <p>Контакты</p>
-                    <p>почта denisgavrilkov1@gmail.com</p>
+                    <p>почта: denisgavrilkov1@gmail.com</p>
                 </div>
             </div> <!--"footer-row"-->
         </div> <!--container-->

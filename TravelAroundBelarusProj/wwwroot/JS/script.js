@@ -1,7 +1,7 @@
 /*script.js*/
 document.addEventListener('DOMContentLoaded', () => {
     const createModal = document.getElementById('createModal');
-    const createButton = document.getElementById('createButton');
+    const createButtons = document.querySelectorAll('.createButton');
     const closeModal = document.querySelector('#createModal .close');
     const createForm = document.getElementById('createForm');
     const imageFileInput = document.getElementById('imageFile');
@@ -19,8 +19,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Открытие модального окна для создания достопримечательности
-    createButton.addEventListener('click', () => {
-        createModal.style.display = 'block';
+    createButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            createModal.style.display = 'block';
+        });
     });
 
     // Закрытие модального окна при нажатии на кнопку "закрыть"
@@ -137,50 +139,6 @@ document.addEventListener('DOMContentLoaded', () => {
             alert('Ошибка: ' + error.message);
         }
     });
-
-    // Функция для загрузки изображений
-    //async function uploadImages(attractionId) {
-    //    const imageFiles = document.getElementById('imageFiles').files;
-
-    //    if (imageFiles.length === 0) {
-    //        alert('Пожалуйста, выберите хотя бы одно изображение.');
-    //        return;
-    //    }
-
-    //    const token = getCookie('token');
-    //    const coverImageIndex = document.querySelector('input[name="coverImage"]:checked')?.value;
-
-    //    for (const [index, file] of Array.from(imageFiles).entries()) {
-    //        const imageFormData = new FormData();
-    //        imageFormData.append('Image', file);
-    //        imageFormData.append('AttractionId', attractionId);
-    //        imageFormData.append('IsCover', index == coverImageIndex ? 'true' : 'false'); // Устанавливаем, если это обложка
-
-    //        try {
-    //            console.log('Отправка изображения:', file.name);
-    //            const uploadResponse = await fetch('https://localhost:7125/Api/Attractions/Image', {
-    //                method: 'POST',
-    //                headers: {
-    //                    'Authorization': `Bearer ${token}`
-    //                },
-    //                body: imageFormData
-    //            });
-
-    //            if (!uploadResponse.ok) {
-    //                const errorText = await uploadResponse.text();
-    //                throw new Error(`HTTP ошибка! Статус: ${uploadResponse.status}, детали: ${errorText}`);
-    //            }
-
-    //            console.log(`Изображение ${file.name} успешно загружено`);
-    //        } catch (error) {
-    //            console.error(`Ошибка при загрузке изображения ${file.name}:`, error);
-    //            alert(`Ошибка при загрузке изображения ${file.name}: ` + error.message);
-    //        }
-    //    }
-
-    //    alert('Все изображения успешно загружены!');
-    //}
-
 
     async function uploadImages(attractionId) {
         const imageFiles = document.getElementById('imageFiles').files;

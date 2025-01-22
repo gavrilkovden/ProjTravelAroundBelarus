@@ -6,7 +6,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const regionLinks = document.querySelectorAll('.region-link'); // Получаем все ссылки регионов
     const cityLinks = document.querySelectorAll('.city-link');
     const loginButton = document.getElementById('loginButton'); // Найдем кнопку Войти
+
     const token = getCookie('token');
+
+
 
     // Обработчик события для логотипа
     if (homeLink) {

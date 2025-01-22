@@ -10,13 +10,24 @@ body {
 }
 
 .container_body {
-    flex-grow: 1; /* Контейнер будет заполнять всё доступное пространство */
+    flex: 1; /* Контейнер будет заполнять всё доступное пространство */
+    display: flex;
+    flex-direction: column;
     max-width: 100%; /* Ширина в процентах от экрана */
     margin: 0 auto; /* Центровка контейнера */
     padding: 0px; /* Внутренний отступ */
     background-color: #ffffff;
     box-sizing: border-box; /* Учитывает padding в общей ширине */
 }
+
+/* Устанавливаем высоту для html и body */
+html, body {
+    height: 100%; /* Вся высота экрана */
+    margin: 0; /* Убираем внешние отступы */
+    display: flex;
+    flex-direction: column;
+}
+
 
 #content {
     min-height: 100vh;
